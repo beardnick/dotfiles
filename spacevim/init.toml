@@ -11,7 +11,7 @@
     # set spacevim theme. by default colorscheme layer is not loaded,
     # if you want to use more colorscheme, please load the colorscheme
     # layer
-    colorscheme = "gruvbox"
+    colorscheme = "spacevim"
     colorscheme_bg = "dark"
     # Disable guicolors in basic mode, many terminal do not support 24bit
     # true colors
@@ -73,6 +73,8 @@ name = 'unite'
 [[layers]]
 name = 'markdown'
 
+[[layers]]
+name = 'chinese'
 
 [[layers]]
 name = 'tools'
@@ -80,6 +82,11 @@ name = 'tools'
 
 [[layers]]
 name = 'tags'
+
+
+[[layers]]
+name = 'colorscheme'
+
 
 [[layers]]
   name = "lsp"

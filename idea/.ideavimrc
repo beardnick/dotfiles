@@ -1,0 +1,64 @@
+
+" Insert
+inoremap jk <Esc>
+" Normal
+nnoremap dd ddzz
+nnoremap <SPACE>w <C-W>
+" Visual
+vnoremap d dzz
+
+" Normal + Visual
+noremap # #zz
+noremap * *zz
+noremap w wzz
+noremap W Wzz
+noremap e ezz
+noremap E Ezz
+noremap b bzz
+noremap B Bzz
+noremap H Hzz
+noremap L Lzz
+noremap 0 0zz
+noremap $ $zz
+noremap ^ ^zz
+noremap j jzz
+noremap k kzz
+noremap G Gzz
+noremap u uzz
+noremap ( (zz
+noremap ) )zz
+noremap { {zz
+noremap } }zz
+noremap [{ [{zz
+noremap ]} ]}zz
+noremap gd gdzz
+
+" 启用vim surround功能
+set surround
+" 启用multi cursor
+set multiple-cursors
+
+inoremap jj <esc>
+inoremap kk <esc>
+inoremap jk <esc>
+"nnoremap <space>gc :action GotoClass<cr>
+"nnoremap <space>ga :action GotoAction<cr>
+nnoremap ,k :action MethodUp<cr>
+nnoremap ,j :action MethodDown<cr>
+nnoremap ,o :action Back<cr>
+nnoremap / :action Find<cr>
+"nnoremap <space>f :action Forward<cr>
+nnoremap ,f :action ReformatCode<cr>
+"nnoremap <space>e :action LastEditLocation<cr>
+nnoremap ,r :action Run<cr>
+nnoremap ,s :action Stop<cr>
+nnoremap ,b :action GotoDeclaration<cr>
+nnoremap <space><space> :action SearchEverywhere<cr>
+nnoremap ,e :action Switcher<cr>
+noremap ,p "*P
+noremap ,y "*y
+nnoremap <TAB> <C-W><C-W>
+
+" 在normal模式下一直为英文输入法
+set keep-english-in-normal
+
