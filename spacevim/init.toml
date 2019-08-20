@@ -46,6 +46,10 @@ name = 'shell'
 default_position = 'bottom'
 default_height = 30
 
+
+[[layers]]
+name = 'exprfold'
+
 [[layers]]
 name = 'lang#go'
 
@@ -113,6 +117,7 @@ name = 'colorscheme'
 
 [[custom_plugins]]
 name = 'tbodt/deoplete-tabnine'
+
 
 
 [[custom_plugins]]
