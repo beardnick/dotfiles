@@ -20,3 +20,7 @@ brew install gnu-sed --with-default-names
 
 brew install fd
 
+brew install hexyl
+
+brew install neovim
+
