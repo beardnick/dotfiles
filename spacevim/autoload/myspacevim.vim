@@ -52,13 +52,17 @@ function! myspacevim#after() abort
     "inoremap note<tab> <c-r>=strftime("%y-%m-%d")<cr>
     nnoremap <Leader>w :w<cr>
     " 复制粘贴
-    " noremap <space>y "+y
-    " noremap <space>p "+p<cr>
+    noremap <Leader>y "+y
+    noremap <Leader>p "+p<cr>
     
     nnoremap <C-B> :<C-U>exe "Gtags -d " . expand("<cword>")<CR>
 
     nnoremap <m-u> <c-w>p<c-u><c-w>p
     nnoremap <m-d> <c-w>p<c-d><c-w>p
     nnoremap <C-S-F12> <C-W>o
+
+    " 令光标横向纵向移动时始终保持在中央
+    set sidescrolloff=999
+    set scrolloff=999
 
 endfunction

@@ -284,6 +284,9 @@ bindkey '\e' deer
 #bindkey 'tab' autosuggest-accept
 
 
+alias v="vim -u NONE -N"
+alias anki="clanki"
+alias vless="/usr/local/Cellar/neovim/0.3.8/share/nvim/runtime/macros/less.sh"
 alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
 alias lepton="~/ubuntu-data/software/Lepton\ 1.8.0.AppImage"
 alias sunlogin="sudo /usr/local/sunlogin/start.sh"
@@ -447,3 +450,7 @@ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 export http_proxy="http://127.0.0.1:12639"
 export https_proxy="http://127.0.0.1:12639"
+
+export GOPATH=/Users/mac/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN

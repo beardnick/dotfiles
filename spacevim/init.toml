@@ -11,7 +11,7 @@
     # set spacevim theme. by default colorscheme layer is not loaded,
     # if you want to use more colorscheme, please load the colorscheme
     # layer
-    colorscheme = "spacevim"
+    colorscheme = "gruvbox"
     colorscheme_bg = "dark"
     # Disable guicolors in basic mode, many terminal do not support 24bit
     # true colors
@@ -93,6 +93,10 @@ name = 'colorscheme'
 
 
 [[layers]]
+name = 'lang#kotlin'
+
+
+[[layers]]
   name = "lsp"
   filetypes = [
     "java"
@@ -117,7 +121,6 @@ name = 'colorscheme'
 
 [[custom_plugins]]
 name = 'tbodt/deoplete-tabnine'
-
 
 
 [[custom_plugins]]
