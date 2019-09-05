@@ -284,7 +284,10 @@ bindkey '\e' deer
 #bindkey 'tab' autosuggest-accept
 
 
-alias v="vim -u NONE -N"
+alias reload="source ~/.zshrc"
+alias sed="gsed"
+alias run="osascript"
+alias v="nvim -u ~/.vimliterc -N"
 alias anki="clanki"
 alias vless="/usr/local/Cellar/neovim/0.3.8/share/nvim/runtime/macros/less.sh"
 alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
@@ -296,7 +299,7 @@ alias md="python2 ~/study/python/org-to-md.py"
 alias gen="~/study/shell/useful-scripts/gen_code.sh"
 alias xclip="xclip -selection c"
 alias less="bat"
-alias conf="vim ~/.zshrc"
+alias conf="nvim ~/.zshrc"
 alias name="find . -name"
 #alias cunzip='cunzip.sh'
 alias cunzip='unzip -O cp936'
@@ -306,7 +309,7 @@ alias ll='ls -al'
 alias cls='clear'
 alias tencent='ssh ubuntu@123.207.19.172'
 #alias cheat='~/.local/bin/cheat'
-#alias chee='cheat -e'
+# alias chee='cheat -e'
 alias pip3='python3 -m pip'
 alias cheat='~/study/shell/useful-scripts/my_cheat.sh'
 alias python='python3'
@@ -363,7 +366,8 @@ alias cat='bat'
 alias edex='~/download/eDEX-UI.Linux.x86_64.AppImage'
 alias op='~/study/shell/tool/idea_operation.sh'
 alias search='~/study/shell/tool/search_tool.sh'
-alias pick='~/study/shell/tool/pick.sh'
+# alias pick='~/study/shell/tool/pick.sh'
+alias pwdc='pwd | pbcopy'
 
 export TEN="123.207.19.172"
 export SICONG="39.108.154.79"

@@ -64,5 +64,14 @@ function! myspacevim#after() abort
     " 令光标横向纵向移动时始终保持在中央
     set sidescrolloff=999
     set scrolloff=999
+    set ignorecase
+
+    set foldmethod=syntax
+    set foldlevelstart=99
+
+    noremap <C-F> :<C-U>call SpaceVim#mapping#search#grep("a", "P")<CR>
+
+
+    imap <C-K> <Plug>(neosnippet_jump)
 
 endfunction

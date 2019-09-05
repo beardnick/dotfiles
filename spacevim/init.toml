@@ -128,3 +128,11 @@ name = 'tbodt/deoplete-tabnine'
     merged = false
     loadconf = true
 
+[[custom_plugins]]
+name = 'luochen1990/rainbow'
+
+[[custom_plugins]]
+name = 'maxbrunsfeld/vim-emacs-bindings'
+
+[[custom_plugins]]
+name = 'mtth/scratch.vim'

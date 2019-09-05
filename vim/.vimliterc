@@ -1,0 +1,31 @@
+set number
+set nowrap
+
+" 使光标始终在屏幕中间
+set sidescrolloff=999
+set scrolloff=999
+
+
+map <Leader> ,
+
+noremap <leader>y "+y
+noremap <leader>p "+p
+
+noremap <SPACE>w <C-W>
+
+
+
+set ignorecase
+
+" 使用语法折叠
+set foldmethod=syntax
+set foldlevelstart=99
+
+
+" 编辑配置文件
+nnoremap <Leader>ev :vsplit ~/.vimliterc<cr>
+" 加载配置文件
+nnoremap <Leader>sv :source ~/.vimliterc<cr>
+
+
+set incsearch
