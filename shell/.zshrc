@@ -287,7 +287,7 @@ bindkey '\e' deer
 alias reload="source ~/.zshrc"
 alias sed="gsed"
 alias run="osascript"
-alias v="nvim -u ~/.vimliterc -N"
+alias v="nvim -u ~/.vimlite.vim -N"
 alias anki="clanki"
 alias vless="/usr/local/Cellar/neovim/0.3.8/share/nvim/runtime/macros/less.sh"
 alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
@@ -299,7 +299,7 @@ alias md="python2 ~/study/python/org-to-md.py"
 alias gen="~/study/shell/useful-scripts/gen_code.sh"
 alias xclip="xclip -selection c"
 alias less="bat"
-alias conf="nvim ~/.zshrc"
+alias conf="v ~/.zshrc"
 alias name="find . -name"
 #alias cunzip='cunzip.sh'
 alias cunzip='unzip -O cp936'
@@ -355,13 +355,13 @@ alias rmtg='rmt -g'
 alias rmtp='rmt -p'
 alias rmtd='rmt -d'
 #alias feige='~/ubuntu-data/software/feige.sh &>~/logs/feige.log &'
-alias emacs='emacs25 -nw'
+# alias emacs='emacs25 -nw'
 alias tb='python /usr/local/lib/python3.5/dist-packages/tensorboard/main.py'
 alias sicong='ssh root@39.108.154.79'
 alias ali='ssh admin@39.108.248.254'
 alias sun='~/ubuntu-data/software/sunloginclient/run.sh'
 alias rm='trash'
-alias mr='restore-trash'
+alias mr='trash-restore'
 alias cat='bat'
 alias edex='~/download/eDEX-UI.Linux.x86_64.AppImage'
 alias op='~/study/shell/tool/idea_operation.sh'
@@ -450,7 +450,7 @@ alias quiz='~/study/shell/useful-scripts/quiz.sh'
 export EDITOR=vim
 export PATH="~/.cabal:$PATH"
 
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+# export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 export http_proxy="http://127.0.0.1:12639"
 export https_proxy="http://127.0.0.1:12639"
@@ -458,3 +458,6 @@ export https_proxy="http://127.0.0.1:12639"
 export GOPATH=/Users/mac/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+
+autoload -U promptinit; promptinit
+prompt pure

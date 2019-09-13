@@ -31,7 +31,7 @@
     windows_leader = "s"
     bootstrap_before = "myspacevim#before"
     bootstrap_after  = "myspacevim#after"
-    disabled_plugins = ["denite.nvim, leaderf"]
+    disabled_plugins = ["denite.nvim, leaderf, rainbow"]
 
 # Enable autocomplete layer
 [[layers]]
@@ -49,6 +49,7 @@ default_height = 30
 
 [[layers]]
 name = 'exprfold'
+enable = false
 
 [[layers]]
 name = 'lang#go'
@@ -70,12 +71,14 @@ name = 'git'
 
 [[layers]]
 name = 'VersionControl'
+enable = false
 
 [[layers]]
 name = 'unite'
 
 [[layers]]
 name = 'markdown'
+enable = false
 
 [[layers]]
 name = 'chinese'
@@ -85,15 +88,21 @@ name = 'tools'
 
 
 [[layers]]
-name = 'tags'
+name = 'gtags'
 
 
 [[layers]]
 name = 'colorscheme'
+enable = false
 
 
 [[layers]]
 name = 'lang#kotlin'
+enable = false
+
+
+[[layers]]
+name = 'ui'
 
 
 [[layers]]
@@ -112,11 +121,11 @@ name = 'lang#kotlin'
     "-noverify",
     "-Xmx1G",
     "-jar", 
-    "/home/qianz/.SpaceVim.d/features/org.eclipse.equinox.executable_3.8.500.v20190715-1310.jar",
+    "/Users/mac/.SpaceVim.d/jdt-language-server-latest/features/org.eclipse.equinox.executable_3.8.500.v20190903-1802.jar",
     "-configuration",
-    "/home/qianz/.SpaceVim.d/config_linux",
+    "/Users/mac/.SpaceVim.d/jdt-language-server-latest/config_mac",
     "-data",
-    "/home/qianz/.cache/javalsp"
+    "/Users/mac/.cache/javalsp"
     ]
 
 [[custom_plugins]]
@@ -134,5 +143,3 @@ name = 'luochen1990/rainbow'
 [[custom_plugins]]
 name = 'maxbrunsfeld/vim-emacs-bindings'
 
-[[custom_plugins]]
-name = 'mtth/scratch.vim'
