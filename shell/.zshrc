@@ -339,8 +339,8 @@ alias my='cheat my'
 alias task='cheat task'
 alias study='cheat study'
 alias vscode='code'
-alias remote='~/ubuntu-data/software/ngrok tcp 22 2> ~/logs/ngrok.log >&1  &'
-alias ngrok='~/ubuntu-data/software/ngrok'
+alias remote='~/ngrok tcp 22 2> ~/logs/ngrok.log >&1  &'
+alias ngrok='~/ngrok'
 alias wiz='~/ubuntu-data/software/WizNote-2.5.9-x86_64.AppImage &> ~/logs/wiz.log &'
 alias mtm='mt -m'
 alias mtc='mt -c'
@@ -459,5 +459,9 @@ export GOPATH=/Users/mac/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 
+export PATH=$PATH:/Users/mac/study/shell/useful-scripts
+
 autoload -U promptinit; promptinit
 prompt pure
+
+export HOMEBREW_NO_AUTO_UPDATE=true

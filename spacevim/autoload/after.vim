@@ -49,6 +49,13 @@ imap <C-K> <Plug>(neosnippet_jump)
 nnoremap <M-Down> :<C-U>cnext<CR>
 nnoremap <M-UP> :<C-U>cprevious<CR>
 nnoremap gd :<C-U>GtagsCursor<CR>
+nnoremap zf{ zfi{
+nnoremap zf( zfi(
+nnoremap zf[ zfi[
+nnoremap zf" zfi"
+nnoremap zf' zfi'
+nnoremap <expr> GG ":echom ".screencol()."\n"
+nnoremap <silent> GG :echom screencol()<CR>
 
 nmap <CR> <Plug>(wildfire-fuel)
 let g:wildfire_objects = {
@@ -81,6 +88,7 @@ endfunction
 call s:profile(s:denite_options)
 
 noremap <C-P> :<C-U>Denite file/rec<CR>
+nnoremap <C-+> <C-W>+
 
 " KEY MAPPINGS
 let s:insert_mode_mappings = [
@@ -113,5 +121,48 @@ endfor
 for s:m in s:normal_mode_mappings
   call denite#custom#map('normal', s:m[0], s:m[1], s:m[2])
 endfor
+
+function! WindLineLeft(column) abort
+  if a:column > 50
+			exe 5 . "wincmd >"
+  else
+			exe 5 . "wincmd <"
+  endif
+endfunction
+
+function! WindLineRight(column) abort
+  if a:column > 50
+			exe 5 . "wincmd <"
+  else
+			exe 5 . "wincmd >"
+  endif
+endfunction
+
+
+function! WindLineUp(row) abort
+  if a:row > 50
+      exe 5 "wincmd +"
+  else
+    exe 5 "wincmd -"
+  endif
+endfunction
+
+
+function! WindLineDown(row) abort
+  if a:row > 50
+      exe 5 "wincmd -"
+  else
+    exe 5 "wincmd +"
+  endif
+endfunction
+
+noremap <expr> <C-H> ":<C-U>call WindLineLeft(" .screencol() . ")\n"
+noremap <expr> <C-L> ":<C-U>call WindLineRight(" .screencol() . ")\n"
+noremap <expr> <C-K> ":<C-U>call WindLineUp(" .screenrow() . ")\n"
+noremap <expr> <C-J> ":<C-U>call WindLineDown(" .screenrow() . ")\n"
+
+" function! WindLineRight() abort() abort
+"
+" endfunction
 
 unlet s:m s:insert_mode_mappings s:normal_mode_mappings
