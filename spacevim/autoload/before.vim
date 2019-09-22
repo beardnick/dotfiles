@@ -1,4 +1,5 @@
 let g:mapleader = ','
+let g:spacevim_autocomplete_method = "coc"
 
 "gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 "let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
@@ -23,3 +24,7 @@ let g:mapleader = ','
 "let $GTAGSLABEL = 'native-pygments'
 "let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 
+let g:go_doc_keywordprg_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_autodetect_gopath = 1
+let g:jedi#documentation_command = ''

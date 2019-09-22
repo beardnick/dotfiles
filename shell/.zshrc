@@ -339,8 +339,8 @@ alias my='cheat my'
 alias task='cheat task'
 alias study='cheat study'
 alias vscode='code'
-alias remote='~/ngrok tcp 22 2> ~/logs/ngrok.log >&1  &'
-alias ngrok='~/ngrok'
+# alias remote='~/ngrok tcp 22 2> ~/logs/ngrok.log >&1  &'
+# alias ngrok='~/ngrok'
 alias wiz='~/ubuntu-data/software/WizNote-2.5.9-x86_64.AppImage &> ~/logs/wiz.log &'
 alias mtm='mt -m'
 alias mtc='mt -c'
@@ -348,12 +348,6 @@ alias mts='mt -s'
 alias mtg='mt -g'
 alias mtp='mt -p'
 alias mtd='mt -d'
-alias rmtm='rmt -m'
-alias rmtc='rmt -c'
-alias rmts='rmt -s'
-alias rmtg='rmt -g'
-alias rmtp='rmt -p'
-alias rmtd='rmt -d'
 #alias feige='~/ubuntu-data/software/feige.sh &>~/logs/feige.log &'
 # alias emacs='emacs25 -nw'
 alias tb='python /usr/local/lib/python3.5/dist-packages/tensorboard/main.py'
@@ -401,7 +395,8 @@ export PATH="$PATH:$HOME/.rvm/bin"
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.rvm/rubies/ruby-2.3.7/lib/
 export LD_LIBRARY_PATH
 vim() { (unset GEM_PATH GEM_HOME; command vim "$@") }
-export CHEAT_EDITOR=vim
+export CHEAT_EDITOR="nvim -u ~/.vimlite.vim -N"
+
 
 #-------------------------
 #|makes man page colorful|
@@ -447,7 +442,7 @@ alias findall='grep -rnP'
 alias summary='~/study/shell/useful-script/summary_tool.sh'
 alias quiz='~/study/shell/useful-scripts/quiz.sh'
 
-export EDITOR=vim
+export EDITOR="nvim -u ~/.vimlite.vim -N"
 export PATH="~/.cabal:$PATH"
 
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
@@ -465,3 +460,15 @@ autoload -U promptinit; promptinit
 prompt pure
 
 export HOMEBREW_NO_AUTO_UPDATE=true
+export PATH=$PATH:$HOME/.SpaceVim/bin
+
+
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home
+PATH=$JAVA_HOME/bin:$PATH:.
+CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.
+export JAVA_HOME
+export PATH
+export CLASSPATH
+export PATH="/usr/local/opt/node@10/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/node@10/lib"
+export CPPFLAGS="-I/usr/local/opt/node@10/include"

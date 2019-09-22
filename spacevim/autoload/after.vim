@@ -20,17 +20,27 @@ nnoremap <Leader>ev :vsplit ~/.SpaceVim.d/autoload/myspacevim.vim<cr>
 " 加载配置文件
 nnoremap <Leader>sv :source ~/.SpaceVim.d/autoload/myspacevim.vim<cr>
 
-"inoremap note<tab> <c-r>=strftime("%y-%m-%d")<cr>
-nnoremap <Leader>w :w<cr>
 " 复制粘贴
-noremap <Leader>y "+y
-noremap <Leader>p "+p<cr>
+noremap <Leader>yy "+y
+noremap <Leader>ya "ay
+noremap <Leader>yb "by
+noremap <Leader>yc "cy
+noremap <Leader>pp "+p
+noremap <Leader>pa "ap
+noremap <Leader>pb "bp
+noremap <Leader>pc "cp
+nnoremap <Leader>rr viw"+p
+nnoremap <Leader>ra viw"ap
+nnoremap <Leader>rb viw"bp
+nnoremap <Leader>rc viw"cp
+nnoremap <Leader>rp viwp
 
+
+noremap <Leader>w :<C-U>set wrap!<CR>
 nnoremap <C-B> :<C-U>exe "Gtags -d " . expand("<cword>")<CR>
 
 nnoremap <m-u> <c-w>p<c-u><c-w>p
 nnoremap <m-d> <c-w>p<c-d><c-w>p
-nnoremap <C-S-F12> <C-W>o
 
 " 令光标横向纵向移动时始终保持在中央
 set sidescrolloff=999
@@ -45,6 +55,7 @@ noremap <C-F> :<C-U>call SpaceVim#mapping#search#grep("a", "P")<CR>
 
 imap <C-K> <Plug>(neosnippet_jump)
 
+
 " <C-U>用于防止在可视模式中使用范围
 nnoremap <M-Down> :<C-U>cnext<CR>
 nnoremap <M-UP> :<C-U>cprevious<CR>
@@ -58,6 +69,8 @@ nnoremap <expr> GG ":echom ".screencol()."\n"
 nnoremap <silent> GG :echom screencol()<CR>
 
 nmap <CR> <Plug>(wildfire-fuel)
+vmap <CR> <Plug>(wildfire-fuel)
+
 let g:wildfire_objects = {
     \ "*" : ["i'", 'i"', "i)", "i]", "i}"],
     \ "html,xml" : ["at", "it"],
@@ -84,6 +97,7 @@ function! s:profile(opts) abort
     endfor
   endfor
 endfunction
+
 
 call s:profile(s:denite_options)
 
@@ -161,8 +175,93 @@ noremap <expr> <C-L> ":<C-U>call WindLineRight(" .screencol() . ")\n"
 noremap <expr> <C-K> ":<C-U>call WindLineUp(" .screenrow() . ")\n"
 noremap <expr> <C-J> ":<C-U>call WindLineDown(" .screenrow() . ")\n"
 
+noremap <C-X> :<C-U>call SwapWord()<CR>
+
+nnoremap <Leader>l :<C-U>bnext<CR>
+nnoremap <Leader>h :<C-U>bprevious<CR>
+
+nmap f <Plug>(easymotion-overwin-f)
+
 " function! WindLineRight() abort() abort
 "
 " endfunction
+"
+"
+
+function! SwapWord() abort
+  if ! exists('g:swap_word_skip')
+    let g:swap_word_skip = 1
+  endif
+  let l:first = expand("<cWORD>")
+  let l:save_register_a = @a
+  execute "normal! ma"
+  let l:cnt = 0
+  while l:cnt < g:swap_word_skip
+  execute "normal! w"
+    let l:cnt = l:cnt + 1
+  endwhile
+  let l:second = expand("<cWORD>")
+  let l:save_register_quote = @"
+  let @" = l:first
+  execute "normal! viwp"
+  let l:cnt = 0
+  while l:cnt < g:swap_word_skip
+    execute "normal! ge"
+    let l:cnt = l:cnt + 1
+  endwhile
+  let @" = l:second
+  execute "normal! viwp`a"
+  let @" = l:save_register_quote
+  let  @a = l:save_register_a
+endfunction
 
 unlet s:m s:insert_mode_mappings s:normal_mode_mappings
+
+if has('win32') || has('win64')
+  call dein#add('tbodt/deoplete-tabnine', { 'build': 'powershell.exe .\install.ps1' })
+else
+  call dein#add('tbodt/deoplete-tabnine', { 'build': './install.sh' })
+endif
+
+" call deoplete#custom#var('tabnine', {
+" \ 'line_limit': 500,
+" \ 'max_num_results': 5,
+" \ })
+
+let g:go_autodetect_gopath = 1
+
+
+" Use K to show documentation in preview window
+nnoremap K  :<C-U>call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+   if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+
+function! ChangScroll() abort
+  if &buftype == 'terminal'
+    setlocal scrolloff=0
+  else
+    setlocal scrolloff=999
+  endif
+endfunction
+
+autocmd BufEnter,BufWinEnter,BufCreate,TermOpen,TermLeave *  call ChangScroll()
+" autocmd TermOpen,TermEnter * setlocal scrolloff=0
+" autocmd TermLeave * setlocal scrolloff=999
+
+vmap <C-K> <Plug>(coc-snippets-select)
+imap <C-J> <Plug>(coc-snippets-expand-jump)
+
+autocmd BufNewFile,BufRead,BufFilePre *.man set filetype=man

@@ -15,6 +15,10 @@ noremap <leader>p "+p
 
 noremap <SPACE>w <C-W>
 
+inoremap jk <ESC>
+inoremap jj <ESC>
+inoremap kk <ESC>
+
 " 使用语法折叠
 set foldmethod=syntax
 set foldlevelstart=99
