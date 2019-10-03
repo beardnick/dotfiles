@@ -5,3 +5,4 @@ endfunction
 function! myspacevim#after() abort
   execute 'source ~/.SpaceVim.d/autoload/after.vim'
 endfunction
+

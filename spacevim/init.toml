@@ -43,7 +43,6 @@ auto-completion-complete-with-key-sequence = "jk"
 
 [[layers]]
 name = 'shell'
-default_position = 'bottom'
 default_height = 30
 
 
@@ -78,7 +77,7 @@ enable = false
 name = 'unite'
 
 [[layers]]
-name = 'markdown'
+name = 'lang#markdown'
 enable = false
 
 [[layers]]
@@ -107,6 +106,7 @@ name = 'ui'
 
 [[layers]]
 name = 'format'
+enable = false
 
 
 [[layers]]
@@ -141,6 +141,17 @@ name = 'format'
 [[custom_plugins]]
 name = 'luochen1990/rainbow'
 
-[[custom_plugins]]
-name = 'maxbrunsfeld/vim-emacs-bindings'
 
+[[custom_plugins]]
+name = 'fisadev/vim-ctrlp-cmdpalette'
+
+
+[[custom_plugins]]
+name = 'kien/ctrlp.vim'
+
+[[custom_plugins]]
+name = 'roxma/vim-hug-neovim-rpc'
+
+
+[[custom_plugins]]
+name = 'roxma/nvim-yarp'

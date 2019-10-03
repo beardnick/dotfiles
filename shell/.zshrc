@@ -310,7 +310,6 @@ alias cls='clear'
 alias tencent='ssh ubuntu@123.207.19.172'
 #alias cheat='~/.local/bin/cheat'
 # alias chee='cheat -e'
-alias pip3='python3 -m pip'
 alias cheat='~/study/shell/useful-scripts/my_cheat.sh'
 alias python='python3'
 alias la="ls -a"
@@ -472,3 +471,5 @@ export CLASSPATH
 export PATH="/usr/local/opt/node@10/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/node@10/lib"
 export CPPFLAGS="-I/usr/local/opt/node@10/include"
+
+source /usr/local/opt/autoenv/activate.sh

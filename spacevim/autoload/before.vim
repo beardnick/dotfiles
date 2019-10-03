@@ -28,3 +28,6 @@ let g:go_doc_keywordprg_enabled = 0
 let g:go_def_mapping_enabled = 0
 let g:go_autodetect_gopath = 1
 let g:jedi#documentation_command = ''
+
+set guifont=HackNerdFontComplete-Bold-Italic:h11
+let g:coc_node_path = '/usr/local/opt/node@10/bin/node'

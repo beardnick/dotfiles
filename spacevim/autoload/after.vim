@@ -249,6 +249,41 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 
+
+vmap <C-K> <Plug>(coc-snippets-select)
+imap <C-J> <Plug>(coc-snippets-expand-jump)
+
+
+function! FormatMarkDown() abort
+  if &filetype != 'markdown'
+    return
+  endif
+  let l:save_register = @a
+  execute "silent w"
+  execute "normal! ma"
+  execute "%!prettier %"
+  execute "normal! `a"
+  let @a = l:save_register
+endfunction
+
+command! FormatMarkDown call FormatMarkDown()
+
+
+function! GetColumn() abort
+  let l:cols = split(getline("."),'|')
+  let l:temp = ""
+  for i in l:cols
+    let l:temp = l:temp . "\n" . l:i
+  endfor
+  let @" = l:temp
+endfunction
+
+let g:ctrlp_cmdpalette_execute = 1
+nnoremap <C-T> :<C-U>call GetColumn()<CR>
+nnoremap <Space><Space> :<C-U>CtrlPCmdPalette<CR>
+nnoremap <Leader><Space> :<C-U>CtrlPCmdPalette<CR>
+
+
 function! ChangScroll() abort
   if &buftype == 'terminal'
     setlocal scrolloff=0
@@ -260,8 +295,3 @@ endfunction
 autocmd BufEnter,BufWinEnter,BufCreate,TermOpen,TermLeave *  call ChangScroll()
 " autocmd TermOpen,TermEnter * setlocal scrolloff=0
 " autocmd TermLeave * setlocal scrolloff=999
-
-vmap <C-K> <Plug>(coc-snippets-select)
-imap <C-J> <Plug>(coc-snippets-expand-jump)
-
-autocmd BufNewFile,BufRead,BufFilePre *.man set filetype=man
