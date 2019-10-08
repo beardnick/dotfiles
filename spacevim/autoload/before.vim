@@ -31,3 +31,4 @@ let g:jedi#documentation_command = ''
 
 set guifont=HackNerdFontComplete-Bold-Italic:h11
 let g:coc_node_path = '/usr/local/opt/node@10/bin/node'
+let g:rainbow_active = 1

@@ -311,7 +311,7 @@ alias tencent='ssh ubuntu@123.207.19.172'
 #alias cheat='~/.local/bin/cheat'
 # alias chee='cheat -e'
 alias cheat='~/study/shell/useful-scripts/my_cheat.sh'
-alias python='python3'
+# alias python='python3'
 alias la="ls -a"
 alias xxnet="~/ubuntu-data/software/XX-Net-3.12.10/start"
 alias pad="xinput set-prop 11 \"Device Enabled\" 1 "
@@ -473,3 +473,22 @@ export LDFLAGS="-L/usr/local/opt/node@10/lib"
 export CPPFLAGS="-I/usr/local/opt/node@10/include"
 
 source /usr/local/opt/autoenv/activate.sh
+
+PATH=$PATH:/Users/mac/anaconda3/bin
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/mac/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/mac/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/mac/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/mac/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+export GOPATH=$GOPATH:/Users/mac/go/src/rio-usercenter
+export GOPATH=$GOPATH:/Users/mac/go/src/OpenPlatform/app/golang

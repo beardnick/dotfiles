@@ -295,3 +295,13 @@ endfunction
 autocmd BufEnter,BufWinEnter,BufCreate,TermOpen,TermLeave *  call ChangScroll()
 " autocmd TermOpen,TermEnter * setlocal scrolloff=0
 " autocmd TermLeave * setlocal scrolloff=999
+
+
+" 使用anoconda环境中的python
+" 获取符号链接的绝对地址
+let s:default_python = system("where python | head -n 1 | xargs greadlink -nf")
+if s:default_python =~ "python3"
+  let g:python3_host_prog = s:default_python
+else
+  let g:python_host_prog = s:default_python
+endif

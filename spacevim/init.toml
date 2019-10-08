@@ -70,6 +70,10 @@ name = 'git'
 git-plugin = 'fugitive'
 
 [[layers]]
+name = 'checkers'
+enable = false
+
+[[layers]]
 name = 'VersionControl'
 enable = false
 
@@ -78,7 +82,6 @@ name = 'unite'
 
 [[layers]]
 name = 'lang#markdown'
-enable = false
 
 [[layers]]
 name = 'chinese'
@@ -98,7 +101,6 @@ enable = false
 
 [[layers]]
 name = 'lang#kotlin'
-enable = false
 
 
 [[layers]]
