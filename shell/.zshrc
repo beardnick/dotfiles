@@ -153,6 +153,7 @@ export ZSH=$HOME/.oh-my-zsh
 # See https:// github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="ys"
 
+
 #autoload -U promptinit; promptinit
 #prompt pure
 
@@ -221,6 +222,7 @@ plugins=(
   # you-should-use $plugins
   # geeknote
 )
+
 
 source $ZSH/oh-my-zsh.sh
 
@@ -326,7 +328,7 @@ alias sync="sync & mt -i \">\" "
 alias aly="ssh java@47.75.143.54"
 alias feidian="ssh java@218.199.68.208"
 alias bt="aria2c --enable-rpc --rpc-listen-all; node ~/study/git/webui-aria2/node-server.js"
-#alias nvim="~/download/nvim.appimage"
+alias nvim="cd .;nvim"
 #eval $(thefuck --alias)
 #alias rexxnet="sudo killall miredo && sudo miredo"
 #alias spring='mt -g "spring|jvm|js|java|mybatis|vue|nginx"'
@@ -395,6 +397,7 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.rvm/rubies/ruby-2.3.7/lib/
 export LD_LIBRARY_PATH
 vim() { (unset GEM_PATH GEM_HOME; command vim "$@") }
 export CHEAT_EDITOR="nvim -u ~/.vimlite.vim -N"
+
 
 
 #-------------------------
@@ -472,6 +475,7 @@ export PATH="/usr/local/opt/node@10/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/node@10/lib"
 export CPPFLAGS="-I/usr/local/opt/node@10/include"
 
+
 source /usr/local/opt/autoenv/activate.sh
 
 PATH=$PATH:/Users/mac/anaconda3/bin
@@ -490,5 +494,6 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-export GOPATH=$GOPATH:/Users/mac/go/src/rio-usercenter
-export GOPATH=$GOPATH:/Users/mac/go/src/OpenPlatform/app/golang
+# export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+export GO111MODULE=auto # manually active module mode
+

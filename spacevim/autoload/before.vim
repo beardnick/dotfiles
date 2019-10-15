@@ -1,5 +1,7 @@
 let g:mapleader = ','
 let g:spacevim_autocomplete_method = "coc"
+" disable neomake
+" let g:spacevim_enable_neomake = 0
 
 "gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 "let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']

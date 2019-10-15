@@ -40,3 +40,5 @@ set autoindent
 " 简单的文件浏览器使用
 nnoremap <C-E> :<C-U>20Lexplore<CR>
 
+set path+=**
+

@@ -52,10 +52,6 @@ set foldmethod=manual
 
 noremap <C-F> :<C-U>call SpaceVim#mapping#search#grep("a", "P")<CR>
 
-
-imap <C-K> <Plug>(neosnippet_jump)
-
-
 " <C-U>用于防止在可视模式中使用范围
 nnoremap <M-Down> :<C-U>cnext<CR>
 nnoremap <M-UP> :<C-U>cprevious<CR>
@@ -250,8 +246,6 @@ nmap <silent> gr <Plug>(coc-references)
 
 
 
-vmap <C-K> <Plug>(coc-snippets-select)
-imap <C-J> <Plug>(coc-snippets-expand-jump)
 
 
 function! FormatMarkDown() abort
@@ -304,4 +298,21 @@ if s:default_python =~ "python3"
   let g:python3_host_prog = s:default_python
 else
   let g:python_host_prog = s:default_python
+endif
+
+
+vmap <C-J> <Plug>(coc-snippets-select)
+imap <C-J> <Plug>(coc-snippets-expand-jump)
+
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+if filereadable(getcwd() . "/.env.vim")
+  let g:local_config = getcwd() . "/.env.vim"
+  let g:local_config_exists = filereadable(getcwd() . "/.env.vim")
+  exe 'source' getcwd() . '/.env.vim'
 endif
