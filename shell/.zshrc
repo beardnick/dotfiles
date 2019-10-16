@@ -286,6 +286,7 @@ bindkey '\e' deer
 #bindkey 'tab' autosuggest-accept
 
 
+alias redis-cli='redis-cli --raw'
 alias reload="source ~/.zshrc"
 alias sed="gsed"
 alias run="osascript"
@@ -495,5 +496,5 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-export GO111MODULE=auto # manually active module mode
+export GO111MODULE=on # manually active module mode
 

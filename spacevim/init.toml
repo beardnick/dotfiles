@@ -15,24 +15,34 @@
     colorscheme_bg = "dark"
     # Disable guicolors in basic mode, many terminal do not support 24bit
     # true colors
-    enable_guicolors = false
+    default_indent = 4
+    enable_guicolors = true
+    autocomplete_method = 'coc'
+    enable_debug = true
+    enable_googlesuggest = true
     # Disable statusline separator, if you want to use other value, please
     # install nerd fonts
-    statusline_separator = "nil"
+    statusline_separator = "arrow"
     statusline_inactive_separator = "bar"
     buffer_index_type = 4
     windows_index_type = 3
-    enable_tabline_filetype_icon = false
-    enable_statusline_mode = false
-    # enable_neomake = false
-    statusline_unicode_symbols = false
+    enable_tabline_filetype_icon = true
+    enable_statusline_mode = true
+    enable_neomake = false
+    statusline_unicode_symbols = true
     relativenumber = false
+    enable_statusline_bfpath = true
+    enable_statusline_tag = false
     # Enable vim compatible mode, avoid changing origin vim key bindings
     vimcompatible = true
     windows_leader = "s"
     bootstrap_before = "myspacevim#before"
     bootstrap_after  = "myspacevim#after"
     disabled_plugins = ["denite.nvim, leaderf"]
+    # enable_vimfiler_gitstatus = true
+    # filetree_direction = "left"
+    enable_vimfiler_welcome = false
+    checkinstall = true
 
 # Enable autocomplete layer
 [[layers]]
@@ -75,14 +85,17 @@ enable = false
 
 [[layers]]
 name = 'VersionControl'
-enable = false
 
 [[layers]]
 name = 'unite'
+enable = false
 
+[[layers]]
+name = 'denite'
 
 [[layers]]
 name = 'tmux'
+tmux_navigator_modifier = "alt"
 
 [[layers]]
 name = 'lang#markdown'
@@ -112,7 +125,6 @@ name = 'ui'
 
 [[layers]]
 name = 'format'
-enable = false
 
 
 [[layers]]
@@ -161,3 +173,8 @@ name = 'roxma/vim-hug-neovim-rpc'
 
 [[custom_plugins]]
 name = 'roxma/nvim-yarp'
+
+
+[[custom_plugins]]
+name = 'dhruvasagar/vim-table-mode'
+

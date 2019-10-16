@@ -173,9 +173,6 @@ noremap <expr> <C-J> ":<C-U>call WindLineDown(" .screenrow() . ")\n"
 
 noremap <C-X> :<C-U>call SwapWord()<CR>
 
-nnoremap <Leader>l :<C-U>bnext<CR>
-nnoremap <Leader>h :<C-U>bprevious<CR>
-
 nmap f <Plug>(easymotion-overwin-f)
 
 " function! WindLineRight() abort() abort

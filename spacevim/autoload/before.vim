@@ -1,5 +1,5 @@
 let g:mapleader = ','
-let g:spacevim_autocomplete_method = "coc"
+" let g:spacevim_autocomplete_method = "coc"
 " disable neomake
 " let g:spacevim_enable_neomake = 0
 
@@ -34,3 +34,5 @@ let g:jedi#documentation_command = ''
 set guifont=HackNerdFontComplete-Bold-Italic:h11
 let g:coc_node_path = '/usr/local/opt/node@10/bin/node'
 let g:rainbow_active = 1
+
+let g:mkdp_auto_close=0
