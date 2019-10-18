@@ -98,7 +98,6 @@ endfunction
 call s:profile(s:denite_options)
 
 noremap <C-P> :<C-U>Denite file/rec<CR>
-nnoremap <C-+> <C-W>+
 
 " KEY MAPPINGS
 let s:insert_mode_mappings = [
@@ -274,7 +273,6 @@ nnoremap <C-T> :<C-U>call GetColumn()<CR>
 nnoremap <Space><Space> :<C-U>CtrlPCmdPalette<CR>
 nnoremap <Leader><Space> :<C-U>CtrlPCmdPalette<CR>
 
-
 function! ChangScroll() abort
   if &buftype == 'terminal'
     setlocal scrolloff=0
@@ -297,7 +295,7 @@ else
   let g:python_host_prog = s:default_python
 endif
 
-
+" spacevim的snippet和这里的snippet有冲突，注意使用好<C-N> <TAG> <CR>之间的关系
 vmap <C-J> <Plug>(coc-snippets-select)
 imap <C-J> <Plug>(coc-snippets-expand-jump)
 
@@ -313,3 +311,13 @@ if filereadable(getcwd() . "/.env.vim")
   let g:local_config_exists = filereadable(getcwd() . "/.env.vim")
   exe 'source' getcwd() . '/.env.vim'
 endif
+
+" UltiSnips triggering
+" let g:UltiSnipsExpandTrigger = '<C-K>'
+" let g:UltiSnipsListSnippets = '<C-l>'
+" let g:UltiSnipsListSnippets = '<C-h>'
+" let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+" let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+
+
+

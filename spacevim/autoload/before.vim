@@ -36,3 +36,6 @@ let g:coc_node_path = '/usr/local/opt/node@10/bin/node'
 let g:rainbow_active = 1
 
 let g:mkdp_auto_close=0
+
+" let g:spacevim_force_global_config = 1
+" let g:spacevim_enable_ycm = 1

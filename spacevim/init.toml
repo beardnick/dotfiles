@@ -38,18 +38,20 @@
     windows_leader = "s"
     bootstrap_before = "myspacevim#before"
     bootstrap_after  = "myspacevim#after"
-    disabled_plugins = ["denite.nvim, leaderf"]
-    # enable_vimfiler_gitstatus = true
+    disabled_plugins = ["leaderf"]
+    enable_vimfiler_gitstatus = true
     # filetree_direction = "left"
     enable_vimfiler_welcome = false
-    checkinstall = true
+    # checkinstall = false
+    snippet_engine = "ultisnips"
 
 # Enable autocomplete layer
 [[layers]]
 name = 'autocomplete'
 auto_completion_return_key_behavior = "smart"
-auto-completion-tab-key-behavior = "cycle"
+auto-completion-tab-key-behavior = "smart"
 auto-completion-complete-with-key-sequence = "jk"
+auto_completion_enable_snippets_in_popup = true
 
 [[layers]]
 name = 'shell'
@@ -96,6 +98,7 @@ name = 'denite'
 [[layers]]
 name = 'tmux'
 tmux_navigator_modifier = "alt"
+enable = false
 
 [[layers]]
 name = 'lang#markdown'
@@ -152,11 +155,6 @@ name = 'format'
 
 
 [[custom_plugins]]
-    name = "SpaceVim/denite.nvim"
-    merged = false
-    loadconf = true
-
-[[custom_plugins]]
 name = 'luochen1990/rainbow'
 
 
@@ -177,4 +175,3 @@ name = 'roxma/nvim-yarp'
 
 [[custom_plugins]]
 name = 'dhruvasagar/vim-table-mode'
-

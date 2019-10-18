@@ -497,4 +497,4 @@ unset __conda_setup
 # <<< conda initialize <<<
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export GO111MODULE=on # manually active module mode
-
+export NAVI_PATH="/Users/mac/dotfiles/navi"
