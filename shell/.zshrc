@@ -3,6 +3,7 @@
 #source $ZSH/oh-my-zsh.sh
 
 # Antigen: https://github.com/zsh-users/antigen
+# antigen zsh插件管理器
 ANTIGEN="$HOME/.local/bin/antigen.zsh"
 
 # Install antigen.zsh if not exist
@@ -66,21 +67,26 @@ antigen use oh-my-zsh
 # visit https://github.com/unixorn/awesome-zsh-plugins
 # antigen bundle git
 # antigen bundle heroku
-antigen bundle pip
 antigen bundle svn-fast-info
 # antigen bundle command-not-find
 
 antigen bundle colorize
+# github插件，需要安装hub
 antigen bundle github
-antigen bundle python
+# python的一下小alias，这个插件也太简单了点吧
+# antigen bundle python
 antigen bundle rupa/z z.sh
 # antigen bundle z
 
+# 自动提示，非常好用
 antigen bundle zsh-users/zsh-autosuggestions
+# 自动补全，有各个不同命令的补全
 antigen bundle zsh-users/zsh-completions
 # antigen bundle supercrabtree/k
+# 文件预览神器，使用esc触发
 antigen bundle Vifon/deer
 
+# 一款快速跳转的插件 @todo： 不知道怎么用呀，没用就卸掉 
 antigen bundle willghatch/zsh-cdr
 # antigen bundle zsh-users/zaw
 
@@ -90,6 +96,7 @@ antigen bundle willghatch/zsh-cdr
 # use wakatime
 # antigen bundle sobolevn/wakatime-zsh-plugin
 
+# 使用x启用，可以自动使用合适的命令解压文件
 antigen bundle extract
 
 
@@ -215,10 +222,10 @@ plugins=(
   git
   # autojump
   #fbterm
-  pip
   python
   sudo
   pylint
+  # brew
   # you-should-use $plugins
   # geeknote
 )
@@ -262,6 +269,7 @@ source $ZSH/oh-my-zsh.sh
 autoload -U deer
 zle -N deer
 
+# @todo: 怎么使用bindkey <24-10-19> #
 # default keymap
 bindkey -s '\ee' 'vim\n'
 bindkey '\eh' backward-char
@@ -417,8 +425,8 @@ export LESS_TERMCAP_ZN=""
 export LESS_TERMCAP_se=$'\E[27m\E(B\E[m'
 export LESS_TERMCAP_ZV=""
 export LESS_TERMCAP_so=$'\E[1m\E[33m\E[44m'
-#tmux
 
+# 启用fzf的一些key binding和小组件
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export LC_ALL=en_US.UTF-8
@@ -439,11 +447,12 @@ export PATH
 alias clion='/home/beardnick/Downloads/Compressed/clion-2018.2.4/bin/clion.sh'
 #alias image='sudo docker run -ti ubuntu bash'
 
-alias tgo='tmux attach -t'
-alias tl='tmux ls'
+alias tgo="tmux attach -t \$(tmux ls | awk -F \":\" '{print \$1}' | fzf)"
+# alias tl='tmux ls'
 alias findall='grep -rnP'
 alias summary='~/study/shell/useful-script/summary_tool.sh'
 alias quiz='~/study/shell/useful-scripts/quiz.sh'
+alias gst='git status -s'
 
 export EDITOR="nvim -u ~/.vimlite.vim -N"
 export PATH="~/.cabal:$PATH"
@@ -479,7 +488,7 @@ export CPPFLAGS="-I/usr/local/opt/node@10/include"
 
 source /usr/local/opt/autoenv/activate.sh
 
-PATH=$PATH:/Users/mac/anaconda3/bin
+PATH=/Users/mac/anaconda3/bin:$PATH
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -498,3 +507,11 @@ unset __conda_setup
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export GO111MODULE=on # manually active module mode
 export NAVI_PATH="/Users/mac/dotfiles/navi"
+export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --preview '(highlight -O ansi {} || bat {}) 2> /dev/null | head -500'"
+# export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview 'bat {}'"
+# export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(bat {}) 2> /dev/null | head -500'"
+
+fman() {
+    man -k . | fzf --prompt='Man> ' | awk '{print $1}' | gsed 's/(.*)//g' | xargs man
+}
+export -f fman

@@ -38,8 +38,8 @@
     windows_leader = "s"
     bootstrap_before = "myspacevim#before"
     bootstrap_after  = "myspacevim#after"
-    disabled_plugins = ["leaderf"]
-    enable_vimfiler_gitstatus = true
+    disabled_plugins = ["leaderf,easymotion"]
+    # enable_vimfiler_gitstatus = true
     # filetree_direction = "left"
     enable_vimfiler_welcome = false
     # checkinstall = false
@@ -175,3 +175,18 @@ name = 'roxma/nvim-yarp'
 
 [[custom_plugins]]
 name = 'dhruvasagar/vim-table-mode'
+
+
+[[custom_plugins]]
+name = 'rizzatti/dash.vim'
+
+
+[[custom_plugins]]
+name = 'terryma/vim-multiple-cursors'
+
+[[custom_plugins]]
+name = 'mtth/scratch.vim'
+
+
+[[custom_plugins]]
+name = 'justinmk/vim-sneak'

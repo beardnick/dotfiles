@@ -4,7 +4,7 @@ iabbrev g@ qianzhoubeard@gmail.com
 " 快速添加笔记标签
 iabbrev note  #note <c-r>=strftime("%y-%m-%d")<cr><esc><plug>NERDCommenterComment<esc>A
 iabbrev imp  #imp <c-r>=strftime("%y-%m-%d")<cr><esc><plug>NERDCommenterComment<esc>A
-iabbrev todo  #todo <c-r>=strftime("%y-%m-%d")<cr><esc><plug>NERDCommenterComment<esc>A
+" iabbrev todo  #todo <c-r>=strftime("%y-%m-%d")<cr><esc><plug>NERDCommenterComment<esc>A
 
 " 快速注释
 nmap <Leader>; <Plug>NERDCommenterToggle
@@ -22,18 +22,20 @@ nnoremap <Leader>sv :source ~/.SpaceVim.d/autoload/myspacevim.vim<cr>
 
 " 复制粘贴
 noremap <Leader>yy "+y
-noremap <Leader>ya "ay
-noremap <Leader>yb "by
-noremap <Leader>yc "cy
-noremap <Leader>pp "+p
-noremap <Leader>pa "ap
-noremap <Leader>pb "bp
-noremap <Leader>pc "cp
+noremap <Leader>ya viw"ay
+noremap <Leader>yb viw"by
+noremap <Leader>yc viw"cy
+
+noremap <Leader>pp viw"+p
+noremap <Leader>pa viw"ap
+noremap <Leader>pb viw"bp
+noremap <Leader>pc viw"cp
+
 nnoremap <Leader>rr viw"+p
 nnoremap <Leader>ra viw"ap
 nnoremap <Leader>rb viw"bp
 nnoremap <Leader>rc viw"cp
-nnoremap <Leader>rp viwp
+nnoremap <Leader>ry viwp
 
 
 noremap <Leader>w :<C-U>set wrap!<CR>
@@ -172,7 +174,8 @@ noremap <expr> <C-J> ":<C-U>call WindLineDown(" .screenrow() . ")\n"
 
 noremap <C-X> :<C-U>call SwapWord()<CR>
 
-nmap f <Plug>(easymotion-overwin-f)
+" easymotion太慢了
+" nmap f <Plug>(easymotion-overwin-f)
 
 " function! WindLineRight() abort() abort
 "
@@ -319,5 +322,12 @@ endif
 " let g:UltiSnipsJumpForwardTrigger = '<C-j>'
 " let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
+set expandtab     " 使用空格代替tab.
+set tabstop=4     " 空格数量是4。
+set shiftwidth=4  " 自动缩进的宽度。
 
+autocmd FileType markdown TableModeEnable
+autocmd BufWinEnter *.confy set filetype=json
+autocmd BufWinEnter *.mongo set filetype=javascript
 
+imap <C-\> <C-O>:<C-U>TableModeRealign<CR>
