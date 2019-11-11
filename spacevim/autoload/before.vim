@@ -39,3 +39,10 @@ let g:mkdp_auto_close=0
 
 " let g:spacevim_force_global_config = 1
 " let g:spacevim_enable_ycm = 1
+
+" UltiSnips triggering
+let g:UltiSnipsExpandTrigger = '<C-K>'
+let g:UltiSnipsListSnippets = '<C-l>'
+let g:UltiSnipsListSnippets = '<C-h>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'

@@ -266,8 +266,8 @@ source $ZSH/oh-my-zsh.sh
 
 
 # setup for deer
-autoload -U deer
-zle -N deer
+# autoload -U deer
+# zle -N deer
 
 # @todo: 怎么使用bindkey <24-10-19> #
 # default keymap
@@ -290,10 +290,11 @@ bindkey '\e[1;3C' forward-word
 bindkey '\e[1;3A' beginning-of-line
 bindkey '\e[1;3B' end-of-line
 
-bindkey '\e' deer
+# bindkey '\e' deer
 #bindkey 'tab' autosuggest-accept
 
 
+alias fopen='fzf | xargs open'
 alias redis-cli='redis-cli --raw'
 alias reload="source ~/.zshrc"
 alias sed="gsed"
@@ -452,15 +453,14 @@ alias tgo="tmux attach -t \$(tmux ls | awk -F \":\" '{print \$1}' | fzf)"
 alias findall='grep -rnP'
 alias summary='~/study/shell/useful-script/summary_tool.sh'
 alias quiz='~/study/shell/useful-scripts/quiz.sh'
-alias gst='git status -s'
 
 export EDITOR="nvim -u ~/.vimlite.vim -N"
 export PATH="~/.cabal:$PATH"
 
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
-export http_proxy="http://127.0.0.1:12639"
-export https_proxy="http://127.0.0.1:12639"
+# export http_proxy="http://127.0.0.1:12639"
+# export https_proxy="http://127.0.0.1:12639"
 
 export GOPATH=/Users/mac/go
 export GOBIN=$GOPATH/bin
@@ -515,3 +515,12 @@ fman() {
     man -k . | fzf --prompt='Man> ' | awk '{print $1}' | gsed 's/(.*)//g' | xargs man
 }
 export -f fman
+
+alias spacevim="rm ~/.config/nvim; ln -s ~/.SpaceVim ~/.config/nvim"
+alias myvim="rm ~/.config/nvim;ln -s ~/my.nvim ~/.config/nvim"
+alias debugvim="rm ~/.config/nvim;ln -s ~/debug.nvim ~/.config/nvim"
+
+
+unset http_proxy
+unset https_proxy
+FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'

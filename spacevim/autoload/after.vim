@@ -22,9 +22,9 @@ nnoremap <Leader>sv :source ~/.SpaceVim.d/autoload/myspacevim.vim<cr>
 
 " 复制粘贴
 noremap <Leader>yy "+y
-noremap <Leader>ya viw"ay
-noremap <Leader>yb viw"by
-noremap <Leader>yc viw"cy
+noremap <Leader>ya "ay
+noremap <Leader>yb "by
+noremap <Leader>yc "cy
 
 noremap <Leader>pp viw"+p
 noremap <Leader>pa viw"ap
@@ -299,15 +299,15 @@ else
 endif
 
 " spacevim的snippet和这里的snippet有冲突，注意使用好<C-N> <TAG> <CR>之间的关系
-vmap <C-J> <Plug>(coc-snippets-select)
-imap <C-J> <Plug>(coc-snippets-expand-jump)
+" vmap <C-J> <Plug>(coc-snippets-select)
+" imap <C-J> <Plug>(coc-snippets-expand-jump)
 
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
+" let g:coc_snippet_next = '<c-j>'
 
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
+" let g:coc_snippet_prev = '<c-k>'
 
 if filereadable(getcwd() . "/.env.vim")
   let g:local_config = getcwd() . "/.env.vim"
@@ -315,12 +315,6 @@ if filereadable(getcwd() . "/.env.vim")
   exe 'source' getcwd() . '/.env.vim'
 endif
 
-" UltiSnips triggering
-" let g:UltiSnipsExpandTrigger = '<C-K>'
-" let g:UltiSnipsListSnippets = '<C-l>'
-" let g:UltiSnipsListSnippets = '<C-h>'
-" let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-" let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 set expandtab     " 使用空格代替tab.
 set tabstop=4     " 空格数量是4。
