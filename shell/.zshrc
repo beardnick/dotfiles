@@ -99,6 +99,15 @@ antigen bundle willghatch/zsh-cdr
 # 使用x启用，可以自动使用合适的命令解压文件
 antigen bundle extract
 
+antigen bundle RobSis/zsh-completion-generator
+
+antigen bundle hlissner/zsh-autopair
+
+antigen bundle chrissicool/zsh-256color
+
+antigen bundle Tarrasch/zsh-bd
+
+antigen bundle zpm-zsh/ls
 
 # check login shell
 if [[ -o login ]]; then
@@ -519,6 +528,7 @@ export -f fman
 alias spacevim="rm ~/.config/nvim; ln -s ~/.SpaceVim ~/.config/nvim"
 alias myvim="rm ~/.config/nvim;ln -s ~/my.nvim ~/.config/nvim"
 alias debugvim="rm ~/.config/nvim;ln -s ~/debug.nvim ~/.config/nvim"
+alias gd='git icdiff'
 
 
 unset http_proxy
