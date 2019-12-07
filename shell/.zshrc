@@ -234,6 +234,7 @@ plugins=(
   python
   sudo
   pylint
+  navi
   # brew
   # you-should-use $plugins
   # geeknote
@@ -534,3 +535,6 @@ alias gd='git icdiff'
 unset http_proxy
 unset https_proxy
 FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+export VIFM="/Users/mac/.config/vifm"

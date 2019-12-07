@@ -20,10 +20,9 @@ noremap / :action Find<cr>
 "nnoremap <space>f :action Forward<cr>
 noremap ,f :action ReformatCode<cr>
 "nnoremap <space>e :action LastEditLocation<cr>
-noremap ,r :action Run<cr>
-noremap ,s :action Stop<cr>
-noremap ,b :action GotoDeclaration<cr>
-noremap <space><space> :action SearchEverywhere<cr>
+noremap <M-r> :action Run<cr>
+noremap <M-s> :action Stop<cr>
+noremap <space><space> :action FindAction<cr>
 noremap ,e :action Switcher<cr>
 noremap ,p "*P
 noremap ,y "*y

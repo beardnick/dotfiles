@@ -1,0 +1,11 @@
+% fd, disk, file
+
+# Disk space analyze
+ncdu
+
+# find file of type
+fd . -e <filetype>
+
+
+
+
