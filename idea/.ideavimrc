@@ -22,11 +22,14 @@ noremap ,f :action ReformatCode<cr>
 "nnoremap <space>e :action LastEditLocation<cr>
 noremap <M-r> :action Run<cr>
 noremap <M-s> :action Stop<cr>
-noremap <space><space> :action FindAction<cr>
+noremap <SPACE><SPACE> :action FindAction<cr>
 noremap ,e :action Switcher<cr>
 noremap ,p "*P
 noremap ,y "*y
 noremap <TAB> <C-W><C-W>
+noremap <C-P> :action RecentFiles<CR>
+noremap gne :action NextHighlightedError<CR>
+noremap <C-`> :action Terminal
 
 " 在normal模式下一直为英文输入法
 set keep-english-in-normal

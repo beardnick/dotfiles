@@ -18,7 +18,7 @@ source /Users/mac/dotfiles/vifm/devicons.vifm
 
 " my config
 command! cp cp -r %f %D
-command! mv mv -r %f %D
+command! mv mv %f %D
 
 
 " :fileviewer pattern1,pattern2 consoleviewer
@@ -31,3 +31,6 @@ fileviewer Makefile,Makefile.*,Dockerfile
 
 " 重命名
 nnoremap r cw
+
+"filetype *.rar unrar %f
+fileviewer *.rar unrar lb %c | tree -d

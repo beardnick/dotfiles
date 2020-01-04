@@ -307,7 +307,7 @@ bindkey '\e[1;3B' end-of-line
 alias fopen='fzf | xargs open'
 alias redis-cli='redis-cli --raw'
 alias reload="source ~/.zshrc"
-alias sed="gsed"
+# alias sed="gsed"
 alias run="osascript"
 alias v="nvim -u ~/.vimlite.vim -N"
 alias anki="clanki"
@@ -524,7 +524,27 @@ export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --preview '(highlight -O 
 fman() {
     man -k . | fzf --prompt='Man> ' | awk '{print $1}' | gsed 's/(.*)//g' | xargs man
 }
-export -f fman
+
+sed(){
+    if [[ "$(uname)" == "Darwin" ]]; then
+        if [[ -x "$(which gsed)" ]]; then
+            command gsed "$@"
+        else
+            echo "WARNING: sed in mac is different from it in linux,please install gsed"
+            command sed "$@"
+        fi
+    else
+        command sed "$@"
+    fi
+}
+
+open(){
+    if [[ "$(uname)" == "Darwin" ]]; then
+        command open "$@"
+    else
+        command xdg-open "$@"
+    fi
+}
 
 alias spacevim="rm ~/.config/nvim; ln -s ~/.SpaceVim ~/.config/nvim"
 alias myvim="rm ~/.config/nvim;ln -s ~/my.nvim ~/.config/nvim"
