@@ -1,7 +1,8 @@
+let mapleader = " "
 
 " Insert
 inoremap jk <Esc>
-nnoremap <SPACE>w <C-W>
+nnoremap <LEADER>w <C-W>
 
 " 启用vim surround功能
 set surround
@@ -21,15 +22,25 @@ noremap / :action Find<cr>
 noremap ,f :action ReformatCode<cr>
 "nnoremap <space>e :action LastEditLocation<cr>
 noremap <M-r> :action Run<cr>
-noremap <M-s> :action Stop<cr>
-noremap <SPACE><SPACE> :action FindAction<cr>
+noremap <LEADER>lr :action Run<cr>
+noremap <LEADER>ls :action Stop<cr>
+noremap <LEADER>ld :action Debug<cr>
+
+" invalid
+nnoremap <LEADER><LEADER> :action GotoAction<cr> 
 noremap ,e :action Switcher<cr>
 noremap ,p "*P
 noremap ,y "*y
-noremap <TAB> <C-W><C-W>
 noremap <C-P> :action RecentFiles<CR>
 noremap gne :action NextHighlightedError<CR>
-noremap <C-`> :action Terminal
+
+nnoremap ]e :action NextHighlightedError<CR>
+
+nnoremap <LEADER>pp "*P
+nnoremap <LEADER>yy "*y
+nnoremap <LEADER>us :action ActivateTerminalToolWindow<CR>
+nnoremap <LEADER>ut :action ActivateStructureToolWindow<CR>
+nnoremap <LEADER>ft :action ActivateProjectToolWindow<CR>
 
 " 在normal模式下一直为英文输入法
 set keep-english-in-normal
@@ -37,16 +48,3 @@ set keep-english-in-normal
 " 使光标始终在中间
 set sidescrolloff=999
 set scrolloff=999
-
-nmap ,1 1gt
-nmap ,2 2gt
-noremap ,3 3gt
-noremap ,4 4gt
-noremap ,5 5gt
-noremap ,6 6gt
-noremap ,7 7gt
-noremap ,8 8gt
-noremap ,9 9gt
-noremap ,0 0gt
-noremap ,l gt
-noremap ,h gT

@@ -352,7 +352,7 @@ alias nvim="cd .;nvim"
 #eval $(thefuck --alias)
 #alias rexxnet="sudo killall miredo && sudo miredo"
 #alias spring='mt -g "spring|jvm|js|java|mybatis|vue|nginx"'
-alias spring='~/ubuntu-data/software/spring-2.0.1.RELEASE/bin/spring'
+#alias spring='~/ubuntu-data/software/spring-2.0.1.RELEASE/bin/spring'
 alias tf='mt -g "tf|py|cc"'
 alias tool='mt -g "tool|shell|git|vim|iptables|sed|awk|gcc|gdb|idea"'
 alias intv='mt -g "intv|leetcode|os|net|db|mysql"'
@@ -558,3 +558,4 @@ FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 export VIFM="/Users/mac/.config/vifm"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
