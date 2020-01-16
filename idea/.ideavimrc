@@ -1,4 +1,10 @@
 let mapleader = " "
+" 在normal模式下一直为英文输入法
+set keep-english-in-normal
+
+" 使光标始终在中间
+set sidescrolloff=999
+set scrolloff=999
 
 " Insert
 inoremap jk <Esc>
@@ -6,35 +12,27 @@ nnoremap <LEADER>w <C-W>
 
 " 启用vim surround功能
 set surround
+
 " 启用multi cursor
 set multiple-cursors
 
 inoremap jj <esc>
 inoremap kk <esc>
 inoremap jk <esc>
-"nnoremap <space>gc :action GotoClass<cr>
-"nnoremap <space>ga :action GotoAction<cr>
-noremap ,k :action MethodUp<cr>
-noremap ,j :action MethodDown<cr>
-noremap ,o :action Back<cr>
-noremap / :action Find<cr>
-"nnoremap <space>f :action Forward<cr>
-noremap ,f :action ReformatCode<cr>
-"nnoremap <space>e :action LastEditLocation<cr>
+
+noremap <Leader>/ :action Find<cr>
+
 noremap <M-r> :action Run<cr>
 noremap <LEADER>lr :action Run<cr>
 noremap <LEADER>ls :action Stop<cr>
 noremap <LEADER>ld :action Debug<cr>
-
-" invalid
+noremap <LEADER>lf :action ReformatCode<cr>
 nnoremap <LEADER><LEADER> :action GotoAction<cr> 
-noremap ,e :action Switcher<cr>
-noremap ,p "*P
-noremap ,y "*y
 noremap <C-P> :action RecentFiles<CR>
-noremap gne :action NextHighlightedError<CR>
 
-nnoremap ]e :action NextHighlightedError<CR>
+nnoremap ]e :action GotoNextError<CR>
+nnoremap [e :action GotoPreviousError<CR>
+
 
 nnoremap <LEADER>pp "*P
 nnoremap <LEADER>yy "*y
@@ -42,9 +40,4 @@ nnoremap <LEADER>us :action ActivateTerminalToolWindow<CR>
 nnoremap <LEADER>ut :action ActivateStructureToolWindow<CR>
 nnoremap <LEADER>ft :action ActivateProjectToolWindow<CR>
 
-" 在normal模式下一直为英文输入法
-set keep-english-in-normal
 
-" 使光标始终在中间
-set sidescrolloff=999
-set scrolloff=999
