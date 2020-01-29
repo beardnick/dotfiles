@@ -1,0 +1,7 @@
+% spring, java
+
+# create a spring project
+spring init -d <dependency> <name>.zip
+
+$ dependency: command cat  $HOME/dotfiles/navi/dependency 
+

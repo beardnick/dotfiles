@@ -5,7 +5,3 @@ ncdu
 
 # find file of type
 fd . -e <filetype>
-
-
-
-

@@ -5,6 +5,8 @@ set keep-english-in-normal
 " 使光标始终在中间
 set sidescrolloff=999
 set scrolloff=999
+set incsearch
+set ignorecase
 
 " Insert
 inoremap jk <Esc>
@@ -28,7 +30,10 @@ noremap <LEADER>ls :action Stop<cr>
 noremap <LEADER>ld :action Debug<cr>
 noremap <LEADER>lf :action ReformatCode<cr>
 nnoremap <LEADER><LEADER> :action GotoAction<cr> 
-noremap <C-P> :action RecentFiles<CR>
+nnoremap <C-P> :action RecentFiles<CR>
+
+nnoremap <Leader>; :action CommentByLineComment<CR>
+vnoremap <Leader>; :action CommentByLineComment<CR>
 
 nnoremap ]e :action GotoNextError<CR>
 nnoremap [e :action GotoPreviousError<CR>
