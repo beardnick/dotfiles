@@ -34,3 +34,5 @@ nnoremap r cw
 
 "filetype *.rar unrar %f
 fileviewer *.rar unrar lb %c | tree -d
+
+colorscheme gruvbox
