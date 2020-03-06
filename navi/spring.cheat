@@ -3,5 +3,5 @@
 # create a spring project
 spring init -d <dependency> <name>.zip
 
-$ dependency: command cat  $HOME/dotfiles/navi/dependency 
+$ dependency: command cat  $HOME/dotfiles/navi/dependency
 
