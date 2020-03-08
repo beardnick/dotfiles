@@ -21,29 +21,35 @@ zinit light-mode for \
 ### End of Zinit's installer chunk
 
 # Two regular plugins loaded without tracking.
-zinit load zsh-users/zsh-autosuggestions
-zinit load zdharma/fast-syntax-highlighting
-zinit load zdharma/history-search-multi-word
+zinit light zsh-users/zsh-autosuggestions
+#zinit load zdharma/history-search-multi-word
 
 # Load the pure theme, with zsh-async library that's bundled with it.
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
 
 zinit light skywind3000/z.lua
-
 zinit light xvoland/Extract
-
-zinit snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
-
+#zinit snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
 zinit light RobSis/zsh-completion-generator
-
-zinit light hlissner/zsh-autopair
-
+#zinit light hlissner/zsh-autopair
 zinit light chrissicool/zsh-256color
-
 zinit light Tarrasch/zsh-bd
+#zinit light zpm-zsh/ls
 
-zinit light zpm-zsh/ls
+plugins=(
+  git
+  #fbterm
+  python
+  sudo
+  navi
+  # brew
+  # geeknote
+  gitignore
+)
+
+# 需要ohmyzsh才能让fzf可以显示更多的历史命令
+zinit light ohmyzsh/ohmyzsh
 
 # Enable 256 color to make auto-suggestions look nice
 export TERM="xterm-256color"
@@ -75,6 +81,8 @@ ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=009
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=009
 ZSH_HIGHLIGHT_STYLES[assign]=none
 
+
+zinit light zdharma/fast-syntax-highlighting
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.npm-global/bin:$PATH
@@ -159,14 +167,10 @@ alias op='~/study/shell/tool/idea_operation.sh'
 alias search='~/study/shell/tool/search_tool.sh'
 # alias pick='~/study/shell/tool/pick.sh'
 alias pwdc='pwd | pbcopy'
-
 export TEN="123.207.19.172"
-export SICONG="39.108.154.79"
-
 
 # options
 unsetopt correct_all
-
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.
@@ -179,22 +183,12 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY # Don't execute immediately upon history expansion.
 
-# source function.sh if it exists
-[ -f "$HOME/.local/etc/function.sh" ] && . "$HOME/.local/etc/function.sh"
-
-
-# ignore complition
-zstyle ':completion:*:complete:-command-:*:*' ignored-patterns '*.pdf|*.exe|*.dll'
-zstyle ':completion:*:*sh:*:' tag-order files
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.rvm/rubies/ruby-2.3.7/lib/
 export LD_LIBRARY_PATH
 vim() { (unset GEM_PATH GEM_HOME; command vim "$@") }
 export CHEAT_EDITOR="nvim -u ~/.vimlite.vim -N"
-
-
 
 #-------------------------
 #|makes man page colorful|
@@ -214,8 +208,6 @@ export LESS_TERMCAP_ZV=""
 export LESS_TERMCAP_so=$'\E[1m\E[33m\E[44m'
 
 set -o vi
-# 启用fzf的一些key binding和小组件
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -223,11 +215,6 @@ export LANG=en_US.UTF-8
 # date to mark file
 datetag=$(date +"%Y-%m-%d")
 
-if [ "$TERM" = "linux" ]; then
-    fbterm byobu
-fi
-
-csk="程时坤2016317200302"
 #/home/qianz/study/course/embed/opt/FriendlyARM/toolschain/4.5.1/bin
 PATH=$PATH:.local/bin:/home/beardnick/study/shell/tool/:/home/qianz/study/course/embed/opt/FriendlyARM/toolschain/4.5.1/bin
 export PATH
@@ -366,3 +353,5 @@ retry() {
 
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
+# 启用fzf的一些key binding和小组件
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
