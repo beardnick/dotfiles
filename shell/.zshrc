@@ -21,6 +21,7 @@ zinit light-mode for \
 ### End of Zinit's installer chunk
 
 # Two regular plugins loaded without tracking.
+#zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 #zinit load zdharma/history-search-multi-word
 
@@ -31,7 +32,7 @@ zinit light sindresorhus/pure
 zinit light skywind3000/z.lua
 zinit light xvoland/Extract
 #zinit snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
-zinit light RobSis/zsh-completion-generator
+#zinit light RobSis/zsh-completion-generator
 #zinit light hlissner/zsh-autopair
 zinit light chrissicool/zsh-256color
 zinit light Tarrasch/zsh-bd
@@ -46,10 +47,14 @@ plugins=(
   # brew
   # geeknote
   gitignore
+  #vi-mode
 )
 
 # 需要ohmyzsh才能让fzf可以显示更多的历史命令
-zinit light ohmyzsh/ohmyzsh
+source ~/.oh-my-zsh/oh-my-zsh.sh
+# 使用手动装没有bug
+#zinit load ohmyzsh/ohmyzsh
+
 
 # Enable 256 color to make auto-suggestions look nice
 export TERM="xterm-256color"
@@ -207,7 +212,6 @@ export LESS_TERMCAP_se=$'\E[27m\E(B\E[m'
 export LESS_TERMCAP_ZV=""
 export LESS_TERMCAP_so=$'\E[1m\E[33m\E[44m'
 
-set -o vi
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -352,6 +356,7 @@ retry() {
 }
 
 export PATH="/usr/local/opt/ruby/bin:$PATH"
+set -o vi
 
 # 启用fzf的一些key binding和小组件
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
