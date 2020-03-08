@@ -42,6 +42,9 @@ nnoremap <C-E> :<C-U>20Lexplore<CR>
 
 set path+=**
 
+
+" 简单的补全
+
 let g:apc_enable_ft = get(g:, 'apc_enable_ft', {})    " enable filetypes
 let g:apc_enable_tab = get(g:, 'apc_enable_tab', 1)   " remap tab
 let g:apc_min_length = get(g:, 'apc_min_length', 2)   " minimal length to open popup

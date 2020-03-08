@@ -1,7 +1,3 @@
-# ZSH
-#export ZSH=$HOME/.oh-my-zsh
-#source $ZSH/oh-my-zsh.sh
-
 # Antigen: https://github.com/zsh-users/antigen
 # antigen zsh插件管理器
 ANTIGEN="$HOME/.local/bin/antigen.zsh"
@@ -58,8 +54,6 @@ source "$ANTIGEN"
 #
 
 
-
-
 # Initialize oh-my-zsh
 antigen use oh-my-zsh
 
@@ -86,6 +80,9 @@ antigen bundle zsh-users/zsh-completions
 # 文件预览神器，使用esc触发
 antigen bundle Vifon/deer
 
+# 生成gitignore模版: gi python > .gitignore
+antigen bundle gitignore
+
 # 一款快速跳转的插件 @todo： 不知道怎么用呀，没用就卸掉 
 antigen bundle willghatch/zsh-cdr
 # antigen bundle zsh-users/zaw
@@ -98,6 +95,12 @@ antigen bundle willghatch/zsh-cdr
 
 # 使用x启用，可以自动使用合适的命令解压文件
 antigen bundle extract
+
+# readline vi-mode
+#antigen bundle vi-mode
+
+# 自动显示不存在的命令可以怎样获取
+antigen bundle command-not-found
 
 antigen bundle RobSis/zsh-completion-generator
 
@@ -153,10 +156,11 @@ ZSH_HIGHLIGHT_STYLES[assign]=none
 # enable syntax highlighting
 antigen bundle zsh-users/zsh-syntax-highlighting
 
+# antigen theme ys
 
+# 指明antigen开始执行上面的操作
 antigen apply
 
-# zsh template #################################################################
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.npm-global/bin:$PATH
@@ -164,69 +168,7 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.npm-global/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https:// github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="ys"
 
-
-#autoload -U promptinit; promptinit
-#prompt pure
-
-# autoload -U promptinit; promptinit
-# prompt pure
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
   # autojump
@@ -235,44 +177,16 @@ plugins=(
   sudo
   pylint
   navi
+  # zsh-autosuggestions
   # brew
   # you-should-use $plugins
   # geeknote
 )
 
+source "$(navi widget zsh)"
+
 
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# zsh template ################################################################
 
 
 # setup for deer
@@ -281,29 +195,30 @@ source $ZSH/oh-my-zsh.sh
 
 # @todo: 怎么使用bindkey <24-10-19> #
 # default keymap
-bindkey -s '\ee' 'vim\n'
-bindkey '\eh' backward-char
-bindkey '\el' forward-char
-bindkey '\ej' down-line-or-history
-bindkey '\ek' up-line-or-history
+#bindkey -s '\ee' 'vim\n'
+#bindkey '\eh' backward-char
+#bindkey '\el' forward-char
+#bindkey '\ej' down-line-or-history
+#bindkey '\ek' up-line-or-history
 # bindkey '\eu' undo
-bindkey '\eH' backward-word
-bindkey '\eL' forward-word
-bindkey '\eJ' beginning-of-line
-bindkey '\eK' end-of-line
-
-bindkey -s '\eo' 'cd ..\n'
-bindkey -s '\e;' 'll\n'
-
-bindkey '\e[1;3D' backward-word
-bindkey '\e[1;3C' forward-word
-bindkey '\e[1;3A' beginning-of-line
-bindkey '\e[1;3B' end-of-line
+#bindkey '\eH' backward-word
+#bindkey '\eL' forward-word
+#bindkey '\eJ' beginning-of-line
+#bindkey '\eK' end-of-line
+#
+#bindkey -s '\eo' 'cd ..\n'
+#bindkey -s '\e;' 'll\n'
+#
+#bindkey '\e[1;3D' backward-word
+#bindkey '\e[1;3C' forward-word
+#bindkey '\e[1;3A' beginning-of-line
+#bindkey '\e[1;3B' end-of-line
 
 # bindkey '\e' deer
 #bindkey 'tab' autosuggest-accept
 
 
+alias typora='/Applications/Typora.app/Contents/MacOS/Typora'
 alias fopen='fzf | xargs open'
 alias redis-cli='redis-cli --raw'
 alias reload="source ~/.zshrc"
@@ -437,6 +352,7 @@ export LESS_TERMCAP_se=$'\E[27m\E(B\E[m'
 export LESS_TERMCAP_ZV=""
 export LESS_TERMCAP_so=$'\E[1m\E[33m\E[44m'
 
+set -o vi
 # 启用fzf的一些key binding和小组件
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -498,26 +414,12 @@ export CPPFLAGS="-I/usr/local/opt/node@10/include"
 
 source /usr/local/opt/autoenv/activate.sh
 
-PATH=/Users/mac/anaconda3/bin:$PATH
+PATH=/Users/mac/opt/anaconda3/bin:$PATH
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/mac/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/mac/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/mac/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/mac/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export GO111MODULE=on # manually active module mode
 export NAVI_PATH="/Users/mac/dotfiles/navi"
-export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --preview '(highlight -O ansi {} || bat {}) 2> /dev/null | head -500'"
+export FZF_DEFAULT_OPTS="-m --height 50% --layout=reverse --preview '(highlight -O ansi {} || bat {}) 2> /dev/null | head -500'"
 # export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview 'bat {}'"
 # export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(bat {}) 2> /dev/null | head -500'"
 
@@ -551,13 +453,58 @@ alias myvim="rm ~/.config/nvim;ln -s ~/my.nvim ~/.config/nvim"
 alias thinkvim="rm ~/.config/nvim;ln -s ~/ThinkVim ~/.config/nvim"
 alias debugvim="rm ~/.config/nvim;ln -s ~/debug.nvim ~/.config/nvim"
 alias gd='git icdiff'
+unalias ls
 
 
-unset http_proxy
-unset https_proxy
 FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 export VIFM="/Users/mac/.config/vifm"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="$PATH:$HOME/dotfiles/scripts"
+#export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/mac/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/mac/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/mac/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/mac/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+# export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;
+
+
+#!/bin/bash
+
+# Retries a command on failure.
+# $1 - the max number of attempts
+# $2... - the command to run
+
+retry() {
+    local -r -i max_attempts="$1"; shift
+    local -r cmd="$@"
+    local -i attempt_num=1
+    until $cmd
+    do
+        if ((attempt_num==max_attempts))
+        then
+            echo "Attempt $attempt_num failed and there are no more attempts left!"
+            return 1
+        else
+            echo "Attempt $attempt_num failed! Trying again in $attempt_num seconds..."
+            sleep $((attempt_num++))
+        fi
+    done
+}
+
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
