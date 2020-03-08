@@ -1,31 +1,31 @@
 # Antigen: https://github.com/zsh-users/antigen
 # antigen zsh插件管理器
-ANTIGEN="$HOME/.local/bin/antigen.zsh"
+#ANTIGEN="$HOME/.local/bin/antigen.zsh"
 
 # Install antigen.zsh if not exist
-if [ ! -f "$ANTIGEN" ]; then
-	echo "Installing antigen ..."
-	[ ! -d "$HOME/.local" ] && mkdir -p "$HOME/.local" 2> /dev/null
-	[ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin" 2> /dev/null
-	[ ! -f "$HOME/.z" ] && touch "$HOME/.z"
-	URL="http://git.io/antigen"
-	TMPFILE="/tmp/antigen.zsh"
-	if [ -x "$(which curl)" ]; then
-		curl -L "$URL" -o "$TMPFILE" 
-	elif [ -x "$(which wget)" ]; then
-		wget "$URL" -O "$TMPFILE" 
-	else
-		echo "ERROR: please install curl or wget before installation !!"
-		exit
-	fi
-	if [ ! $? -eq 0 ]; then
-		echo ""
-		echo "ERROR: downloading antigen.zsh ($URL) failed !!"
-		exit
-	fi;
-	echo "move $TMPFILE to $ANTIGEN"
-	mv "$TMPFILE" "$ANTIGEN"
-fi
+#if [ ! -f "$ANTIGEN" ]; then
+#    echo "Installing antigen ..."
+#    [ ! -d "$HOME/.local" ] && mkdir -p "$HOME/.local" 2> /dev/null
+#    [ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin" 2> /dev/null
+#    [ ! -f "$HOME/.z" ] && touch "$HOME/.z"
+#    URL="http://git.io/antigen"
+#    TMPFILE="/tmp/antigen.zsh"
+#    if [ -x "$(which curl)" ]; then
+#        curl -L "$URL" -o "$TMPFILE" 
+#    elif [ -x "$(which wget)" ]; then
+#        wget "$URL" -O "$TMPFILE" 
+#    else
+#        echo "ERROR: please install curl or wget before installation !!"
+#        exit
+#    fi
+#    if [ ! $? -eq 0 ]; then
+#        echo ""
+#        echo "ERROR: downloading antigen.zsh ($URL) failed !!"
+#        exit
+#    fi;
+#    echo "move $TMPFILE to $ANTIGEN"
+#    mv "$TMPFILE" "$ANTIGEN"
+#fi
 
 
 # Initialize command prompt
@@ -36,18 +36,18 @@ export TERM="xterm-256color"
 
 
 # Load local bash/zsh compatible settings
-_INIT_SH_NOFUN=1
-[ -f "$HOME/.local/etc/init.sh" ] && source "$HOME/.local/etc/init.sh"
+#_INIT_SH_NOFUN=1
+#[ -f "$HOME/.local/etc/init.sh" ] && source "$HOME/.local/etc/init.sh"
 
 # exit for non-interactive shell
-[[ $- != *i* ]] && return
+#[[ $- != *i* ]] && return
 
 # WSL (aka Bash for Windows) doesn't work well with BG_NICE
-[ -d "/mnt/c" ] && [[ "$(uname -a)" == *Microsoft* ]] && unsetopt BG_NICE
+#[ -d "/mnt/c" ] && [[ "$(uname -a)" == *Microsoft* ]] && unsetopt BG_NICE
 
 
 # Initialize antigen
-source "$ANTIGEN"
+#source "$ANTIGEN"
 
 # themes
 # antigen theme denysdovhan/spaceship-prompt
@@ -55,36 +55,36 @@ source "$ANTIGEN"
 
 
 # Initialize oh-my-zsh
-antigen use oh-my-zsh
+#antigen use oh-my-zsh
 
 # default bundles
 # visit https://github.com/unixorn/awesome-zsh-plugins
-# antigen bundle git
+ #antigen bundle git
 # antigen bundle heroku
-antigen bundle svn-fast-info
+# antigen bundle svn-fast-info
 # antigen bundle command-not-find
 
-antigen bundle colorize
+#antigen bundle colorize
 # github插件，需要安装hub
-antigen bundle github
+# antigen bundle github
 # python的一下小alias，这个插件也太简单了点吧
 # antigen bundle python
-antigen bundle rupa/z z.sh
+#antigen bundle rupa/z z.sh
 # antigen bundle z
 
 # 自动提示，非常好用
-antigen bundle zsh-users/zsh-autosuggestions
+#antigen bundle zsh-users/zsh-autosuggestions
 # 自动补全，有各个不同命令的补全
-antigen bundle zsh-users/zsh-completions
+#antigen bundle zsh-users/zsh-completions
 # antigen bundle supercrabtree/k
 # 文件预览神器，使用esc触发
-antigen bundle Vifon/deer
+# antigen bundle Vifon/deer
 
 # 生成gitignore模版: gi python > .gitignore
-antigen bundle gitignore
+#antigen bundle gitignore
 
 # 一款快速跳转的插件 @todo： 不知道怎么用呀，没用就卸掉 
-antigen bundle willghatch/zsh-cdr
+# antigen bundle willghatch/zsh-cdr
 # antigen bundle zsh-users/zaw
 
 # uncomment the line below to enable theme
@@ -94,29 +94,27 @@ antigen bundle willghatch/zsh-cdr
 # antigen bundle sobolevn/wakatime-zsh-plugin
 
 # 使用x启用，可以自动使用合适的命令解压文件
-antigen bundle extract
+#antigen bundle extract
 
-# readline vi-mode
-#antigen bundle vi-mode
 
 # 自动显示不存在的命令可以怎样获取
-antigen bundle command-not-found
+#antigen bundle command-not-found
 
-antigen bundle RobSis/zsh-completion-generator
+#antigen bundle RobSis/zsh-completion-generator
 
-antigen bundle hlissner/zsh-autopair
+#antigen bundle hlissner/zsh-autopair
 
-antigen bundle chrissicool/zsh-256color
+#antigen bundle chrissicool/zsh-256color
 
-antigen bundle Tarrasch/zsh-bd
+#antigen bundle Tarrasch/zsh-bd
 
-antigen bundle zpm-zsh/ls
+# antigen bundle zpm-zsh/ls
 
 # check login shell
-if [[ -o login ]]; then
-	[ -f "$HOME/.local/etc/login.sh" ] && source "$HOME/.local/etc/login.sh"
-	[ -f "$HOME/.local/etc/login.zsh" ] && source "$HOME/.local/etc/login.zsh"
-fi
+#if [[ -o login ]]; then
+#    [ -f "$HOME/.local/etc/login.sh" ] && source "$HOME/.local/etc/login.sh"
+#    [ -f "$HOME/.local/etc/login.zsh" ] && source "$HOME/.local/etc/login.zsh"
+#fi
 
 # syntax color definition
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
@@ -149,17 +147,18 @@ ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=009
 ZSH_HIGHLIGHT_STYLES[assign]=none
 
 # load local config
-[ -f "$HOME/.local/etc/config.zsh" ] && source "$HOME/.local/etc/config.zsh" 
-[ -f "$HOME/.local/etc/local.zsh" ] && source "$HOME/.local/etc/local.zsh"
+#[ -f "$HOME/.local/etc/config.zsh" ] && source "$HOME/.local/etc/config.zsh" 
+#[ -f "$HOME/.local/etc/local.zsh" ] && source "$HOME/.local/etc/local.zsh"
 
 
-# enable syntax highlighting
-antigen bundle zsh-users/zsh-syntax-highlighting
+# 命令高亮
+#antigen bundle zsh-users/zsh-syntax-highlighting
 
 # antigen theme ys
 
 # 指明antigen开始执行上面的操作
-antigen apply
+#antigen apply
+
 
 
 # If you come from bash you might have to change your $PATH.
@@ -186,7 +185,8 @@ plugins=(
 source "$(navi widget zsh)"
 
 
-source $ZSH/oh-my-zsh.sh
+
+#source $ZSH/oh-my-zsh.sh
 
 
 # setup for deer
@@ -263,7 +263,7 @@ alias sync="sync & mt -i \">\" "
 alias aly="ssh java@47.75.143.54"
 alias feidian="ssh java@218.199.68.208"
 alias bt="aria2c --enable-rpc --rpc-listen-all; node ~/study/git/webui-aria2/node-server.js"
-alias nvim="cd .;nvim"
+#alias nvim="cd .;nvim"
 #eval $(thefuck --alias)
 #alias rexxnet="sudo killall miredo && sudo miredo"
 #alias spring='mt -g "spring|jvm|js|java|mybatis|vue|nginx"'
@@ -371,7 +371,6 @@ csk="程时坤2016317200302"
 PATH=$PATH:.local/bin:/home/beardnick/study/shell/tool/:/home/qianz/study/course/embed/opt/FriendlyARM/toolschain/4.5.1/bin
 export PATH
 
-alias clion='/home/beardnick/Downloads/Compressed/clion-2018.2.4/bin/clion.sh'
 #alias image='sudo docker run -ti ubuntu bash'
 
 alias tgo="tmux attach -t \$(tmux ls | awk -F \":\" '{print \$1}' | fzf)"
@@ -412,7 +411,7 @@ export LDFLAGS="-L/usr/local/opt/node@10/lib"
 export CPPFLAGS="-I/usr/local/opt/node@10/include"
 
 
-source /usr/local/opt/autoenv/activate.sh
+# source /usr/local/opt/autoenv/activate.sh
 
 PATH=/Users/mac/opt/anaconda3/bin:$PATH
 
@@ -453,7 +452,6 @@ alias myvim="rm ~/.config/nvim;ln -s ~/my.nvim ~/.config/nvim"
 alias thinkvim="rm ~/.config/nvim;ln -s ~/ThinkVim ~/.config/nvim"
 alias debugvim="rm ~/.config/nvim;ln -s ~/debug.nvim ~/.config/nvim"
 alias gd='git icdiff'
-unalias ls
 
 
 FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
@@ -477,6 +475,8 @@ else
     fi
 fi
 unset __conda_setup
+
+
 # <<< conda initialize <<<
 
 
@@ -508,3 +508,28 @@ retry() {
 
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-bin-gem-node
+
+### End of Zinit's installer chunk
+
+# Two regular plugins loaded without tracking.
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma/fast-syntax-highlighting
