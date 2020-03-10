@@ -38,6 +38,12 @@ zinit light chrissicool/zsh-256color
 zinit light Tarrasch/zsh-bd
 #zinit light zpm-zsh/ls
 
+ZSH=$HOME/.oh-my-zsh
+
+if [[ ! -d $ZSH ]]; then
+    git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH
+fi
+
 plugins=(
   git
   #fbterm
@@ -51,10 +57,11 @@ plugins=(
 )
 
 # 需要ohmyzsh才能让fzf可以显示更多的历史命令
-source ~/.oh-my-zsh/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 # 使用手动装没有bug
 #zinit load ohmyzsh/ohmyzsh
 
+zinit light zdharma/fast-syntax-highlighting
 
 # Enable 256 color to make auto-suggestions look nice
 export TERM="xterm-256color"
@@ -86,8 +93,6 @@ ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=009
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=009
 ZSH_HIGHLIGHT_STYLES[assign]=none
 
-
-zinit light zdharma/fast-syntax-highlighting
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.npm-global/bin:$PATH
@@ -356,7 +361,7 @@ retry() {
 }
 
 export PATH="/usr/local/opt/ruby/bin:$PATH"
-set -o vi
+#set -o vi
 
 # 启用fzf的一些key binding和小组件
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

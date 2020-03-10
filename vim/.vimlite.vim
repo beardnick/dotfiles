@@ -1,4 +1,8 @@
-let mapleader = ","
+" 不加载.config/nvim中的内容
+set rtp-=~/.config/nvim
+set rtp-=~/.config/nvim/after
+
+let mapleader = " "
 
 set statusline=%F\ >\ %y
 set number
@@ -10,10 +14,10 @@ set scrolloff=999
 
 
 " 更快地复制粘帖到系统粘贴板上
-noremap <leader>y "+y
-noremap <leader>p "+p
+noremap <leader>yy "+y
+noremap <leader>pp "+p
 
-noremap <SPACE>w <C-W>
+noremap <Leader>w <C-W>
 
 inoremap jk <ESC>
 inoremap jj <ESC>
@@ -37,14 +41,73 @@ set shiftwidth=4
 set expandtab
 set autoindent
 
-" 简单的文件浏览器使用
-nnoremap <C-E> :<C-U>20Lexplore<CR>
 
-set path+=**
+" 简单的文件浏览器使用
+nnoremap <Leader>ft :<C-U>20Lexplore<CR>
+
+let g:netrw_liststyle= 3
+" remap netrw
+augroup netrw_mapping
+    autocmd!
+    autocmd filetype netrw call NetrwMapping()
+augroup END
+
+function! NetrwMapping()
+    nmap <buffer> h <Plug>NetrwBrowseUpDir
+    nmap <buffer> l <Plug>NetrwLocalBrowseCheck
+endfunction
+
+
+nnoremap <silent><C-L> :<C-U>nohlsearch<CR>
+inoremap jk <ESC>
+inoremap jj <ESC>
+inoremap kk <ESC>
+vnoremap < <gv
+vnoremap > >gv
+
+" 复制粘贴
+nnoremap <Leader>yy viw"+y
+nnoremap <Leader>ya viw"ay
+nnoremap <Leader>yb viw"by
+nnoremap <Leader>yc viw"cy
+
+vnoremap <Leader>yy "+y
+vnoremap <Leader>ya "ay
+vnoremap <Leader>yb "by
+vnoremap <Leader>yc "cy
+
+nnoremap <Leader>pp viw"+p
+nnoremap <Leader>pa viw"ap
+nnoremap <Leader>pb viw"bp
+nnoremap <Leader>pc viw"cp
+
+vnoremap <Leader>pp "+p
+vnoremap <Leader>pa "ap
+vnoremap <Leader>pb "bp
+vnoremap <Leader>pc "cp
+
+vnoremap <Leader>rr "+p
+vnoremap <Leader>ra "ap
+vnoremap <Leader>rb "bp
+vnoremap <Leader>rc "cp
+
+nnoremap <Leader>rr viw"+p
+nnoremap <Leader>ra viw"ap
+nnoremap <Leader>rb viw"bp
+nnoremap <Leader>rc viw"cp
+
+nnoremap <M-.> :<C-U>5wincmd ><CR>
+nnoremap <M-,> :<C-U>5wincmd <<CR>
+nnoremap <M-=> :<C-U>5wincmd +<CR>
+nnoremap <M--> :<C-U>5wincmd -<CR>
+
+nmap <LEADER>bn :<C-U>bnext<CR>
+nmap <LEADER>bp :<C-U>bprevious<CR>
+nmap <LEADER>bd :<C-U>bdelete<CR>
+nmap <LEADER>bl :<C-U>blast<CR>
 
 
 " 简单的补全
-
 let g:apc_enable_ft = get(g:, 'apc_enable_ft', {})    " enable filetypes
 let g:apc_enable_tab = get(g:, 'apc_enable_tab', 1)   " remap tab
 let g:apc_min_length = get(g:, 'apc_min_length', 2)   " minimal length to open popup
