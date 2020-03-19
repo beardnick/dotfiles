@@ -260,3 +260,4 @@ augroup END
 
 let g:apc_enable_ft = {'*':1}
 set completeopt=menu,menuone,noselect
+set cpt=.,k,w,b

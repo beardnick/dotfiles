@@ -46,10 +46,12 @@ fi
 
 plugins=(
   git
+  gitfast
   #fbterm
   python
   sudo
   navi
+  extract
   # brew
   # geeknote
   gitignore
@@ -360,7 +362,7 @@ retry() {
     done
 }
 
-export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$HOME/.local/bin:$PATH"
 #set -o vi
 
 # 启用fzf的一些key binding和小组件

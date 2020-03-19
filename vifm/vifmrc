@@ -28,9 +28,13 @@ fileviewer *.[ch],*.[ch]pp,*.html,*.md,*.go,*.sh,*.vim,*.java,*.py,*.sql,*.xml,*
 fileviewer Makefile,Makefile.*,Dockerfile
             \ highlight -O xterm256 -s dante %c
 
+"fileviewer *.jpg, *.png, *.bmp, *.gif
+"            \ imgcat %c
 
 " 重命名
 nnoremap r cw
+
+nnoremap . :<C-U>set dotfiles!<CR>
 
 "filetype *.rar unrar %f
 fileviewer *.rar unrar lb %c | tree -d
