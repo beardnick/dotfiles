@@ -178,6 +178,7 @@ alias edex='~/download/eDEX-UI.Linux.x86_64.AppImage'
 alias op='~/study/shell/tool/idea_operation.sh'
 alias search='~/study/shell/tool/search_tool.sh'
 # alias pick='~/study/shell/tool/pick.sh'
+alias tree='tree -N'
 alias pwdc='pwd | pbcopy'
 export TEN="123.207.19.172"
 

@@ -28,8 +28,11 @@ fileviewer *.[ch],*.[ch]pp,*.html,*.md,*.go,*.sh,*.vim,*.java,*.py,*.sql,*.xml,*
 fileviewer Makefile,Makefile.*,Dockerfile
             \ highlight -O xterm256 -s dante %c
 
-"fileviewer *.jpg, *.png, *.bmp, *.gif
-"            \ imgcat %c
+"fileviewer *.jpg, *.png, *.bmp
+"            \ imgcat %c > /dev/tty
+
+    fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+\ tput cup %py %px > /dev/tty && imgcat --width %pw --height %ph %c:p > /dev/tty
 
 " 重命名
 nnoremap r cw

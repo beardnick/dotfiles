@@ -23,21 +23,20 @@ hspoon_list = {
 hsapp_list = {
     {key = 'a', name = 'Atom'},
     {key = 'g', id = 'com.google.Chrome'},
-    {key = 'd', name = 'TickTick'},
-    --{key = 'e', name = 'Telegram'},
+    {key = 'd', name = 'Dash'},
+    {key = 'c', name = 'TickTick'},
     {key = 'f', name = 'Finder'},
     {key = 't', name = 'iTerm'},
     {key = 'k', name = 'KeyCastr'},
     {key = 'l', name = 'Telegram'},
     {key = 'o', name = 'QQMusic'},
-    {key = 'r', name = 'VimR'},
     {key = 's', name = 'Safari'},
     {key = 'm', id = 'com.apple.ActivityMonitor'},
     {key = 'w', name = 'WeChat'},
     {key = 'p', id = 'com.apple.systempreferences'},
     {key = 'q', name = 'QQ'},
     {key = 'n', name = '印象笔记'},
-    {key = 'i', name = 'IntelliJ IDEA 2020.1 EAP'},
+    --{key = 'i', name = 'IntelliJ IDEA 2020.1 EAP'},
 }
 
 -- Modal supervisor keybinding, which can be used to temporarily disable ALL modal environments.
