@@ -20,6 +20,8 @@ source /Users/mac/dotfiles/vifm/devicons.vifm
 command! cp cp -r %f %D
 command! mv mv %f %D
 
+" copy to system clipboard
+command! push copy.sh %f
 
 " :fileviewer pattern1,pattern2 consoleviewer
 fileviewer *.[ch],*.[ch]pp,*.html,*.md,*.go,*.sh,*.vim,*.java,*.py,*.sql,*.xml,*.json,*.js

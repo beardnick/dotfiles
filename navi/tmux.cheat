@@ -1,0 +1,10 @@
+% tmux
+
+# attach to tmux
+tmux attach -t <session>
+
+
+# new tmux session
+tmux new -s <name>
+
+$ session: tmux ls | cut -d: -f1

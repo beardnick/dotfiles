@@ -32,11 +32,14 @@ zinit light sindresorhus/pure
 zinit light skywind3000/z.lua
 zinit light xvoland/Extract
 #zinit snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
+
 #zinit light RobSis/zsh-completion-generator
 #zinit light hlissner/zsh-autopair
 zinit light chrissicool/zsh-256color
 zinit light Tarrasch/zsh-bd
 #zinit light zpm-zsh/ls
+
+zinit light Aloxaf/fzf-tab
 
 ZSH=$HOME/.oh-my-zsh
 
@@ -50,13 +53,13 @@ plugins=(
   #fbterm
   python
   sudo
-  navi
-  extract
+  #extact
   # brew
   # geeknote
   gitignore
   #vi-mode
 )
+
 
 # 需要ohmyzsh才能让fzf可以显示更多的历史命令
 source $ZSH/oh-my-zsh.sh
@@ -99,6 +102,7 @@ ZSH_HIGHLIGHT_STYLES[assign]=none
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.npm-global/bin:$PATH
 
+alias copy='~/study/shell/useful-scripts/copy.sh'
 alias typora='/Applications/Typora.app/Contents/MacOS/Typora'
 alias fopen='fzf | xargs open'
 alias redis-cli='redis-cli --raw'
@@ -233,7 +237,7 @@ export PATH
 
 #alias image='sudo docker run -ti ubuntu bash'
 
-alias tgo="tmux attach -t \$(tmux ls | awk -F \":\" '{print \$1}' | fzf)"
+#alias tgo="tmux attach -t \$(tmux ls | awk -F \":\" '{print \$1}' | fzf)"
 # alias tl='tmux ls'
 alias findall='grep -rnP'
 alias summary='~/study/shell/useful-script/summary_tool.sh'
@@ -275,7 +279,7 @@ PATH=/Users/mac/opt/anaconda3/bin:$PATH
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export GO111MODULE=on # manually active module mode
 export NAVI_PATH="/Users/mac/dotfiles/navi"
-export FZF_DEFAULT_OPTS="-m --height 50% --layout=reverse --preview '(highlight -O ansi {} || bat {}) 2> /dev/null | head -500'"
+export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --preview '(highlight -O ansi {} || bat {}) 2> /dev/null | head -500'"
 # export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview 'bat {}'"
 # export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(bat {}) 2> /dev/null | head -500'"
 
@@ -368,3 +372,16 @@ export PATH="/usr/local/opt/ruby/bin:$HOME/.local/bin:$PATH"
 
 # 启用fzf的一些key binding和小组件
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+_call_navi() {
+   local -r buff="$BUFFER"
+   local -r r="$(printf "$(navi --print </dev/tty)")"
+   zle kill-whole-line
+   zle -U "${buff}${r}"
+}
+
+zle -N _call_navi
+
+bindkey '^g' _call_navi
+
+

@@ -5,3 +5,8 @@ ncdu
 
 # find file of type
 fd . -e <filetype>
+
+# echo file
+echo <files>
+
+$ files: ls  --- --multi true
