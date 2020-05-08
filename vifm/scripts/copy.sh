@@ -9,6 +9,4 @@ fi
 # get file absolute path
 file=$(realpath  "$1")
 
-#echo $file
-
 osascript -e "tell app \"Finder\" to set the clipboard to ( POSIX file \"$file\" )"

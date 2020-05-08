@@ -7,6 +7,7 @@ ncdu
 fd . -e <filetype>
 
 # echo file
-echo <files>
+files="<files>"
+echo $files
 
-$ files: ls  --- --multi true
+$ files: ls  --- --multi

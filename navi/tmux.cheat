@@ -1,8 +1,7 @@
 % tmux
 
-# attach to tmux
+# attach to tmux session
 tmux attach -t <session>
-
 
 # new tmux session
 tmux new -s <name>
