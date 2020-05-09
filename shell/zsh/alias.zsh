@@ -36,6 +36,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+alias x='extract'
 
 
 alias copy='~/study/shell/useful-scripts/copy.sh'

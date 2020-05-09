@@ -7,7 +7,7 @@ ncdu
 fd . -e <filetype>
 
 # echo file
-files="<files>"
-echo $files
+files=($(echo "<files>"))
+echo "${files[@]}"
 
-$ files: ls  --- --multi
+$ files: ls  --- --multi 

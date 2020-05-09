@@ -21,6 +21,7 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
+
 # history
 
 [ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
@@ -32,12 +33,19 @@ SAVEHIST=10000
 
 #zinit light Aloxaf/fzf-tab
 
+# key binding
+
+bindkey -e
+
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 # Two regular plugins loaded without tracking.
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-#zinit load zdharma/history-search-multi-word
-
-
+# Enable 256 color to make auto-suggestions look nice
+export TERM="xterm-256color"
 
 # Load the pure theme, with zsh-async library that's bundled with it.
 zinit ice pick"async.zsh" src"pure.zsh"
@@ -45,18 +53,18 @@ zinit light sindresorhus/pure
 
 zinit light skywind3000/z.lua
 zinit light xvoland/Extract
-#zinit snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
 
-zinit light RobSis/zsh-completion-generator
-#zinit light hlissner/zsh-autopair
+#zinit light RobSis/zsh-completion-generator
+zinit light hlissner/zsh-autopair
 zinit light chrissicool/zsh-256color
 zinit light Tarrasch/zsh-bd
 #zinit light zpm-zsh/ls
 
 zinit light zdharma/fast-syntax-highlighting
 
-# Enable 256 color to make auto-suggestions look nice
-export TERM="xterm-256color"
+# git
+zinit snippet OMZP::git
+
 
 CONFIG="$HOME/.config/zsh"
 
@@ -126,26 +134,6 @@ FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 
 export VIFM="/Users/mac/.config/vifm"
 
-# conda
-
-add_path "$HOME/opt/anaconda3/bin"
-
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/mac/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/mac/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/mac/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/mac/opt/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-
-# <<< conda initialize <<<
-
 # navi
 
 export NAVI_PATH="$HOME/dotfiles/navi"
@@ -160,3 +148,19 @@ _call_navi() {
 zle -N _call_navi
 
 bindkey '^g' _call_navi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/mac/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/mac/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/mac/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/mac/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
