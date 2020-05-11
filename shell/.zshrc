@@ -1,3 +1,7 @@
+
+zmodload zsh/zprof
+
+
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
@@ -28,18 +32,22 @@ zinit light-mode for \
 HISTSIZE=50000
 SAVEHIST=10000
 
+
+# key binding
+
+## use emacs mode
+bindkey -e
+
+## use $EDITOR to edit command
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 # 启用fzf的一些key binding和小组件
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #zinit light Aloxaf/fzf-tab
 
-# key binding
-
-bindkey -e
-
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
 
 # Two regular plugins loaded without tracking.
 zinit light zsh-users/zsh-completions
@@ -93,7 +101,6 @@ add_path "/$HOME/.rvm/bin"
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.rvm/rubies/ruby-2.3.7/lib/
 export LD_LIBRARY_PATH
 vim() { (unset GEM_PATH GEM_HOME; command vim "$@") }
-
 
 # cheat
 
