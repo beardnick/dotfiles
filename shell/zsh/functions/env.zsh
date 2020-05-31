@@ -1,5 +1,12 @@
 add_path(){
-    [[ $PATH != *$1* ]] && export PATH="$1:$PATH"
+    paths=("$1" ${(s.:.)PATH})
+    for i ({2..$#paths}){
+        if [[ $paths[i] == "$1" ]]; then
+            paths[i]=()
+            continue
+        fi
+    }
+    export PATH=${(j.:.)paths}
 }
 
 load_all(){
@@ -12,5 +19,5 @@ load_all(){
 
 activate(){
     conda activate "$1"
-    add_path "$HOME/opt/anaconda3/envs/$1/bin/"
+    add_path "$HOME/opt/anaconda3/envs/$1/bin"
 }

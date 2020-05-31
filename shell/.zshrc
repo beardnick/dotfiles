@@ -43,6 +43,9 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
+# 在输入的指令是路径时自动进入
+setopt autocd
+
 # 启用fzf的一些key binding和小组件
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -171,3 +174,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+export BAT_CONFIG_PATH="$HOME/.config/.batrc"
