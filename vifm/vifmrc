@@ -13,17 +13,21 @@
 "source $VIFM/origin.vifm
 "source $VIFM/devicons.vifm
 
-source /Users/mac/dotfiles/vifm/origin.vifm
-source /Users/mac/dotfiles/vifm/devicons.vifm
+source $HOME/.config/vifm/origin.vifm
+source $HOME/.config/vifm/devicons.vifm
 
 " my config
 command! cp cp -r %f %D
 command! mv mv %f %D
 
 " copy to system clipboard
-command! push copy.sh %f
+"command! push copy.sh %f
 
 " :fileviewer pattern1,pattern2 consoleviewer
+"fileviewer *.[ch],*.[ch]pp,*.html,*.md,*.go,*.sh,*.vim,*.java,*.py,*.sql,*.xml,*.json,*.js
+            "\ highlight -O xterm256 -s dante %c
+
+
 fileviewer *.[ch],*.[ch]pp,*.html,*.md,*.go,*.sh,*.vim,*.java,*.py,*.sql,*.xml,*.json,*.js
             \ highlight -O xterm256 -s dante %c
 

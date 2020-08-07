@@ -32,7 +32,7 @@ hsapp_list = {
     {key = 'o', name = 'QQMusic'},
     {key = 's', name = 'Safari'},
     {key = 'm', id = 'com.apple.ActivityMonitor'},
-    {key = 'w', name = 'WeChat'},
+    {key = 'w', name = '企业微信'},
     {key = 'p', id = 'com.apple.systempreferences'},
     {key = 'q', name = 'QQ'},
     {key = 'n', name = '印象笔记'},

@@ -118,10 +118,9 @@ export EDITOR="nvim -u ~/.vimlite.vim -N"
 
 # golang
 
-export GOPATH=/Users/mac/go
+export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 add_path "$GOBIN"
-export GOPROXY=https://mirrors.aliyun.com/goproxy/
 
 # brew
 
@@ -137,12 +136,12 @@ export CPPFLAGS="-I/usr/local/opt/node@10/include"
 
 
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-export GO111MODULE=off # manually active module mode
+export GO111MODULE=on # manually active module mode
 export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --preview '(highlight -O ansi {} || bat {}) 2> /dev/null | head -500'"
 
 FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 
-export VIFM="/Users/mac/.config/vifm"
+#export VIFM="$HOME/.config/vifm"
 
 # navi
 
@@ -159,19 +158,6 @@ zle -N _call_navi
 
 bindkey '^g' _call_navi
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/mac/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/mac/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/mac/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/mac/opt/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 export BAT_CONFIG_PATH="$HOME/.config/.batrc"
+
+export PATH=${PATH}:/usr/local/mysql/bin
