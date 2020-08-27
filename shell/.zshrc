@@ -73,6 +73,7 @@ zinit light Tarrasch/zsh-bd
 
 zinit light zdharma/fast-syntax-highlighting
 
+
 # git
 zinit snippet OMZP::git
 
@@ -139,7 +140,8 @@ export CPPFLAGS="-I/usr/local/opt/node@10/include"
 export GO111MODULE=on # manually active module mode
 export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --preview '(highlight -O ansi {} || bat {}) 2> /dev/null | head -500'"
 
-FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+# FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude vendor'
 
 #export VIFM="$HOME/.config/vifm"
 
