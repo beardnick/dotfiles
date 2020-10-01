@@ -107,4 +107,5 @@ alias thinkvim="rm ~/.config/nvim;ln -s ~/ThinkVim ~/.config/nvim"
 alias debugvim="rm ~/.config/nvim;ln -s ~/debug.nvim ~/.config/nvim"
 alias gd='git icdiff'
 alias cloud='ssh root@9.135.89.49 -p 36000'
+#alias cloud='ssh root@9.135.20.242 -p 36000'
 

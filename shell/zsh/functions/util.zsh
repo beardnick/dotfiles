@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+
 sed(){
     if [[ "$(uname)" == "Darwin" ]]; then
         if [[ -x "$(which gsed)" ]]; then
@@ -142,3 +143,28 @@ close access myFile
 "
 }
 
+
+kset(){
+    key="$1"
+    value="$2"
+    if [[ ! -d /tmp/key ]]; then
+        mkdir /tmp/key
+    fi
+    echo "$value" > "/tmp/key/$key"
+}
+
+kget(){
+    key="$1"
+    if [[ -f "/tmp/key/$key" ]];then
+        command cat "/tmp/key/$key"
+    else
+        echo "no such key"
+    fi
+}
+
+kdel(){
+    key="$1"
+    if [[ -f "/tmp/key/$key" ]];then
+        command rm "/tmp/key/$key"
+    fi
+}
