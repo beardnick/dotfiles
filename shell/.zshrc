@@ -121,7 +121,8 @@ export EDITOR="nvim -u ~/.vimlite.vim -N"
 export GOPATH=/Users/mac/go
 export GOBIN=$GOPATH/bin
 add_path "$GOBIN"
-export GOPROXY=https://mirrors.aliyun.com/goproxy/
+# export GOPROXY=https://mirrors.aliyun.com/goproxy/
+export GO111MODULE=auto
 
 # brew
 
@@ -137,7 +138,6 @@ export CPPFLAGS="-I/usr/local/opt/node@10/include"
 
 
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-export GO111MODULE=off # manually active module mode
 export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --preview '(highlight -O ansi {} || bat {}) 2> /dev/null | head -500'"
 
 FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
