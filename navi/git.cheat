@@ -62,3 +62,18 @@ $ branch: git branch | awk '{print $NF}'
 
 # list git config
 git config --list
+
+
+# use stash
+git stash apply <stash>
+
+# delete one stash
+git stash drop <stash>
+
+# delete  all stash
+git stash clear
+
+# pull all remote branch
+git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done 
+
+$ stash: git stash list  | awk -F: '{print $1}' --- --preview-window "80%" --preview 'git  stash show --color=always {1} -p'

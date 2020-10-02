@@ -14,6 +14,7 @@ mac=(
     "/usr/local/opt/mysql@5.7/bin"
     "/usr/local/opt/ruby/bin"
     "/usr/local/opt/node@10/bin"
+    "$HOME/.local/bin"
     ) 
 
 linux=() 

@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+
 sed(){
     if [[ "$(uname)" == "Darwin" ]]; then
         if [[ -x "$(which gsed)" ]]; then
@@ -86,3 +87,84 @@ group_lazy_load() {
     done
 }
 
+# copy filepath
+# 在终端中将文件拷贝到系统粘贴板
+# 然后可以直接command+v粘贴到微信
+# realpath指令通过brew install coreutils安装
+copy(){
+    if [[ -z "$1" ]]; then
+        echo "usage: copy filename"
+        return 1
+    fi
+
+    # get file absolute path
+    file=$(realpath  "$1")
+
+    osascript -e "tell app \"Finder\" to set the clipboard to ( POSIX file \"$file\" )"
+}
+
+# paste 复制到当前目录
+# paste filename 复制到指定文件
+# paste screenshot.png 截图粘贴为文件screenshot.png
+# 文本直接pbaste
+# 截图生成文件 配合vim写markdown可以快速插入截图
+# copy命令复制的文件可以直接通过paste粘贴
+# command+c的文件被解释为text无法通过paste复制出来
+paste(){
+    if [[ ! -z "$1" ]]; then
+        save_path="$1"
+    else
+        save_path="."
+    fi
+    type="$(osascript -e 'class of (the clipboard)')"
+
+    # 文本类型
+    if [[ "$type" == "text" ]];then
+        [[ "$save_path" !=  "." ]] && pbpaste >> "$save_path"
+        pbpaste
+        return 0
+    fi
+
+    # 文件类型
+    if [[ "$type" == "«class furl»" ]];then
+        copy_path="$(osascript -e 'POSIX path of (the clipboard)')"
+        [[ -f "$copy_path" ]] && cp "$copy_path" "$save_path"
+        [[ -d "$copy_path" ]] && cp -r "$copy_path" "$save_path"
+        return 0
+    fi
+    
+    # 截图类型
+    [[ "$save_path" == "." ]] && save_path="paste-$(date +%s).png"
+    touch "$save_path"
+    osascript -e "
+set myFile to (open for access \"${save_path}\" with write permission)
+write (the clipboard as «class PNGf») to  myFile
+close access myFile
+"
+}
+
+
+kset(){
+    key="$1"
+    value="$2"
+    if [[ ! -d /tmp/key ]]; then
+        mkdir /tmp/key
+    fi
+    echo "$value" > "/tmp/key/$key"
+}
+
+kget(){
+    key="$1"
+    if [[ -f "/tmp/key/$key" ]];then
+        command cat "/tmp/key/$key"
+    else
+        echo "no such key"
+    fi
+}
+
+kdel(){
+    key="$1"
+    if [[ -f "/tmp/key/$key" ]];then
+        command rm "/tmp/key/$key"
+    fi
+}

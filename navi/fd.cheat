@@ -10,4 +10,4 @@ fd . -e <filetype>
 files=($(echo "<files>"))
 echo "${files[@]}"
 
-$ files: ls  --- --multi 
+$ files: ls  --- --multi
