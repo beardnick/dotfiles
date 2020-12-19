@@ -167,3 +167,5 @@ export PATH=${PATH}:/usr/local/mysql/bin
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+add_path "$HOME/application"
