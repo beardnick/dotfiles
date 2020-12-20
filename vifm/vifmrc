@@ -23,6 +23,11 @@ command! mv mv %f %D
 " copy to system clipboard
 "command! push copy.sh %f
 
+" tag
+command! tag :bmark! %c %a
+command! tags :bmarks %a
+
+
 " :fileviewer pattern1,pattern2 consoleviewer
 "fileviewer *.[ch],*.[ch]pp,*.html,*.md,*.go,*.sh,*.vim,*.java,*.py,*.sql,*.xml,*.json,*.js
             "\ highlight -O xterm256 -s dante %c
@@ -34,10 +39,7 @@ fileviewer *.[ch],*.[ch]pp,*.html,*.md,*.go,*.sh,*.vim,*.java,*.py,*.sql,*.xml,*
 fileviewer Makefile,Makefile.*,Dockerfile
             \ highlight -O xterm256 -s dante %c
 
-"fileviewer *.jpg, *.png, *.bmp
-"            \ imgcat %c > /dev/tty
-
-    fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
 \ tput cup %py %px > /dev/tty && imgcat --width %pw --height %ph %c:p > /dev/tty
 
 " 重命名
@@ -48,4 +50,7 @@ nnoremap . :<C-U>set dotfiles!<CR>
 "filetype *.rar unrar %f
 fileviewer *.rar unrar lb %c | tree -d
 
-colorscheme gruvbox
+colorscheme onedark
+
+" 默认所有文件使用open指令打开
+filetype * open

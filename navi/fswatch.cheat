@@ -1,0 +1,5 @@
+% fswatch, hotswap
+
+# watch file type and run commands
+fswatch -o -l 2 -e ".*" -i "\\.<filetype>$"  -0  .  | while read -d "" event ;do print -P "%%F{red}$event%%f changed, start to build"; <command> done 
+

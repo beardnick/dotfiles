@@ -124,6 +124,7 @@ export CGO_ENABLED=0
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 add_path "$GOBIN"
+export GO111MODULE=auto
 
 # python
 add_path "$HOME/Library/Python/3.7/bin"
@@ -143,7 +144,6 @@ export CPPFLAGS="-I/usr/local/opt/node@10/include"
 
 
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-export GO111MODULE=on # manually active module mode
 export FZF_DEFAULT_OPTS="--height 80% --layout=reverse --preview '(bat --color=always {}) 2> /dev/null | head -500'"
 
 # FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
@@ -172,3 +172,5 @@ export PATH=${PATH}:/usr/local/mysql/bin
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+add_path "$HOME/application"

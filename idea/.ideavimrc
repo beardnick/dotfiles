@@ -45,6 +45,7 @@ nnoremap <LEADER>us :action ActivateTerminalToolWindow<CR>
 nnoremap <LEADER>ut :action ActivateStructureToolWindow<CR>
 nnoremap <LEADER>ft :action ActivateProjectToolWindow<CR>
 
+nnoremap <Leader>wm :action HideAllWindows<CR>
 
 nnoremap mm :action  ToggleBookmark<CR>
 nnoremap ma :action   ShowBookmarks<CR>

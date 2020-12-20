@@ -44,6 +44,12 @@ retry() {
     done
 }
 
+
+sproxy(){
+   export http_proxy=socks5://127.0.0.1:"$1"
+   export https_proxy=socks5://127.0.0.1:"$1"
+}
+
 proxy(){
    export http_proxy=http://127.0.0.1:"$1"
    export https_proxy=http://127.0.0.1:"$1"
