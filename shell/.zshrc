@@ -115,14 +115,19 @@ export CHEAT_EDITOR="nvim -u $HOME/vimlite.vim -N"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-export EDITOR="nvim -u ~/.vimlite.vim -N"
+export EDITOR="nvim -u $HOME/.vimlite.vim -N"
 
 # golang
 
 #export GOPATH=$HOME/go
+export CGO_ENABLED=0
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 add_path "$GOBIN"
+
+# python
+add_path "$HOME/Library/Python/3.7/bin"
+
 
 # brew
 
@@ -130,7 +135,7 @@ export HOMEBREW_NO_AUTO_UPDATE=true
 
 # java
 
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.
 add_path "$JAVA_HOME/bin:."
 export LDFLAGS="-L/usr/local/opt/node@10/lib"

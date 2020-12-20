@@ -46,3 +46,16 @@ nnoremap <LEADER>ut :action ActivateStructureToolWindow<CR>
 nnoremap <LEADER>ft :action ActivateProjectToolWindow<CR>
 
 
+nnoremap mm :action  ToggleBookmark<CR>
+nnoremap ma :action   ShowBookmarks<CR>
+nnoremap mn :action   GotoNextBookmark<CR>
+nnoremap mp :action   GotoPreviousBookmark<CR>
+
+
+nnoremap ]e :action GotoNextError<CR>
+nnoremap [e :action GotoPreviousError<CR>
+
+noremap <Leader>wm :action HideAllWindows<cr>
+
+
+noremap gi :action GotoImplementation<cr>
