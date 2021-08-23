@@ -39,15 +39,12 @@ alias egrep='egrep --color=auto'
 alias x='extract'
 
 
-#alias copy='~/study/shell/useful-scripts/copy.sh'
-alias typora='/Applications/Typora.app/Contents/MacOS/Typora'
 alias fopen='fzf | xargs open'
 alias redis-cli='redis-cli --raw'
 alias reload="source ~/.zshrc"
 # alias sed="gsed"
 alias run="osascript"
 alias v="nvim -u ~/.vimlite.vim -N"
-alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
 alias cman="man -M /usr/share/man/zh_CN"
 alias xclip="xclip -selection c"
 alias less="bat"
@@ -82,7 +79,6 @@ alias intv='mt -g "intv|leetcode|os|net|db|mysql"'
 alias vscode='code'
 # alias remote='~/ngrok tcp 22 2> ~/logs/ngrok.log >&1  &'
 # alias ngrok='~/ngrok'
-alias wiz='~/ubuntu-data/software/WizNote-2.5.9-x86_64.AppImage &> ~/logs/wiz.log &'
 alias mtm='mt -m'
 alias mtc='mt -c'
 alias mts='mt -s'

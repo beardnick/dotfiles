@@ -59,8 +59,8 @@ zinit light zsh-users/zsh-autosuggestions
 export TERM="xterm-256color"
 
 # Load the pure theme, with zsh-async library that's bundled with it.
-zinit ice pick"async.zsh" src"pure.zsh"
-zinit light sindresorhus/pure
+# zinit ice pick"async.zsh" src"pure.zsh"
+# zinit light sindresorhus/pure
 
 zinit light skywind3000/z.lua
 zinit light xvoland/Extract
@@ -126,21 +126,11 @@ export GOBIN=$GOPATH/bin
 add_path "$GOBIN"
 export GO111MODULE=auto
 
-# python
-add_path "$HOME/Library/Python/3.7/bin"
 
 
 # brew
 
 export HOMEBREW_NO_AUTO_UPDATE=true
-
-# java
-
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
-export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.
-add_path "$JAVA_HOME/bin:."
-export LDFLAGS="-L/usr/local/opt/node@10/lib"
-export CPPFLAGS="-I/usr/local/opt/node@10/include"
 
 
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
@@ -175,3 +165,30 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 setopt append_history
 
 add_path "$HOME/application"
+
+# Use powerline
+USE_POWERLINE="true"
+# Source manjaro-zsh-configuration
+if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
+  source /usr/share/zsh/manjaro-zsh-config
+fi
+# Use manjaro zsh prompt
+if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
+  source /usr/share/zsh/manjaro-zsh-prompt
+fi
+
+
+# set proxy
+sp(){
+    export http_proxy="http://192.168.2.13:10809"
+    export https_proxy="$http_proxy"
+}
+
+# unset proxy
+up(){
+    unset http_proxy
+    unset https_proxy
+}
+
+
+source $HOME/.cargo/env

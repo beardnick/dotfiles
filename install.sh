@@ -1,16 +1,20 @@
 #!/usr/bin/env bash
 
-# ideavim
-stow -t ~/               idea
+CONF="$HOME/.config"
 
-# ranger
-stow -t ~/.config/ranger ranger
+if [ ! -d "$CONF" ];then
+	mkdir -p "$CONF"
+fi
+
+# ideavim
+stow -t "$HOME/" idea
 
 # .zshrc .zsh_history
-stow -t ~/               shell
-
-# init.toml myspacevim.vim
-stow -t ~/.SpaceVim.d    spacevim
+ln -s  "$(pwd)/shell/zsh" "$CONF/zsh"
+ln -s  "$(pwd)/shell/.zshrc" "$HOME/.zshrc"
 
 # .tmux.conf
-stow -t ~/               tmux
+stow -t "$HOME/" tmux
+
+# vim
+stow -t "$HOME/" vim
