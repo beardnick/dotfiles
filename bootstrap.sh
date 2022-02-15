@@ -7,14 +7,15 @@ if [ ! -d "$CONF" ];then
 fi
 
 # ideavim
-stow -t "$HOME/" idea
+ln -s idea/.ideavimrc "$HOME/.ideavimrc"
 
 # .zshrc .zsh_history
 ln -s  "$(pwd)/shell/zsh" "$CONF/zsh"
 ln -s  "$(pwd)/shell/.zshrc" "$HOME/.zshrc"
 
 # .tmux.conf
-stow -t "$HOME/" tmux
+ln -s  tmux/.tmux.conf "$HOME/.tmux.conf"
+ln -s  tmux/.tmux.conf.local "$HOME/.tmux.conf.local"
 
 # vim
-stow -t "$HOME/" vim
+ln -s vim/.vimlite "$HOME/.vimlite.vim"
