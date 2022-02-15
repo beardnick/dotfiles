@@ -101,9 +101,6 @@ source "$CONFIG/env.zsh"
 # rvm
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-add_path "/$HOME/.rvm/bin"
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.rvm/rubies/ruby-2.3.7/lib/
-export LD_LIBRARY_PATH
 vim() { (unset GEM_PATH GEM_HOME; command vim "$@") }
 
 # cheat
@@ -117,20 +114,6 @@ export LANG=en_US.UTF-8
 
 export EDITOR="nvim -u $HOME/.vimlite.vim -N"
 
-# golang
-
-#export GOPATH=$HOME/go
-export CGO_ENABLED=0
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-add_path "$GOBIN"
-export GO111MODULE=auto
-
-
-
-# brew
-
-export HOMEBREW_NO_AUTO_UPDATE=true
 
 
 # export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
@@ -176,19 +159,3 @@ fi
 if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
   source /usr/share/zsh/manjaro-zsh-prompt
 fi
-
-
-# set proxy
-sp(){
-    export http_proxy="http://192.168.2.13:10809"
-    export https_proxy="$http_proxy"
-}
-
-# unset proxy
-up(){
-    unset http_proxy
-    unset https_proxy
-}
-
-
-source $HOME/.cargo/env

@@ -17,7 +17,3 @@ load_all(){
 
 }
 
-activate(){
-    conda activate "$1"
-    add_path "$HOME/opt/anaconda3/envs/$1/bin"
-}

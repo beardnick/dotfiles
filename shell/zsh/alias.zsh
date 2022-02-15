@@ -30,8 +30,6 @@ alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 # Always use color output for `ls`
 alias ls="command ls ${colorflag}"
 
-# Always enable colored `grep` output
-# Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -50,58 +48,19 @@ alias xclip="xclip -selection c"
 alias less="bat"
 alias conf="v ~/.zshrc"
 alias name="find . -name"
-#alias cunzip='cunzip.sh'
 alias cunzip='unzip -O cp936'
-# alias open='xdg-open'
-#alias open='open.sh'
 alias ll='ls -al'
 alias cls='clear'
-alias tencent='ssh ubuntu@123.207.19.172'
 alias la="ls -a"
 alias pad="xinput set-prop 11 \"Device Enabled\" 1 "
 alias xpad="xinput set-prop 11 \"Device Enabled\" 0"
-#alias tim="~/download/TIM-x86_64.AppImage"
-#alias tim="~/ubuntu-data/software/TIM-x86_64.AppImage > /dev/null 2>&1 &"
-alias mt="~/study/time/mt.py"
-alias install="sudo apt-get install"
 alias sync="sync & mt -i \">\" "
-alias aly="ssh java@47.75.143.54"
-alias feidian="ssh java@218.199.68.208"
-alias bt="aria2c --enable-rpc --rpc-listen-all; node ~/study/git/webui-aria2/node-server.js"
-#alias nvim="cd .;nvim"
-#eval $(thefuck --alias)
-#alias rexxnet="sudo killall miredo && sudo miredo"
-#alias spring='mt -g "spring|jvm|js|java|mybatis|vue|nginx"'
-#alias spring='~/ubuntu-data/software/spring-2.0.1.RELEASE/bin/spring'
-alias tf='mt -g "tf|py|cc"'
-alias tool='mt -g "tool|shell|git|vim|iptables|sed|awk|gcc|gdb|idea"'
-alias intv='mt -g "intv|leetcode|os|net|db|mysql"'
 alias vscode='code'
-# alias remote='~/ngrok tcp 22 2> ~/logs/ngrok.log >&1  &'
-# alias ngrok='~/ngrok'
-alias mtm='mt -m'
-alias mtc='mt -c'
-alias mts='mt -s'
-alias mtg='mt -g'
-alias mtp='mt -p'
-alias mtd='mt -d'
-#alias feige='~/ubuntu-data/software/feige.sh &>~/logs/feige.log &'
-# alias emacs='emacs25 -nw'
-alias sicong='ssh root@39.108.154.79'
-alias ali='ssh admin@39.108.248.254'
 alias rm='trash'
 alias mr='trash-restore'
 alias cat='bat'
-# alias pick='~/study/shell/tool/pick.sh'
 alias tree='tree -N'
 alias pwdc='pwd | pbcopy'
 
-
-alias spacevim="rm ~/.config/nvim; ln -s ~/.SpaceVim ~/.config/nvim"
-alias myvim="rm ~/.config/nvim;ln -s ~/my.nvim ~/.config/nvim"
-alias thinkvim="rm ~/.config/nvim;ln -s ~/ThinkVim ~/.config/nvim"
-alias debugvim="rm ~/.config/nvim;ln -s ~/debug.nvim ~/.config/nvim"
 alias gd='git icdiff'
-alias cloud='ssh root@9.135.89.49 -p 36000'
-#alias cloud='ssh root@9.135.20.242 -p 36000'
 
