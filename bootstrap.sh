@@ -6,16 +6,17 @@ if [ ! -d "$CONF" ];then
 	mkdir -p "$CONF"
 fi
 
+DOTDIR="$(pwd)"
 # ideavim
-ln -s idea/.ideavimrc "$HOME/.ideavimrc"
+ln -s "$DOTDIR/idea/.ideavimrc" "$HOME/.ideavimrc"
 
 # .zshrc .zsh_history
-ln -s  "$(pwd)/shell/zsh" "$CONF/zsh"
-ln -s  "$(pwd)/shell/.zshrc" "$HOME/.zshrc"
+ln -s  "$DOTDIR/shell/zsh" "$CONF/zsh"
+ln -s  "$DOTDIR/shell/.zshrc" "$HOME/.zshrc"
 
 # .tmux.conf
-ln -s  tmux/.tmux.conf "$HOME/.tmux.conf"
-ln -s  tmux/.tmux.conf.local "$HOME/.tmux.conf.local"
+ln -s  "$DOTDIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+ln -s  "$DOTDIR/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
 
 # vim
-ln -s vim/.vimlite "$HOME/.vimlite.vim"
+ln -s "$DOTDIR/vim/.vimlite" "$HOME/.vimlite.vim"
