@@ -44,6 +44,7 @@ RUN usr/bin/cargo install bottom
 RUN usr/bin/cargo install --locked navi
 RUN pacman -S --noconfirm  bat
 WORKDIR /root
-RUN git clone https://github.com/beardnick/dotfiles.git
-RUN cd dotfiles && bash bootstrap.sh
+RUN mkdir dotfiles
+COPY . dotfiles
+RUN cd dotfiles && bash bootstrap.sh && zsh -i $HOME/.zshrc
 WORKDIR /root

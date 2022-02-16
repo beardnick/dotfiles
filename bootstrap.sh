@@ -19,4 +19,7 @@ ln -s  "$DOTDIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
 ln -s  "$DOTDIR/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
 
 # vim
-ln -s "$DOTDIR/vim/.vimlite" "$HOME/.vimlite.vim"
+ln -s "$DOTDIR/vim/.vimlite.vim" "$HOME/.vimlite.vim"
+
+# vifm
+ln -s "$DOTDIR/vifm" "$HOME/.config/vifm"

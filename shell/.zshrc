@@ -6,7 +6,7 @@ zmodload zsh/zprof
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
     command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zi "$HOME/.zinit/bin" && \
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.zinit/bin" && \
         print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
@@ -19,11 +19,11 @@ autoload -Uz _zinit
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-bin-gem-node
+   zdharma-continuum/z-a-patch-dl \
+   zdharma-continuum/z-a-as-monitor \
+   zdharma-continuum/z-a-bin-gem-node
 
-### End of Zinit's installer chunk
+
 
 
 # history
@@ -59,8 +59,8 @@ zinit light zsh-users/zsh-autosuggestions
 export TERM="xterm-256color"
 
 # Load the pure theme, with zsh-async library that's bundled with it.
-# zinit ice pick"async.zsh" src"pure.zsh"
-# zinit light sindresorhus/pure
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
 
 zinit light skywind3000/z.lua
 zinit light xvoland/Extract
@@ -71,7 +71,7 @@ zinit light chrissicool/zsh-256color
 zinit light Tarrasch/zsh-bd
 #zinit light zpm-zsh/ls
 
-zinit light zdharma/fast-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 
 # git
@@ -122,7 +122,7 @@ export FZF_DEFAULT_OPTS="--height 80% --layout=reverse --preview '(bat --color=a
 # FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude vendor'
 
-#export VIFM="$HOME/.config/vifm"
+export VIFM="$HOME/.config/vifm"
 
 # navi
 
@@ -148,14 +148,3 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 setopt append_history
 
 add_path "$HOME/application"
-
-# Use powerline
-USE_POWERLINE="true"
-# Source manjaro-zsh-configuration
-if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
-  source /usr/share/zsh/manjaro-zsh-config
-fi
-# Use manjaro zsh prompt
-if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
-  source /usr/share/zsh/manjaro-zsh-prompt
-fi
