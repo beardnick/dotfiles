@@ -2,28 +2,28 @@
 zmodload zsh/zprof
 
 
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zi "$HOME/.zinit/bin" && \
+### Added by zi's installer
+if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zi)…%f"
+    command mkdir -p "$HOME/.zi" && command chmod g-rwX "$HOME/.zi"
+    command git clone https://github.com/zdharma/zi "$HOME/.zi/bin" && \
         print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 
-source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+source "$HOME/.zi/bin/zi.zsh"
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
 
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
-zinit light-mode for \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-bin-gem-node
+zi light-mode for \
+    zi-zsh/z-a-patch-dl \
+    zi-zsh/z-a-as-monitor \
+    zi-zsh/z-a-bin-gem-node
 
-### End of Zinit's installer chunk
+### End of zi's installer chunk
 
 
 # history
@@ -49,33 +49,33 @@ setopt autocd
 # 启用fzf的一些key binding和小组件
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#zinit light Aloxaf/fzf-tab
+#zi light Aloxaf/fzf-tab
 
 
 # Two regular plugins loaded without tracking.
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
+zi light zsh-users/zsh-completions
+zi light zsh-users/zsh-autosuggestions
 # Enable 256 color to make auto-suggestions look nice
 export TERM="xterm-256color"
 
 # Load the pure theme, with zsh-async library that's bundled with it.
-# zinit ice pick"async.zsh" src"pure.zsh"
-# zinit light sindresorhus/pure
+# zi ice pick"async.zsh" src"pure.zsh"
+# zi light sindresorhus/pure
 
-zinit light skywind3000/z.lua
-zinit light xvoland/Extract
+zi light skywind3000/z.lua
+zi light xvoland/Extract
 
-#zinit light RobSis/zsh-completion-generator
-zinit light hlissner/zsh-autopair
-zinit light chrissicool/zsh-256color
-zinit light Tarrasch/zsh-bd
-#zinit light zpm-zsh/ls
+#zi light RobSis/zsh-completion-generator
+zi light hlissner/zsh-autopair
+zi light chrissicool/zsh-256color
+zi light Tarrasch/zsh-bd
+#zi light zpm-zsh/ls
 
-zinit light zdharma/fast-syntax-highlighting
+zi light zdharma/fast-syntax-highlighting
 
 
 # git
-zinit snippet OMZP::git
+zi snippet OMZP::git
 
 
 CONFIG="$HOME/.config/zsh"
