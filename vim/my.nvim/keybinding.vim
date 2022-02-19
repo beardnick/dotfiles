@@ -271,7 +271,7 @@ nnoremap <Leader>sg  :<C-U>FzfPreviewProjectGrep ""<CR>
 nnoremap <Leader>sl  :<C-U>FzfPreviewLines<CR>
 nnoremap <Leader>st :<C-U>Tags<CR>
 "nnoremap <Leader>sf :<C-U>FilesMru --tiebreak=index<CR> "=><C-P>
-nnoremap <Leader>sf :<C-U>CocList floaterm<CR>
+nnoremap <Leader>sf :<C-U>Files<CR>
 nnoremap <Leader>sb :<C-U>FzfPreviewBuffers<CR>
 tnoremap <Leader>sb <C-\><C-n>:<C-U>FzfPreviewBuffers<CR>
 " coc-fzf
