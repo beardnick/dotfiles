@@ -55,7 +55,7 @@
     "python.linting.flake8Args": [
         "--ignore=E303,E501,E305,E302,E226,E231,E265,E202,E128,E126,E201,E111,E701,E114,E261,E225"
     ],
-    "diagnostic.virtualText": true,
+    "diagnostic.virtualText": false,
     "diagnostic.enable": true,
     "suggest.noselect": false,
     "codeLens.enable": true,
@@ -63,7 +63,7 @@
     "git.addGBlameToVirtualText": true,
     "git.addGBlameToBufferVar": true,
     "suggest.fixInsertedWord": false,
-    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+    "coc.preferences.currentFunctionSymbolAutoUpdate": false,
     "calc.highlight": true,
     "tabnine.disable_filetypes": [
         "java"
