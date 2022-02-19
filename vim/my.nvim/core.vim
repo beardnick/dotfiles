@@ -21,7 +21,7 @@ call plug#begin(g:plugin_dir)
     Plug 'luochen1990/rainbow'
     " 注意编译问题，很多时候编译出错了很多插件都会有问题
     " 大部分时候可以通过call coc#util#install()解决问题
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
     " 自动tag生成与管理
     Plug 'ludovicchabant/vim-gutentags'
     "Plug 'skywind3000/gutentags_plus'
@@ -123,47 +123,46 @@ call plug#begin(g:plugin_dir)
 
 call plug#end()
 
-let g:coc_global_extensions =['coc-actions'
-                            \,'coc-browser'
-                            \,'coc-calc'
-                            \,'coc-clock'
-                            \,'coc-css'
-                            \,'coc-dictionary'
-                            \,'coc-docker'
-                            \,'coc-emmet'
-                            \,'coc-explorer'
-                            \,'coc-git'
-                            \,'coc-gitignore'
-                            \,'coc-go'
-                            \,'coc-html'
-                            \,'coc-java'
-                            \,'coc-json'
-                            \,'coc-pyright'
-                            \,'coc-lines'
-                            \,'coc-lists'
-                            \,'coc-lua'
-                            \,'coc-marketplace'
-                            \,'coc-omni'
-                            \,'coc-omnisharp'
-                            \,'coc-post'
-                            \,'coc-python'
-                            \,'coc-rls'
-                            \,'coc-solargraph'
-                            \,'coc-syntax'
-                            \,'coc-tag'
-                            \,'coc-terminal'
-                            \,'coc-todolist'
-                            \,'coc-translator'
-                            \,'coc-tsserver'
-                            \,'coc-ultisnips'
-                            \,'coc-vetur'
-                            \,'coc-vimlsp'
-                            \,'coc-vimtex'
-                            \,'coc-xml'
-                            \,'coc-yaml'
-                            \,'coc-yank'
-                            \,'coc-highlight'
-                            \,'coc-lua'
+let g:coc_global_extensions =['coc-actions@1.5.0'
+                            \,'coc-browser@1.5.0'
+                            \,'coc-calc@2.1.1'
+                            \,'coc-clock@0.0.12'
+                            \,'coc-css@1.3.0'
+                            \,'coc-dictionary@1.2.2'
+                            \,'coc-docker@0.5.0'
+                            \,'coc-emmet@1.1.6'
+                            \,'coc-explorer@0.22.6'
+                            \,'coc-git@2.4.7'
+                            \,'coc-gitignore@0.0.4'
+                            \,'coc-go@1.1.0'
+                            \,'coc-highlight@1.3.0'
+                            \,'coc-html@1.6.1'
+                            \,'coc-java@1.5.5'
+                            \,'coc-json@1.4.1'
+                            \,'coc-lines@0.5.0'
+                            \,'coc-lists@1.4.2'
+                            \,'coc-lua@1.0.1'
+                            \,'coc-marketplace@1.8.1'
+                            \,'coc-omni@1.2.4'
+                            \,'coc-omnisharp@0.0.28'
+                            \,'coc-post@0.3.1'
+                            \,'coc-pyright@1.1.220'
+                            \,'coc-python@1.2.13'
+                            \,'coc-rls@1.1.6'
+                            \,'coc-solargraph@1.2.3'
+                            \,'coc-syntax@1.2.4'
+                            \,'coc-tag@1.2.5'
+                            \,'coc-terminal@0.6.0'
+                            \,'coc-todolist@1.5.1'
+                            \,'coc-translator@1.7.2'
+                            \,'coc-tsserver@1.9.12'
+                            \,'coc-ultisnips@1.2.3'
+                            \,'coc-vetur@1.2.5'
+                            \,'coc-vimlsp@0.12.5'
+                            \,'coc-vimtex@1.1.1'
+                            \,'coc-xml@1.14.1'
+                            \,'coc-yaml@1.6.1'
+                            \,'coc-yank@1.2.1'
                             \]
 
 
@@ -186,3 +185,10 @@ function! UpdateWithSnapshot() abort
 endfunction
 
 
+function! CocInstallAll() abort
+    let ext_path = expand('$HOME/.config/coc/extensions')
+    execute '!mkdir -p ' . ext_path . ' && cd ' . ext_path. ' && touch package.json && echo ''{"dependencies":{}}'' > package.json  '
+    for ext in g:coc_global_extensions
+        execute '!cd '.ext_path.' && npm install ' . ext .' --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod'
+    endfor
+endfunction

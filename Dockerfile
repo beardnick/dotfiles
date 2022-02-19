@@ -42,9 +42,18 @@ RUN mkdir $HOME/.cargo && echo \
 
 RUN usr/bin/cargo install bottom
 RUN usr/bin/cargo install --locked navi
-RUN pacman -S --noconfirm  bat
+RUN pacman -S --noconfirm  bat trash-cli npm yarn
 WORKDIR /root
 RUN mkdir dotfiles
 COPY . dotfiles
 RUN cd dotfiles && bash bootstrap.sh && zsh -i $HOME/.zshrc
-WORKDIR /root
+# install nvim package manager
+RUN sh -c $'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim \
+--create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+RUN npm config set registry https://registry.npm.taobao.org
+RUN yarn config set registry https://registry.npm.taobao.org
+RUN pacman -S --noconfirm ctags python-pynvim
+RUN npm install neovim
+RUN nvim --headless +RollBack +qall # install  plugin from the command line
+RUN nvim --headless +'call CocInstallAll()' +qall # install  plugin from the command line
+RUN mkdir /data
