@@ -74,3 +74,6 @@ RUN mkdir /data
 
 COPY . dotfiles
 RUN cd dotfiles && sh bootstrap.sh
+RUN pacman -S --noconfirm  openssh && ssh-keygen -A
+RUN chsh -s /bin/zsh
+ENTRYPOINT ["zsh","/root/dotfiles/docker-entrypoint.sh"]
