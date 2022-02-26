@@ -1,6 +1,6 @@
 FROM manjarolinux/base as nvim-builder
 
-RUN pacman-mirrors -c China -m rank && pacman -Syyu --noconfirm && pacman -S --noconfirm git neovim nodejs npm yarn go tree
+RUN pacman -Syyu --noconfirm && pacman -S --noconfirm git neovim nodejs npm yarn go tree
 
 ENV DOTFILES=/root/dotfiles CONF=/root/.config
 
@@ -22,7 +22,7 @@ RUN nvim --headless +'call CocInstallAll()' +qall # install  plugin from the com
 
 FROM manjarolinux/base as zsh-builder
 
-RUN pacman-mirrors -c China -m rank && pacman -Syyu --noconfirm && pacman -S --noconfirm  zsh git
+RUN pacman -Syyu --noconfirm && pacman -S --noconfirm  zsh git
 
 ENV DOTFILES=/root/dotfiles CONF=/root/.config
 
@@ -38,22 +38,7 @@ RUN mkdir -p $CONF \
 
 FROM manjarolinux/base as dev-env
 
-RUN pacman-mirrors -c China -m rank && \
-pacman -Syyu --noconfirm && pacman -S --noconfirm git nodejs npm yarn go python typescript rust
-
-RUN mkdir $HOME/.cargo && echo \
-	$'[source.crates-io]\n\
-	registry = "https://github.com/rust-lang/crates.io-index"\n\
-	\n\
-	replace-with = \'tuna\'\n\
-	\n\
-	[source.ustc]\n\
-	registry = "https://mirrors.ustc.edu.cn/crates.io-index"\n\
-	[source.tuna]\n\
-	registry = "https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git"\n\
-	[source.rustcc]\n\
-	registry = "https://code.aliyun.com/rustcc/crates.io-index.git"\n'\
-	> $HOME/.cargo/config
+RUN pacman -Syyu --noconfirm && pacman -S --noconfirm git nodejs npm yarn go python typescript rust
 
 RUN usr/bin/cargo install --locked navi
 
