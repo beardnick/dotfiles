@@ -7,8 +7,6 @@ ENV DOTFILES=/root/dotfiles CONF=/root/.config
 # my.nvim 
 RUN sh -c $'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim \
 --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-RUN npm config set registry https://registry.npm.taobao.org
-RUN yarn config set registry https://registry.npm.taobao.org
 
 ## minimal nvim config and install plugins
 COPY vim/my.nvim/init.vim $CONF/nvim/init.vim
