@@ -114,12 +114,8 @@ export LANG=en_US.UTF-8
 
 export EDITOR="nvim -u $HOME/.vimlite.vim -N"
 
-
-
-# export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export FZF_DEFAULT_OPTS="--height 80% --layout=reverse --preview '(bat --color=always {}) 2> /dev/null | head -500'"
 
-# FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude vendor'
 
 export VIFM="$HOME/.config/vifm"

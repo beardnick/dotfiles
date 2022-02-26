@@ -10,15 +10,18 @@ endif
 
 let &runtimepath.=",~/.config/nvim"
 
-let g:plugin_dir=expand('~/.cache/mynvim/')
+let g:plugin_dir=expand('$HOME/.config/mynvim')
+let g:coc_data_home = g:plugin_dir . '/coc'
 let g:mynvim_root_path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 let g:mynvim_config_default=g:mynvim_root_path . '/default.vim'
-let g:mynvim_config_before=expand('~/.mynvim_config_before.vim')
-let g:mynvim_config_after=expand('~/.mynvim_config_after.vim')
+let g:mynvim_config_before=expand('$HOME/.mynvim_config_before.vim')
+let g:mynvim_config_after=expand('$HOME/.mynvim_config_after.vim')
 
 set wildignore+=*.o,*.obj,*/.ccls-cache/*,*/vendor/*
 set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls,*/.fdb*/,*/.toc,*/.out,*/.glo,*/.log,*/.ist,*/.fdb_latexmk
 
+
+let g:plug_retries=5
 call plug#begin(g:plugin_dir)
 
     Plug 'morhetz/gruvbox' " 主题
@@ -168,6 +171,7 @@ let g:coc_global_extensions =['coc-actions@1.5.0'
                             \,'coc-xml@1.14.1'
                             \,'coc-yaml@1.6.1'
                             \,'coc-yank@1.2.1'
+                            \,'coc-fzf-preview@2.12.8'
                             \]
 
 
@@ -191,7 +195,7 @@ endfunction
 
 
 function! CocInstallAll() abort
-    let ext_path = expand('$HOME/.config/coc/extensions')
+    let ext_path = g:coc_data_home . '/extensions'
     execute '!mkdir -p ' . ext_path . ' && cd ' . ext_path. ' && touch package.json && echo ''{"dependencies":{}}'' > package.json  '
     for ext in g:coc_global_extensions
         execute '!cd '.ext_path.' && npm install ' . ext .' --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod'

@@ -237,7 +237,6 @@ let g:go_rename_command = 'gopls'
 let g:go_fmt_fail_silently = 1
 let g:go_def_mapping_enabled = 0
 
-"autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 let g:templates_no_autocmd = 1
 
