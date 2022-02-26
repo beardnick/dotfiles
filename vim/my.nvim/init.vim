@@ -197,7 +197,6 @@ endfunction
 function! CocInstallAll() abort
     let ext_path = g:coc_data_home . '/extensions'
     execute '!mkdir -p ' . ext_path . ' && cd ' . ext_path. ' && touch package.json && echo ''{"dependencies":{}}'' > package.json  '
-    for ext in g:coc_global_extensions
-        execute '!cd '.ext_path.' && npm install ' . ext .' --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod'
-    endfor
+    let exts = join(g:coc_global_extensions," ")
+    execute '!cd '.ext_path.' && npm install ' . exts .' --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod'
 endfunction
