@@ -121,6 +121,8 @@ call plug#begin(g:plugin_dir)
     Plug 'unblevable/quick-scope'
     Plug 'MattesGroeger/vim-bookmarks'
     Plug 'beardnick/mynvim', {'do':'make'}
+    Plug 'tpope/vim-fugitive'
+
     "Plug 'nvim-treesitter/playground'
     "Plug 'nvim-treesitter/nvim-treesitter' 
     "Plug 'nvim-treesitter/nvim-treesitter-refactor'
