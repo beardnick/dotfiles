@@ -1,6 +1,6 @@
 FROM manjarolinux/base as nvim-builder
 
-RUN pacman -Syyu --noconfirm && pacman -S --noconfirm git neovim nodejs npm yarn go tree
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm git neovim nodejs npm yarn go tree
 
 ENV DOTFILES=/root/dotfiles CONF=/root/.config
 
@@ -20,7 +20,7 @@ RUN nvim --headless +'call CocInstallAll()' +qall # install  plugin from the com
 
 FROM manjarolinux/base as zsh-builder
 
-RUN pacman -Syyu --noconfirm && pacman -S --noconfirm  zsh git
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm  zsh git
 
 ENV DOTFILES=/root/dotfiles CONF=/root/.config
 
@@ -36,7 +36,7 @@ RUN mkdir -p $CONF \
 
 FROM manjarolinux/base as dev-env
 
-RUN pacman -Syyu --noconfirm && pacman -S --noconfirm git nodejs npm yarn go python typescript rust
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm git nodejs npm yarn go python typescript rust
 
 RUN usr/bin/cargo install --locked navi
 
@@ -45,7 +45,7 @@ COPY --from=nvim-builder /root/.local/share/nvim/site/autoload /root/.local/shar
 COPY --from=zsh-builder /root/.zinit /root/.zinit
 
 
-RUN pacman -S --noconfirm ctags python-pynvim
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm ctags python-pynvim
 RUN yarn global add neovim
 
 # https://github.com/rust-lang/cargo/issues/7515
@@ -59,9 +59,9 @@ RUN cd dotfiles && sh bootstrap.sh
 
 RUN mkdir /data
 
-RUN pacman -S --noconfirm zsh neovim vim vifm ripgrep fzf tig ncdu tmux bottom tree bat trash-cli 
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm zsh neovim vim vifm ripgrep fzf tig ncdu tmux bottom tree bat trash-cli 
 
-RUN pacman -S --noconfirm  openssh && ssh-keygen -A
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm  openssh && ssh-keygen -A
 RUN chsh -s /bin/zsh
 
 
