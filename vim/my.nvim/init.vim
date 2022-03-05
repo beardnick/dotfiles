@@ -122,6 +122,7 @@ call plug#begin(g:plugin_dir)
     Plug 'MattesGroeger/vim-bookmarks'
     Plug 'beardnick/mynvim', {'do':'make'}
     Plug 'tpope/vim-fugitive'
+    Plug 'ilyachur/cmake4vim' " generate compile_commands.json for lsp
 
     "Plug 'nvim-treesitter/playground'
     "Plug 'nvim-treesitter/nvim-treesitter' 

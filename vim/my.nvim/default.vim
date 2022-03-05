@@ -298,3 +298,5 @@ set mouse=nvi
 let g:asynctasks_config_name = '.vim/tasks.ini'
 
 let g:bookmark_save_per_working_dir = 1
+
+let g:cmake_compile_commands = 1

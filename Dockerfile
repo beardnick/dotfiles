@@ -59,7 +59,7 @@ RUN cd dotfiles && sh bootstrap.sh
 
 RUN mkdir /data
 
-RUN pacman -Syu --noconfirm && pacman -S --noconfirm zsh neovim vim vifm ripgrep fzf tig ncdu tmux bottom tree bat trash-cli 
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm zsh neovim vim vifm ripgrep fzf tig ncdu tmux bottom tree bat trash-cli ccls
 
 RUN pacman -Syu --noconfirm && pacman -S --noconfirm  openssh && ssh-keygen -A
 RUN chsh -s /bin/zsh

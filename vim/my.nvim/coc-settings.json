@@ -1,4 +1,9 @@
 {
+    "coc.preferences.rootPatterns": [
+        ".git",
+        ".hg",
+        ".projections.json"
+    ],
     "languageserver": {
         "bash": {
             "command": "bash-language-server",
@@ -27,23 +32,12 @@
             ],
             "initializationOptions": {
                 "cache": {
-                    "directory": ".ccls-cache"
-                },
-                // see https://github.com/MaskRay/ccls/issues/191
-                "clang": {
-                    // from clang -v -fsyntax-only -x c++ /dev/null
-                    "extraArgs": [
-                        "-isystem/usr/local/opt/llvm/bin/../include/c++/v1",
-                        "-isystem/usr/local/Cellar/llvm/10.0.0_3/lib/clang/10.0.0/include",
-                        "-isystem/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include",
-                        "-isystem/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks"
-                    ],
-                    //From clang -print-resource-dir
-                    "resourceDir": "/usr/local/Cellar/llvm/10.0.0_3/lib/clang/10.0.0"
+                    "directory": ".vim"
                 },
                 "client": {
                     "snippetSupport": true
-                }
+                },
+                "compilationDatabaseDirectory": "cmake-build-Release/"
             }
         }
     },
@@ -115,10 +109,5 @@
     "go.disable": {
         "workspaceFolders": true
     },
-    "coc.preferences.extensionUpdateCheck": "daily",
-    "coc.preferences.rootPatterns": [
-        ".git",
-        ".hg",
-        ".projections.json"
-    ]
+    "coc.preferences.extensionUpdateCheck": "daily"
 }
