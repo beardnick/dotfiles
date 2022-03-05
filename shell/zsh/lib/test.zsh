@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-source "$HOME/.config/zsh/functions/log.zsh"
+source "$HOME/.config/zsh/lib/log.zsh"
 
 assertNotNull(){
     if [[ -z "$1" ]]; then
