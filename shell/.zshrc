@@ -80,9 +80,9 @@ zinit snippet OMZP::git
 
 CONFIG="$HOME/.config/zsh"
 
-# functions
+#lib 
 
-for f in $(find "$CONFIG/functions" -name "*.zsh"); do
+for f in $(find "$CONFIG/lib" -name "*.zsh"); do
     source "$f"
 done
 

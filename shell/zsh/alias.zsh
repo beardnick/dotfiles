@@ -37,14 +37,10 @@ alias egrep='egrep --color=auto'
 alias x='extract'
 
 
-alias fopen='fzf | xargs open'
 alias redis-cli='redis-cli --raw'
 alias reload="source ~/.zshrc"
-# alias sed="gsed"
-alias run="osascript"
 alias v="nvim -u ~/.vimlite.vim -N"
 alias cman="man -M /usr/share/man/zh_CN"
-alias xclip="xclip -selection c"
 alias less="bat"
 alias conf="v ~/.zshrc"
 alias name="find . -name"
@@ -52,15 +48,11 @@ alias cunzip='unzip -O cp936'
 alias ll='ls -al'
 alias cls='clear'
 alias la="ls -a"
-alias pad="xinput set-prop 11 \"Device Enabled\" 1 "
-alias xpad="xinput set-prop 11 \"Device Enabled\" 0"
-alias sync="sync & mt -i \">\" "
 alias vscode='code'
 alias rm='trash'
 alias mr='trash-restore'
 alias cat='bat'
 alias tree='tree -N'
-alias pwdc='pwd | pbcopy'
 
 alias gd='git icdiff'
 
