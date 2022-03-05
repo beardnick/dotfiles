@@ -12,7 +12,7 @@ if [[ -e /data/.ssh ]]; then
 fi
 
 if [[ -f /data/init.sh ]]; then
-    zsh init.sh
+    zsh /data/init.sh
 fi
 
 # prevent container from existing
