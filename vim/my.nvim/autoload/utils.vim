@@ -25,4 +25,7 @@ function! utils#source_path(root_path, path) abort
     for f in split(glob(abspath . '**/*.vim'), '\n')
         execute 'source' f
     endfor
+    for f in split(glob(abspath . '**/*.lua'), '\n')
+        execute 'luafile' f
+    endfor
 endfunction

@@ -83,10 +83,8 @@ call plug#begin(g:plugin_dir)
     Plug 'skywind3000/vim-quickui'
     Plug 'skywind3000/asynctasks.vim'
     Plug 'skywind3000/asyncrun.vim'
-    Plug 'skywind3000/vim-terminal-help'
     Plug 'skywind3000/vim-keysound'
     Plug 'aperezdc/vim-template'
-    Plug 'voldikss/vim-floaterm' 
     Plug 'zenbro/mirror.vim' 
     Plug 'antoinemadec/coc-fzf' 
     Plug 'liuchengxu/vista.vim' 
@@ -113,7 +111,6 @@ call plug#begin(g:plugin_dir)
     Plug 'easymotion/vim-easymotion' " 快速跳转
     Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
     Plug 'NLKNguyen/papercolor-theme'
-    Plug 'kassio/neoterm'
     Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
     Plug 'liuchengxu/space-vim-dark'
     Plug 'hzchirs/vim-material'
@@ -124,6 +121,7 @@ call plug#begin(g:plugin_dir)
     Plug 'tpope/vim-fugitive'
     Plug 'ilyachur/cmake4vim' " generate compile_commands.json for lsp
     Plug 'ojroques/vim-oscyank'
+    Plug 'akinsho/toggleterm.nvim'
 
     "Plug 'nvim-treesitter/playground'
     "Plug 'nvim-treesitter/nvim-treesitter' 

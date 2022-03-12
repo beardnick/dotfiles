@@ -196,10 +196,6 @@ nnoremap <silent><LEADER>hv :<C-U>Helptags<CR>
 nnoremap <silent><LEADER>hm :<C-U>Maps<CR>
 nnoremap <silent><LEADER>hc :<C-U>Cheats<CR>
 nmap <silent><LEADER>hd <Plug>DashSearch
-" floaterm tool
-"nnoremap <LEADER>tt :<C-U>FloatermToggle<CR>
-"nnoremap <LEADER>tn :<C-U>FloatermNext<CR>
-"nnoremap <LEADER>tp :<C-U>FloatermPrev<CR>
 
 function! ToggleBackground() abort
     if &background == 'dark'
@@ -216,17 +212,6 @@ nnoremap <LEADER>ut :<C-U>Vista!!<CR>
 nnoremap <LEADER>un :<C-U>set number!<CR>
 nnoremap <LEADER>up :<C-U>Goyo<CR>
 nnoremap <LEADER>uh :<C-U>set concealcursor=c<CR>
-"nnoremap <LEADER>us :<C-U>call TerminalToggle()<CR>
-"tnoremap <LEADER>us <C-\><C-N>:<C-U>call TerminalToggle()<CR>
-nnoremap <LEADER>us :<C-U>Ttoggle<CR>
-tnoremap <LEADER>us <C-\><C-N>:<C-U>Ttoggle<CR>
-
-nnoremap <LEADER>tc :<C-U>vertical Tnew<CR>
-tnoremap <LEADER>tc <C-\><C-N>:<C-U>vertical Tnew<CR>
-nnoremap <LEADER>tn :<C-U>Tnext<CR>
-tnoremap <LEADER>tn <C-\><C-N>:<C-U>Tnext<CR>
-nnoremap <LEADER>tp :<C-U>Tprevious<CR>
-tnoremap <LEADER>tp <C-\><C-N>:<C-U>Tprevious<CR>
 
 nnoremap <LEADER>ug :<C-U>ChunkInfo<CR>
 nnoremap <LEADER>ub :<C-U>call ToggleBackground()<CR>
@@ -255,8 +240,6 @@ nmap <leader>co  :<C-U>call CocAction('runCommand', 'editor.action.organizeImpor
 
 "nmap <silent> <M-CR> :<C-U>CocCommand actions.open<CR>
 "xmap <silent> <M-CR> :<C-U>CocCommand actions.open<CR>
-
-nmap <silent> gl  <Plug>(coc-openlink)
 
 nnoremap <M-.> :<C-U>5wincmd ><CR>
 nnoremap <M-,> :<C-U>5wincmd <<CR>
