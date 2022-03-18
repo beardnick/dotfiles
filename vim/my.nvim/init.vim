@@ -88,7 +88,7 @@ call plug#begin(g:plugin_dir)
     Plug 'zenbro/mirror.vim' 
     Plug 'antoinemadec/coc-fzf' 
     Plug 'liuchengxu/vista.vim' 
-    Plug 'puremourning/vimspector' 
+    "Plug 'puremourning/vimspector' 
     Plug 'dearrrfish/vim-applescript' 
     Plug 'skywind3000/vim-dict'
     Plug 'kristijanhusak/vim-dadbod-ui'
@@ -126,8 +126,10 @@ call plug#begin(g:plugin_dir)
     " debug
     Plug 'mfussenegger/nvim-dap'
     Plug 'rcarriga/nvim-dap-ui'
+    Plug 'leoluz/nvim-dap-go'
     "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'theHamsta/nvim-dap-virtual-text'
+    "Plug 'theHamsta/nvim-dap-virtual-text'
+
 
     "Plug 'nvim-treesitter/playground'
     "Plug 'nvim-treesitter/nvim-treesitter' 
