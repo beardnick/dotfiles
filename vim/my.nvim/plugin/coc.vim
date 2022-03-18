@@ -1,6 +1,8 @@
+if !myplug#Loaded('coc.nvim')
+    finish
+endif
 
 "autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-
 
 command! Refactor call CocActionAsync('refactor')
 

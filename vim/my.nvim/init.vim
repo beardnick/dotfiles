@@ -123,6 +123,12 @@ call plug#begin(g:plugin_dir)
     Plug 'ojroques/vim-oscyank'
     Plug 'akinsho/toggleterm.nvim'
 
+    " debug
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'rcarriga/nvim-dap-ui'
+    "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'theHamsta/nvim-dap-virtual-text'
+
     "Plug 'nvim-treesitter/playground'
     "Plug 'nvim-treesitter/nvim-treesitter' 
     "Plug 'nvim-treesitter/nvim-treesitter-refactor'
@@ -151,7 +157,6 @@ let g:coc_global_extensions =['coc-actions@1.5.0'
                             \,'coc-json@1.4.1'
                             \,'coc-lines@0.5.0'
                             \,'coc-lists@1.4.2'
-                            \,'coc-lua@1.0.1'
                             \,'coc-marketplace@1.8.1'
                             \,'coc-omni@1.2.4'
                             \,'coc-omnisharp@0.0.28'
