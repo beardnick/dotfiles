@@ -15,15 +15,15 @@ vnoremap <silent>K  :<C-U> call CocAction('doHover')<CR>
 
 " Remap keys for gotos
 " 先禁用vim-go的跳转定义插件
-let g:go_def_mapping_enabled = 0
+"let g:go_def_mapping_enabled = 0
 
-nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gu <Plug>(coc-references)
 
 "nnoremap <silent> gd :<C-U>CocCommand fzf-preview.LocationList<CR>
-nnoremap <silent> gr :<C-U>CocCommand fzf-preview.CocReferences<CR>
+"nnoremap <silent> gr :<C-U>CocCommand fzf-preview.CocReferences<CR>
 
 nmap <silent> ]c <Plug>(coc-git-nextchunk)
 nmap <silent> [c <Plug>(coc-git-prevchunk)
@@ -184,7 +184,7 @@ nmap <silent><LEADER>lt :<C-U>AsyncTaskFzf<CR>
 vmap <silent><LEADER>ls :TREPLSendSelection<CR>
 
 " file
-nnoremap <silent><LEADER>fs :<C-U>Files<CR>
+"nnoremap <silent><LEADER>fs :<C-U>Files<CR>
 nnoremap <silent><LEADER>ft :<C-U>CocCommand explorer<CR>
 
 " 使用fzfmru来模拟如vscode go to file 那样的文件模糊查找行为
@@ -192,7 +192,7 @@ nnoremap <silent><C-P> :<C-U>Files<CR>
 "inoremap <silent><C-P> <ESC>:<C-U>call CocActionAsync('showSignatureHelp')<CR>
 
 " help
-nnoremap <silent><LEADER>hv :<C-U>Helptags<CR>
+"nnoremap <silent><LEADER>hv :<C-U>Helptags<CR>
 nnoremap <silent><LEADER>hm :<C-U>Maps<CR>
 nnoremap <silent><LEADER>hc :<C-U>Cheats<CR>
 nmap <silent><LEADER>hd <Plug>DashSearch
@@ -250,7 +250,7 @@ nnoremap <M--> :<C-U>5wincmd -<CR>
 " search
 "nnoremap <Leader>sw :<C-U>Rg <C-R><C-W><CR> "=><C-F>
 "nnoremap <Leader>sr  :<C-U>Rg<CR>
-nnoremap <Leader>sr  :<C-U>Rg<CR>
+"nnoremap <Leader>sr  :<C-U>Rg<CR>
 nnoremap <Leader>sg  :<C-U>FzfPreviewProjectGrep ""<CR>
 nnoremap <Leader>sl  :<C-U>FzfPreviewLines<CR>
 nnoremap <Leader>st :<C-U>Tags<CR>
@@ -273,24 +273,6 @@ nnoremap <silent> <Leader>sh  :<C-u>History:<CR>
 "nmap mm <Plug>(coc-bookmark-toggle)
 "nmap mi <Plug>(coc-bookmark-annotate)
 "nnoremap ma :<C-U>CocList bookmark<CR>
-
-"debug
-nmap <Leader>db <Plug>VimspectorContinue
-nmap <Leader>dx <Plug>VimspectorStop
-nmap <Leader>dr <Plug>VimspectorRestart
-nmap <Leader>dp <Plug>VimspectorPause
-nmap <Leader>dl <Plug>VimspectorToggleBreakpoint
-nmap <Leader>df <Plug>VimspectorAddFunctionBreakpoint
-nmap <Leader>dn <Plug>VimspectorStepOver
-nmap <Leader>di <Plug>VimspectorStepInto
-nmap <Leader>do <Plug>VimspectorStepOut
-
-nmap <M-l> <Plug>VimspectorToggleBreakpoint
-nmap <M-n> <Plug>VimspectorStepOver
-nmap <M-x> <Plug>VimspectorStop
-nmap <M-r> <Plug>VimspectorRestart
-nmap <M-i> <Plug>VimspectorStepInto
-nmap <M-o> <Plug>VimspectorStepOut
 
 nmap <M-k> <Plug>(coc-translator-p)
 vmap <M-k> <Plug>(coc-translator-pv)

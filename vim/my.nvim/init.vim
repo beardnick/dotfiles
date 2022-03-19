@@ -37,7 +37,7 @@ call plug#begin(g:plugin_dir)
     "call dein#add('Yggdroot/LeaderF')
     Plug 'mhinz/vim-startify'
     Plug 'scrooloose/nerdcommenter'
-    Plug 'fatih/vim-go'
+    "Plug 'fatih/vim-go'
     " 两个代码模版的插件要一起装，只复制代码模版文件可能会造成找不到vimsnippets模块
     Plug 'SirVer/ultisnips'
     " 使用自己fork的snippets
@@ -127,6 +127,14 @@ call plug#begin(g:plugin_dir)
     Plug 'mfussenegger/nvim-dap'
     Plug 'rcarriga/nvim-dap-ui'
     Plug 'leoluz/nvim-dap-go'
+    Plug 'sunjon/stylish.nvim'
+    Plug 'rcarriga/nvim-notify'
+
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    Plug 'fannheyward/telescope-coc.nvim'
+
     "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     "Plug 'theHamsta/nvim-dap-virtual-text'
 
