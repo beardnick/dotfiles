@@ -137,6 +137,8 @@ call plug#begin(g:plugin_dir)
 
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'xiyaowong/nvim-transparent'
+    Plug 'github/copilot.vim'
+
 
     "Plug 'theHamsta/nvim-dap-virtual-text'
 
@@ -175,7 +177,7 @@ let g:coc_global_extensions =['coc-actions@1.5.0'
                             \,'coc-post@0.3.1'
                             \,'coc-pyright@1.1.220'
                             \,'coc-python@1.2.13'
-                            \,'coc-analyzer@0.61.0'
+                            \,'coc-rust-analyzer@0.61.0'
                             \,'coc-solargraph@1.2.3'
                             \,'coc-syntax@1.2.4'
                             \,'coc-tag@1.2.5'
