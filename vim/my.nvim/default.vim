@@ -44,8 +44,6 @@ let g:mynvim_banner = [
             \,'                    .                    '
             \     ]
 
-let g:mynvim_treesitter_enable = 0
-
 
 " 设置代码模版触发器
 let g:UltiSnipsExpandTrigger       = '<c-j>'
@@ -300,3 +298,5 @@ let g:asynctasks_config_name = '.vim/tasks.ini'
 let g:bookmark_save_per_working_dir = 1
 
 let g:cmake_compile_commands = 1
+
+set shortmess=at
