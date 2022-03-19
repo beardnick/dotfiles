@@ -83,31 +83,62 @@ if loaded('telescope-coc.nvim') then
     map('i','<C-\\>',[[<cmd>Telescope coc code_actions<cr>]],mapopt)
 end
 
+-- better telescope highlights
+local colors = {
+   white = "#abb2bf",
+   darker_black = "#1b1f27",
+   black = "#1e222a", --  nvim bg
+   black2 = "#252931",
+   one_bg = "#282c34", -- real bg of onedark
+   one_bg2 = "#353b45",
+   one_bg3 = "#30343c",
+   grey = "#42464e",
+   grey_fg = "#565c64",
+   grey_fg2 = "#6f737b",
+   light_grey = "#6f737b",
+   red = "#d47d85",
+   baby_pink = "#DE8C92",
+   pink = "#ff75a0",
+   line = "#2a2e36", -- for lines like vertsplit
+   green = "#A3BE8C",
+   vibrant_green = "#7eca9c",
+   nord_blue = "#81A1C1",
+   blue = "#61afef",
+   yellow = "#e7c787",
+   sun = "#EBCB8B",
+   purple = "#b4bbc8",
+   dark_purple = "#c882e7",
+   teal = "#519ABA",
+   orange = "#fca2aa",
+   cyan = "#a3b8ef",
+   statusline_bg = "#22262e",
+   lightbg = "#2d3139",
+   lightbg2 = "#262a32",
+   pmenu_bg = "#A3BE8C",
+   folder_bg = "#61afef",
+}
 
 
---local cmd = vim.cmd
---local fg_bg =  function(group, fgcol, bgcol)
---   cmd("hi " .. group .. " guifg=" .. fgcol .. " guibg=" .. bgcol)
---end
+local cmd = vim.cmd
+local fg_bg =  function(group, fgcol, bgcol)
+   cmd("hi " .. group .. " guifg=" .. fgcol .. " guibg=" .. bgcol)
+end
 
---local bg = function(group, col)
---   cmd("hi " .. group .. " guibg=" .. col)
---end
+local bg = function(group, col)
+   cmd("hi " .. group .. " guibg=" .. col)
+end
 
---requires'hl_themes.ondeark'
+fg_bg("TelescopeBorder", colors.darker_black, colors.darker_black)
+fg_bg("TelescopePromptBorder", colors.black2, colors.black2)
 
+fg_bg("TelescopePromptNormal", colors.white, colors.black2)
+fg_bg("TelescopePromptPrefix", colors.red, colors.black2)
 
---fg_bg("TelescopeBorder", darker_black, darker_black)
---fg_bg("TelescopePromptBorder", black2, black2)
+bg("TelescopeNormal", colors.darker_black)
 
---fg_bg("TelescopePromptNormal", white, black2)
---fg_bg("TelescopePromptPrefix", red, black2)
+fg_bg("TelescopePreviewTitle", colors.black, colors.green)
+fg_bg("TelescopePromptTitle", colors.black, colors.red)
+fg_bg("TelescopeResultsTitle", colors.darker_black, colors.darker_black)
 
---bg("TelescopeNormal", darker_black)
-
---fg_bg("TelescopePreviewTitle", black, green)
---fg_bg("TelescopePromptTitle", black, red)
---fg_bg("TelescopeResultsTitle", darker_black, darker_black)
-
---bg("TelescopeSelection", black2)
+bg("TelescopeSelection", colors.black2)
 

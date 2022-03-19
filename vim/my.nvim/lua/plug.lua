@@ -2,7 +2,7 @@ local M = {}
 
 function M.loaded (p)
     if vim.g.plugs == nil then
-        print('vim-plug not installed no g:plugs')
+        vim.notify('vim-plug not installed no g:plugs')
         return
     end
     for key, value in pairs(vim.g.plugs) do
