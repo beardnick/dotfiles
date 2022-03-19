@@ -135,7 +135,7 @@ call plug#begin(g:plugin_dir)
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'fannheyward/telescope-coc.nvim'
 
-    "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter'
     "Plug 'theHamsta/nvim-dap-virtual-text'
 
 

@@ -4,7 +4,8 @@ end
 
 require'nvim-treesitter.configs'.setup {
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = "maintained",
+  --ensure_installed = {"go","c","cpp","rust","java","javascript",},
+  --ensure_installed = "maintained",
 
   -- Install languages synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -26,3 +27,5 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+--require("nvim-treesitter.install").prefer_git = true
