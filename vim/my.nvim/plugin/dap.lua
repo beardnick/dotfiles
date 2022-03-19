@@ -6,7 +6,7 @@ end
 
 local map =vim.api.nvim_set_keymap
 
-mapopt = {noremap = true, silent = true}
+local mapopt = {noremap = true, silent = true}
 map('n','<leader>dd',[[<cmd>lua require'dap'.toggle_breakpoint()<cr>]],mapopt)
 map('n','<leader>di',[[<cmd>lua require'dap'.step_into()<cr>]],mapopt)
 map('n','<leader>do',[[<cmd>lua require'dap'.step_out()<cr>]],mapopt)

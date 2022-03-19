@@ -5,7 +5,16 @@ function M.loaded (p)
         print('vim-plug not installed no g:plugs')
         return
     end
-    return require('collection.table').has_key(vim.g.plugs,p)
+    for key, value in pairs(vim.g.plugs) do
+        if key ~= p then
+            goto continue
+        end
+        if vim.fn.isdirectory(value.dir) == 1  then
+            return true;
+        end
+        ::continue::
+    end
+    return false
 end
 
 return M

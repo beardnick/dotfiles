@@ -295,7 +295,7 @@ vnoremap <C-E> :normal @q<CR>
 nnoremap <C-E> :normal @q<CR>
 nnoremap <C-Q> :call ToggleRecording()<CR>
 
-function ToggleRecording() abort
+function! ToggleRecording() abort
     if reg_recording()
         execute "normal q"
     else
@@ -333,3 +333,5 @@ map Y y$
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
+
+nnoremap <leader>sv :source $MYVIMRC<CR>

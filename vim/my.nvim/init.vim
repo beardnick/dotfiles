@@ -136,6 +136,8 @@ call plug#begin(g:plugin_dir)
     Plug 'fannheyward/telescope-coc.nvim'
 
     Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'xiyaowong/nvim-transparent'
+
     "Plug 'theHamsta/nvim-dap-virtual-text'
 
 
