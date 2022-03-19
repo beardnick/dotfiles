@@ -13,7 +13,7 @@ COPY vim/my.nvim/init.vim $CONF/nvim/init.vim
 COPY vim/my.nvim/autoload $CONF/nvim/autoload
 COPY vim/my.nvim/snapshot.vim $CONF/nvim/snapshot.vim
 RUN nvim --headless +RollBack +qall # install  plugin from the command line
-RUN nvim --headless +'TSIntall all' +qall # install treesitter parsers
+RUN nvim --headless +'TSInstall all' +qall # install treesitter parsers
 RUN nvim --headless +'call CocInstallAll()' +qall # install  plugin from the command line
 
 # debug
