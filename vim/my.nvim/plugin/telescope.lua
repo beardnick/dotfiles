@@ -72,6 +72,7 @@ end
 map('n','<leader>sr',[[<cmd>Telescope grep_string search="" only_sort_text=true<cr>]],mapopt)
 map('n','<C-p>',[[<cmd>Telescope find_files<cr>]],mapopt)
 map('n','<C-h>',[[<cmd>Telescope help_tags<cr>]],mapopt)
+map('n','<leader><leader>',[[<cmd>Telescope commands<cr>]],mapopt)
 
 if loaded('telescope-coc.nvim') then
     require('telescope').load_extension('coc')

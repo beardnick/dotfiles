@@ -2,8 +2,8 @@ let g:mapleader="\<Space>"
 
 nnoremap <silent><LEADER>/ :<C-U>FzfPreviewLines <C-R><C-W><CR>
 nnoremap <silent><C-F> :<C-U>Rg <C-R><C-W><CR>
-nnoremap <silent><C-H> :<C-U>Helptags<CR>
-nnoremap <silent><LEADER><LEADER> :<C-U>Commands<CR><C-P>
+"nnoremap <silent><C-H> :<C-U>Helptags<CR>
+"nnoremap <silent><LEADER><LEADER> :<C-U>Commands<CR><C-P>
 nnoremap <silent><C-G> :<C-U>Note<CR>
 
 " 语法
