@@ -64,6 +64,8 @@ RUN pacman -Syu --noconfirm && pacman -S --noconfirm \
 zsh neovim vim vifm ripgrep fzf tig ncdu tmux bottom tree bat trash-cli \
 ccls lua-language-server gopls delve man jq fd rust-analyzer
 
+RUN usr/bin/cargo install loc
+
 RUN pacman -Syu --noconfirm && pacman -S --noconfirm  openssh && ssh-keygen -A
 RUN chsh -s /bin/zsh
 
