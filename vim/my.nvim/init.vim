@@ -138,7 +138,6 @@ call plug#begin(g:plugin_dir)
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'xiyaowong/nvim-transparent'
     Plug 'github/copilot.vim'
-    Plug 'moorereason/vim-markdownfmt'
 
 
     "Plug 'theHamsta/nvim-dap-virtual-text'
