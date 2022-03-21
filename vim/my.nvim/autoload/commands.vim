@@ -4,24 +4,6 @@ function! commands#UninstallPackages() abort
 endfunction
 
 
-"function! commands#GetRegisters() abort
-  "redir => l:regs
-  "silent registers
-  "redir END
-
-  "return split(l:regs, '\n')[1:]
-"endfunction
-
-"function! commands#Registers(...) abort
-  opts = {:"let l
-        commands#GetRegisters(),: "\ 'source'
-        {x -> feedkeys(matchstr(x, '\v^\S+\ze.*') . (a:1 ? 'P' : 'p'), 'x')},: "\ 'sink'
-        '--prompt="Reg> "': "\ 'options'
-        "\ }
-  "call fzf#run(fzf#wrap(l:opts))
-"endfunction
-
-
 function! commands#BufferSplitVertical() abort
     let l:this_buf = bufnr()
     execute 'wincmd k'
