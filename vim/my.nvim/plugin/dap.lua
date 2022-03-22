@@ -87,10 +87,11 @@ if loaded('nvim-dap-virtual-text') then
         show_stop_reason = true,            -- show stop reason when stopped for exceptions
         commented = true,                  -- prefix virtual text with comment string
         -- experimental features:
-        virt_text_pos = 'eol',              -- position of virtual text, see `:h nvim_buf_set_extmark()`
-        all_frames = true,                 -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
-        virt_lines = true,                 -- show virtual lines instead of virtual text (will flicker!)
-        virt_text_win_col = nil             -- position the virtual text at a fixed window column (starting from the first text column) ,
+        -- should be closed now
+        --virt_text_pos = 'eol',              -- position of virtual text, see `:h nvim_buf_set_extmark()`
+        --all_frames = true,                 -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+        --virt_lines = true,                 -- show virtual lines instead of virtual text (will flicker!)
+        --virt_text_win_col = nil             -- position the virtual text at a fixed window column (starting from the first text column) ,
                                             -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
     }
 end

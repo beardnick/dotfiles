@@ -140,7 +140,7 @@ call plug#begin(g:plugin_dir)
     Plug 'github/copilot.vim'
 
 
-    "Plug 'theHamsta/nvim-dap-virtual-text'
+    Plug 'theHamsta/nvim-dap-virtual-text'
 
 
     "Plug 'nvim-treesitter/playground'
