@@ -74,6 +74,8 @@ if loaded('nvim-dap') and loaded('nvim-dap-ui') then
     dap.listeners.before.event_exited["dapui_config"] = function()
       dapui.close()
     end
+    -- watch datas in float window
+    map('n','<leader>dk',[[<cmd>lua require("dapui").float_element("scopes",{width = 100, height = 20, enter = true})<cr>]],mapopt)
 end
 
 if loaded('nvim-dap-virtual-text') then

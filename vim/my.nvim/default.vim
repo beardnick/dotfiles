@@ -300,3 +300,6 @@ let g:bookmark_save_per_working_dir = 1
 let g:cmake_compile_commands = 1
 
 set shortmess=at
+
+set colorcolumn=80,120
+
