@@ -28,7 +28,7 @@ nmap <silent> gu <Plug>(coc-references)
 nmap <silent> ]c <Plug>(coc-git-nextchunk)
 nmap <silent> [c <Plug>(coc-git-prevchunk)
 nmap <silent> ]e <Plug>(coc-diagnostic-next-error)
-nmap <silent> [e <Plug>(coc-diagnostic-previous-error)
+nmap <silent> [e <Plug>(coc-diagnostic-prev-error)
 
 
 " 界面
