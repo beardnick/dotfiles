@@ -98,7 +98,8 @@ call plug#begin(g:plugin_dir)
     Plug 'sickill/vim-monokai' " monokai theme
     Plug 'kurkale6ka/vim-swap' " visualmode <Leader>x交换位置
     Plug 'tpope/vim-dotenv'
-    Plug 'itchyny/lightline.vim'
+    "Plug 'itchyny/lightline.vim'
+    Plug 'nvim-lualine/lualine.nvim'
     Plug 'rakr/vim-one'
     Plug 'tomasiser/vim-code-dark' " vscode主题
     Plug 'markonm/traces.vim' " 在命令模式中高亮正则表达式
@@ -139,7 +140,7 @@ call plug#begin(g:plugin_dir)
     Plug 'xiyaowong/nvim-transparent'
     Plug 'github/copilot.vim'
 
-
+    Plug 'SmiteshP/nvim-gps'
     Plug 'theHamsta/nvim-dap-virtual-text'
 
 
