@@ -143,6 +143,7 @@ call plug#begin(g:plugin_dir)
     Plug 'SmiteshP/nvim-gps'
     Plug 'theHamsta/nvim-dap-virtual-text'
 
+    Plug 'Pocco81/AutoSave.nvim'
 
     "Plug 'nvim-treesitter/playground'
     "Plug 'nvim-treesitter/nvim-treesitter' 
@@ -214,7 +215,6 @@ function! UpdateWithSnapshot() abort
     exe "PlugSnapshot! " . g:mynvim_root_path . "/snapshot.vim"
     exe "PlugUpdate"
 endfunction
-
 
 function! CocInstallAll() abort
     let ext_path = g:coc_data_home . '/extensions'
