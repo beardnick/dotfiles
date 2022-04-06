@@ -67,8 +67,8 @@ set nowrap
 "set sidescrolloff=999
 "set scrolloff=999
 " 使用语法折叠
-set foldmethod=syntax
-set foldlevelstart=99
+"set foldmethod=syntax
+"set foldlevelstart=99
 " 使用/匹配的时候实时显示匹配到的内容
 set incsearch
 set ignorecase

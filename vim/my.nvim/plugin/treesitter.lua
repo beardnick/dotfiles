@@ -25,7 +25,9 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-local o = vim.o
---require("nvim-treesitter.install").prefer_git = true
-o.foldmethod="expr"
-o.foldexpr="nvim_treesitter#foldexpr()"
+-- https://github.com/nvim-treesitter/nvim-treesitter/issues/1424
+-- https://github.com/neovim/neovim/issues/14977
+-- neovim fold doesn't work sometimes, just take :e % as a workaround
+vim.o.foldmethod='expr'
+vim.o.foldexpr='nvim_treesitter#foldexpr()'
+vim.o.foldlevelstart=99
