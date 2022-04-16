@@ -143,7 +143,8 @@ call plug#begin(g:plugin_dir)
     Plug 'SmiteshP/nvim-gps'
     Plug 'theHamsta/nvim-dap-virtual-text'
 
-    Plug 'Pocco81/AutoSave.nvim'
+    " auto save conflicts with ultisnips todo fix conflicts
+    "Plug 'Pocco81/AutoSave.nvim'
 
     "Plug 'nvim-treesitter/playground'
     "Plug 'nvim-treesitter/nvim-treesitter' 
