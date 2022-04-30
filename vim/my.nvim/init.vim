@@ -53,7 +53,7 @@ call plug#begin(g:plugin_dir)
     " 三个插件加起来有最好的文件搜索体验
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    "Plug 'tweekmonster/fzf-filemru'
+    Plug 'tweekmonster/fzf-filemru'
     Plug 'Yggdroot/indentLine'
     Plug 'tyru/open-browser.vim'
     Plug 'airblade/vim-rooter'

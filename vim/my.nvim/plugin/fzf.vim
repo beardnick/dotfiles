@@ -1,3 +1,6 @@
+if !myplug#Loaded('fzf.vim')
+    finish
+endif
 let g:fzf_buffers_jump = 1
 
 let g:fzf_history_dir = '~/.local/share/fzf-history'
@@ -52,3 +55,7 @@ function! s:fzf_task()
 endfunction
 
 command! -nargs=0 AsyncTaskFzf call s:fzf_task()
+
+if myplug#Loaded('fzf-filemru')
+    nnoremap <silent><C-p> :<C-U>FilesMru --tiebreak=index<CR>
+endif

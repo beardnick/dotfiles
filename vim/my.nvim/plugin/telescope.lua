@@ -6,6 +6,18 @@ if not loaded('telescope.nvim') then
     return
 end
 
+local extensions = {}
+
+if loaded('telescope-fzf-native.nvim') then
+    require('telescope').load_extension('fzf')
+    extensions.fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+    }
+end
+
 if loaded('telescope-fzy-native.nvim') then
     require('telescope').load_extension('fzy_native')
 end
@@ -53,24 +65,13 @@ require('telescope').setup{
          }
       },
   },
-   extensions = {
-    fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                       -- the default case_mode is "smart_case"
-    }
-  },
+   extensions = extensions,
 }
 
-if loaded('telescope-fzf-native.nvim') then
-    require('telescope').load_extension('fzf')
-end
 
 
 map('n','<leader>sr',[[<cmd>Telescope grep_string search="" only_sort_text=true<cr>]],mapopt)
-map('n','<C-p>',[[<cmd>Telescope find_files<cr>]],mapopt)
+--map('n','<C-p>',[[<cmd>Telescope find_files<cr>]],mapopt)
 map('n','<C-h>',[[<cmd>Telescope help_tags<cr>]],mapopt)
 -- telescope commands missed call s:func commands compared with fzf
 --map('n','<leader><leader>',[[<cmd>Telescope commands<cr>]],mapopt)
