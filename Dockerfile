@@ -69,6 +69,9 @@ RUN /usr/bin/cargo install loc
 RUN pacman -Syu --noconfirm && pacman -S --noconfirm  openssh && ssh-keygen -A
 RUN chsh -s /bin/zsh
 
+# user out docker can add self to root group to access data volume files
+# usermod -aG root $USER
+RUN umask 002
 
 ENTRYPOINT ["zsh","/root/dotfiles/docker-entrypoint.sh"]
 
