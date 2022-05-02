@@ -13,7 +13,8 @@ require("lualine").setup({
             lualine_a = {'mode'},
             lualine_b = {'branch', 'diff', 'diagnostics'},
             lualine_c = {
-                    'filename',
+                    --'filename',
+                    '%F',
                     { gps.get_location, cond = gps.is_available },
                 },
             lualine_x = {},
