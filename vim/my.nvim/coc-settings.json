@@ -79,10 +79,6 @@
     "suggest.fixInsertedWord": false,
     "coc.preferences.currentFunctionSymbolAutoUpdate": false,
     "calc.highlight": true,
-    "tabnine.disable_filetypes": [
-        "java"
-    ],
-    "java.jdt.ls.vmargs": "-javaagent:/usr/local/share/lombok/lombok-1.18.4.jar -Xbootclasspath/a:/usr/local/share/lombok/lombok-1.18.4.jar",
     "go.goplsOptions": {
         "completeUnimported": true
     },
@@ -110,7 +106,6 @@
     "solargraph.symbols": true,
     "solargraph.promptDownload": true,
     "diagnostic.errorSign": "x",
-    "kite.enableSnippets": true,
     "yank.priority": 50,
     "coc.source.tag.filetypes": [
         "java",
@@ -124,6 +119,8 @@
         "c",
         "go"
     ],
+    "go.goplsPath": "gopls",
+    "rust-analyzer.server.path": "rust-analyzer",
     "suggest.timeout": 1000,
     "explorer.previewAction.onHover": false,
     "go.disable": {
