@@ -336,3 +336,6 @@ cnoremap <C-e> <End>
 
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>ev :e $MYVIMRC<CR>
+
+inoremap <C-o> <ESC>o
+inoremap <C-shift-o> <ESC>O
