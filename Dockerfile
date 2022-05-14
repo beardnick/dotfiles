@@ -37,28 +37,9 @@ RUN mkdir -p $CONF \
 
 FROM manjarolinux/base as dev-env
 
-RUN pacman -Syu --noconfirm && pacman -S --noconfirm git nodejs npm yarn go python typescript rust
-
-RUN /usr/bin/cargo install --locked navi
-
-COPY --from=nvim-builder /root/.config/mynvim /root/.config/mynvim
-COPY --from=nvim-builder /root/.local/share/nvim/site/autoload /root/.local/share/nvim/site/autoload
-COPY --from=zsh-builder /root/.zinit /root/.zinit
-
-
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm git nodejs npm yarn python typescript
 RUN pacman -Syu --noconfirm && pacman -S --noconfirm ctags python-pynvim
 RUN yarn global add neovim
-
-# https://github.com/rust-lang/cargo/issues/7515
-#ENV CARGO_HTTP_MULTIPLEXING false
-
-ENV DOTFILES=/root/dotfiles CONF=/root/.config
-
-WORKDIR /root
-COPY . dotfiles
-RUN cd dotfiles && sh bootstrap.sh
-
-RUN mkdir /data
 
 RUN pacman -Syu --noconfirm && pacman -S --noconfirm \
 zsh neovim vim vifm ripgrep fzf tig ncdu tmux bottom tree bat trash-cli \
@@ -69,9 +50,33 @@ RUN /usr/bin/cargo install loc
 RUN pacman -Syu --noconfirm && pacman -S --noconfirm  openssh && ssh-keygen -A
 RUN chsh -s /bin/zsh
 
-# user out docker can add self to root group to access data volume files
-# usermod -aG root $USER
-RUN umask 002
+# https://github.com/rust-lang/cargo/issues/7515
+#ENV CARGO_HTTP_MULTIPLEXING false
+ENV USERNAME=vimer
+ENV MHOME=/home/${USERNAME}
+ENV HOMEBAK=${HOME}
+ENV HOME=${MHOME}
 
-ENTRYPOINT ["zsh","/root/dotfiles/docker-entrypoint.sh"]
+RUN useradd -s /bin/zsh -m ${USERNAME} && echo "${USERNAME} ALL=(ALL)   ALL" >> /etc/sudoers
+
+COPY --from=nvim-builder /root/.config/mynvim ${MHOME}/.config/mynvim
+COPY --from=nvim-builder /root/.local/share/nvim/site/autoload ${MHOME}/.local/share/nvim/site/autoload
+COPY --from=zsh-builder /root/.zinit ${MHOME}/.zinit
+
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm go rust
+RUN /usr/bin/cargo install --locked navi
+RUN /usr/bin/cargo install loc
+
+ENV DOTFILES=${MHOME}/dotfiles CONF=${MHOME}/.config
+
+RUN mkdir /data
+WORKDIR ${MHOME}
+COPY . dotfiles
+RUN cd dotfiles && sh bootstrap.sh
+
+ENV HOME=${HOMEBAK}
+
+# if use zsh the user will be vimer, but why ?
+#ENTRYPOINT ["zsh","/home/vimer/dotfiles/docker-entrypoint.sh"]
+ENTRYPOINT ["sh","/home/vimer/dotfiles/docker-entrypoint.sh"]
 
