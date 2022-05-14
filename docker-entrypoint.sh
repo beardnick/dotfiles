@@ -19,7 +19,7 @@ if [[ -e /data/.ssh ]]; then
 fi
 
 if [[ -f /data/init.sh ]]; then
-    zsh ${MHOME}/init.sh
+    zsh /data/init.sh
 fi
 
 if [[ $MUID -ne 1 && $MGID -ne 1 ]]; then
