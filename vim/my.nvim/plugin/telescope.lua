@@ -23,6 +23,7 @@ if loaded('telescope-fzy-native.nvim') then
 end
 
 require'telescope'.load_extension('goimpl')
+vim.api.nvim_create_user_command('Goimpl','Telescope goimpl',{})
 
 require('telescope').setup{
   defaults = {
