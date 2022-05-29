@@ -6,12 +6,6 @@ nnoremap <silent><C-F> :<C-U>Rg <C-R><C-W><CR>
 nnoremap <silent><LEADER><LEADER> :<C-U>Commands<CR><C-P>
 nnoremap <silent><C-G> :<C-U>Note<CR>
 
-" 语法
-" 先禁用vim-go的文档显示
-let g:go_doc_keywordprg_enabled = 0
-
-nnoremap <silent>K  :<C-U> call CocAction('doHover')<CR>
-vnoremap <silent>K  :<C-U> call CocAction('doHover')<CR>
 
 " Remap keys for gotos
 " 先禁用vim-go的跳转定义插件
@@ -336,6 +330,3 @@ cnoremap <C-e> <End>
 
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>ev :e $MYVIMRC<CR>
-
-inoremap <C-o> <ESC>o
-inoremap <C-shift-o> <ESC>O

@@ -2,19 +2,7 @@ if !myplug#Loaded('coc.nvim')
     finish
 endif
 
-"autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
-command! Refactor call CocActionAsync('refactor')
-
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
- "use `:OR` for organize import of current buffer
-"command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -54,3 +42,12 @@ augroup end
 
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 autocmd BufWritePre *.go,*.json :silent call CocAction('format')
+
+command! Refactor call CocActionAsync('refactor')
+" will popup a rename dialog
+command! Rename call CocActionAsync('rename')
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+nnoremap <silent>K  :<C-U> call CocAction('definitionHover')<CR>
+vnoremap <silent>K  :<C-U> call CocAction('definitionHover')<CR>
