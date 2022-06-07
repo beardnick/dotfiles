@@ -46,6 +46,10 @@ let g:rainbow_active = 1
 " 启用git符号栏 
 let g:gitgutter_enabled = 1
 
+" use thin split line
+set fillchars+=vert:│
+hi VertSplit ctermbg=NONE guibg=NONE
+
 
 " transparent bg
 "autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
