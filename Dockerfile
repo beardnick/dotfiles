@@ -1,14 +1,17 @@
 FROM archlinux:latest as base-builder
 
-ENV BUILDER=builder
-#ENV BUILDER=builder
+ENV BUILDER=vimer
+ENV HOME=/home/${BUILDER}
+ENV DOTFILES=${HOME}/dotfiles
+ENV CONF=${HOME}/.config
+
 RUN pacman -Syu --noconfirm \
     && pacman -S --noconfirm --needed git base-devel \
     && useradd -s /bin/bash -u 65533 -m ${BUILDER} \
     && echo "${BUILDER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 USER ${BUILDER}
-RUN whoami \
+RUN echo "run as $(whoami)" \
     && cd /home/${BUILDER} \
     && git clone https://aur.archlinux.org/yay-bin.git \
     && cd yay-bin \
@@ -16,17 +19,11 @@ RUN whoami \
     && yay -S --noconfirm nvm \
     && source /usr/share/nvm/init-nvm.sh \
     && nvm install 17 \
-    && npm install yarn
+    && npm install -g yarn
 
 FROM base-builder as nvim-builder
 
 RUN sudo pacman -S --noconfirm neovim go tree
-
-
-ENV BUILDER=builder
-ENV HOME=/home/${BUILDER}
-ENV DOTFILES=${HOME}/dotfiles
-ENV CONF=${HOME}/.config
 
 # my.nvim 
 RUN sh -c $'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim \
@@ -49,11 +46,6 @@ RUN source /usr/share/nvm/init-nvm.sh \
 FROM base-builder as zsh-builder
 
 RUN sudo pacman -S --noconfirm zsh 
-
-ENV BUILDER=builder
-ENV HOME=/home/${BUILDER}
-ENV DOTFILES=${HOME}/dotfiles
-ENV CONF=${HOME}/.config
 
 WORKDIR ${HOME}
 COPY shell dotfiles/shell
@@ -78,13 +70,11 @@ RUN rustup install stable \
     && /usr/bin/cargo install --locked navi
 
 RUN sudo pacman -S --noconfirm  openssh && ssh-keygen -A
-RUN sudo chsh -s /bin/zsh
+RUN sudo chsh -s /bin/zsh ${BUILDER}
+RUN echo "source /usr/share/nvm/init-nvm.sh" >> ${HOME}/.zshenv
 
 # https://github.com/rust-lang/cargo/issues/7515
 #ENV CARGO_HTTP_MULTIPLEXING false
-ENV USERNAME=builder
-ENV HOME=/home/${USERNAME}
-ENV HOMEBAK=${HOME}
 
 COPY --from=nvim-builder ${HOME}/.config/mynvim ${HOME}/.config/mynvim
 COPY --from=nvim-builder ${HOME}/.local/share/nvim/site/autoload ${HOME}/.local/share/nvim/site/autoload
@@ -93,12 +83,11 @@ COPY --from=zsh-builder ${HOME}/.zinit ${HOME}/.zinit
 ENV DOTFILES=${HOME}/dotfiles CONF=${HOME}/.config
 
 RUN sudo mkdir /data
-WORKDIR ${HOME}
-COPY . dotfiles
-RUN cd dotfiles && sh bootstrap.sh
+COPY . ${DOTFILES}
+RUN cd ${DOTFILES} && sh bootstrap.sh
 
 USER root
 # if use zsh the user will be vimer, but why ?
 #ENTRYPOINT ["zsh","/home/vimer/dotfiles/docker-entrypoint.sh"]
-ENTRYPOINT ["sh","/home/builder/dotfiles/docker-entrypoint.sh"]
+ENTRYPOINT ["sh","/home/vimer/dotfiles/docker-entrypoint.sh"]
 

@@ -5,7 +5,7 @@
 
 # do not use UID and GID
 # UID GID is default in linux ,they may be overwritten by system value
-USERNAME=builder
+USERNAME=vimer
 MHOME=/home/${USERNAME}
 MUID=${MUID:-1}
 MGID=${MGID:-1}
