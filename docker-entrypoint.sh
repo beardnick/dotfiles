@@ -5,7 +5,7 @@
 
 # do not use UID and GID
 # UID GID is default in linux ,they may be overwritten by system value
-USERNAME=vimer
+USERNAME=builder
 MHOME=/home/${USERNAME}
 MUID=${MUID:-1}
 MGID=${MGID:-1}
@@ -14,7 +14,7 @@ mkdir -p ${MHOME}/.ssh
 
 # .ssh files need be copyed instead of soft link
 if [[ -e /data/.ssh ]]; then
-    cp -v /data/.ssh/* /root/.ssh
+    cp -v /data/.ssh/* $MHOME/.ssh
     cat /data/.ssh/id_rsa.pub >>  ${MHOME}/.ssh/authorized_keys
 fi
 
