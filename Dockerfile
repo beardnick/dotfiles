@@ -34,7 +34,8 @@ COPY vim/my.nvim/init.vim ${CONF}/nvim/init.vim
 COPY vim/my.nvim/autoload ${CONF}/nvim/autoload
 COPY vim/my.nvim/snapshot.vim ${CONF}/nvim/snapshot.vim
 RUN tree ${CONF}
-RUN nvim --headless +RollBack +qall # install  plugin from the command line
+RUN source /usr/share/nvm/init-nvm.sh \
+    && nvim --headless +RollBack +qall # install  plugin from the command line
 RUN nvim --headless +'TSInstallSync all' +qall # install treesitter parsers
 
 RUN source /usr/share/nvm/init-nvm.sh \
