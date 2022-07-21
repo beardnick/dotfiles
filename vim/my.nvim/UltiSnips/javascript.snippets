@@ -1,0 +1,19 @@
+priority 1
+
+snippet try "try { ... } catch(e) { ... }"
+	try {
+		${0:${VISUAL}}
+	} catch (${1:err}) {
+		${2:/* handle error */}
+	}
+endsnippet
+
+snippet tryf "try { ... } catch(e) { ... } finally { ... }"
+	try {
+		${0:${VISUAL}}
+	} catch (${1:err}) {
+		${2:/* handle error */}
+	} finally {
+		${3:/* be executed regardless of the try / catch result*/}
+	}
+endsnippet
