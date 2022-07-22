@@ -64,7 +64,7 @@ require('telescope').setup{
 
 
 
-map('n','<leader>sr',[[<cmd>Telescope grep_string search="" only_sort_text=true<cr>]],mapopt)
+--map('n','<leader>sr',[[<cmd>Telescope grep_string search="" only_sort_text=true<cr>]],mapopt)
 --map('n','<C-p>',[[<cmd>Telescope find_files<cr>]],mapopt)
 map('n','<C-h>',[[<cmd>Telescope help_tags<cr>]],mapopt)
 -- telescope commands missed call s:func commands compared with fzf
