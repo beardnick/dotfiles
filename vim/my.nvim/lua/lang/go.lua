@@ -163,11 +163,32 @@ M.goimpl = function(opts)
                     return
                 end
 
-                goimpl(typeNode, entry.value.containerName, entry.value.name)
+                local containerName = entry.value.containerName
+                local name = entry.value.name
+                local parts = vim.fn.split(containerName,'/')
+                if startswith(name,parts[#parts]) then
+                    local packs = vim.fn.split(name,'\\.')
+                    name = packs[#packs]
+                end
+                goimpl(typeNode, containerName, name)
             end)
             return true
         end,
     }):find()
+end
+
+function startswith(text, prefix)
+    return text:find(prefix, 1, true) == 1
+end
+
+function table.slice(tbl, first, last, step)
+  local sliced = {}
+
+  for i = first or 1, last or #tbl, step or 1 do
+    sliced[#sliced+1] = tbl[i]
+  end
+
+  return sliced
 end
 
 return M
