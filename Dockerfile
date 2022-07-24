@@ -10,6 +10,13 @@ RUN pacman -Syu --noconfirm \
     && useradd -s /bin/bash -u 65533 -m ${BUILDER} \
     && echo "${BUILDER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
+RUN echo "config locale"
+COPY --from=manjarolinux/base /usr/share/i18n/locales/ /usr/share/i18n/locales/
+RUN echo "zh_CN.UTF-8 UTF-8" >> /etc/locale.gen \
+    && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+    && locale-gen \
+    && locale -a
+
 USER ${BUILDER}
 RUN echo "run as $(whoami)" \
     && cd /home/${BUILDER} \
@@ -80,15 +87,6 @@ RUN echo "source /usr/share/nvm/init-nvm.sh" >> ${HOME}/.zshenv
 COPY --from=nvim-builder ${HOME}/.config/mynvim ${HOME}/.config/mynvim
 COPY --from=nvim-builder ${HOME}/.local/share/nvim/site/autoload ${HOME}/.local/share/nvim/site/autoload
 COPY --from=zsh-builder ${HOME}/.zinit ${HOME}/.zinit
-
-RUN echo "config locale"
-COPY --from=manjarolinux/base /usr/share/i18n/locales/ /usr/share/i18n/locales/
-USER root
-RUN echo "zh_CN.UTF-8 UTF-8" >> /etc/locale.gen \
-    && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
-    && locale-gen \
-    && locale -a
-USER ${BUILDER}
 
 ENV DOTFILES=${HOME}/dotfiles CONF=${HOME}/.config
 
