@@ -17,6 +17,9 @@ RUN echo "zh_CN.UTF-8 UTF-8" >> /etc/locale.gen \
     && locale-gen \
     && locale -a
 
+ENV NVM_DIR ${HOME}/.nvm
+ENV NODE_VERSION 17.9.1 
+
 USER ${BUILDER}
 RUN echo "run as $(whoami)" \
     && cd /home/${BUILDER} \
@@ -25,8 +28,17 @@ RUN echo "run as $(whoami)" \
     && makepkg -si --noconfirm \
     && yay -S --noconfirm nvm \
     && source /usr/share/nvm/init-nvm.sh \
-    && nvm install 17 \
-    && npm install -g yarn
+    && nvm install ${NODE_VERSION} \
+    && nvm alias default ${NODE_VERSION} \
+    && nvm use default
+
+ENV NODE_PATH ${NVM_DIR}/versions/node/v${NODE_VERSION}/lib/node_modules
+ENV PATH      ${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:$PATH
+
+RUN npm install -g yarn
+
+RUN sudo pacman -Syu --noconfirm \
+    && sudo pacman -S --noconfirm --needed python
 
 FROM base-builder as nvim-builder
 
@@ -40,13 +52,9 @@ RUN sh -c $'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/
 COPY vim/my.nvim/init.vim ${CONF}/nvim/init.vim
 COPY vim/my.nvim/autoload ${CONF}/nvim/autoload
 COPY vim/my.nvim/snapshot.vim ${CONF}/nvim/snapshot.vim
-RUN tree ${CONF}
-RUN source /usr/share/nvm/init-nvm.sh \
-    && nvim --headless +RollBack +qall # install  plugin from the command line
+RUN nvim --headless +RollBack +qall # install  plugin from the command line
 RUN nvim --headless +'TSInstallSync all' +qall # install treesitter parsers
-
-RUN source /usr/share/nvm/init-nvm.sh \
-    && nvim --headless +'call CocInstallAll()' +qall # install  plugin from the command line
+RUN nvim --headless +'call CocInstallAll()' +qall # install  plugin from the command line
 
 # debug
 #RUN pacman -S --noconfirm tree && tree -d /root/.config/mynvim/coc
@@ -67,17 +75,16 @@ RUN mkdir -p $CONF \
 
 FROM base-builder as dev-env
 
-RUN sudo pacman -S --noconfirm python typescript ctags python-pynvim \
+RUN sudo pacman -S --noconfirm typescript ctags python-pynvim \
     zsh neovim vim vifm ripgrep fzf tig ncdu tmux bottom tree bat trash-cli \
     ccls lua-language-server gopls delve man jq fd rust-analyzer rustup \
-    && source /usr/share/nvm/init-nvm.sh \
     && npm install -g neovim
 
 RUN rustup install stable \
     && /usr/bin/cargo install loc \
     && /usr/bin/cargo install --locked navi
 
-RUN sudo pacman -S --noconfirm  openssh && ssh-keygen -A
+RUN sudo pacman -S --noconfirm  openssh && sudo ssh-keygen -A
 RUN sudo chsh -s /bin/zsh ${BUILDER}
 RUN echo "source /usr/share/nvm/init-nvm.sh" >> ${HOME}/.zshenv
 
