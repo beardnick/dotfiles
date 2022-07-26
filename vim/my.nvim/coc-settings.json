@@ -126,5 +126,11 @@
     "go.disable": {
         "workspaceFolders": true
     },
+    "javascript.referencesCodeLens.enable": false,
+    "typescript.referencesCodeLens.enable": false,
+    "javascript.implementationsCodeLens.enable": false,
+    "typescript.implementationsCodeLens.enable": false,
+    "java.referencesCodeLens.enabled": false,
+    "java.implementationsCodeLens.enabled": false,
     "coc.preferences.extensionUpdateCheck": "daily"
 }
