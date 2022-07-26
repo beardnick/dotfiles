@@ -51,3 +51,9 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 nnoremap <silent>K  :<C-U> call CocAction('definitionHover')<CR>
 vnoremap <silent>K  :<C-U> call CocAction('definitionHover')<CR>
+
+" scroll float documents
+nnoremap <nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
+nnoremap <nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
+inoremap <nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
