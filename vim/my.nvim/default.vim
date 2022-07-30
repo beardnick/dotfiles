@@ -195,7 +195,7 @@ let g:livepreview_engine = 'xelatex'
 augroup open_terminal
   autocmd!
     autocmd TermOpen * setlocal sidescroll=1 sidescrolloff=0 nonumber
-    autocmd TermClose <buffer> bdelete!
+    "autocmd TermClose <buffer> bdelete!
 augroup END
 
 augroup find_root

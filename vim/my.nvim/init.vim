@@ -210,6 +210,7 @@ silent! execute 'source ' . g:mynvim_config_after
 call utils#source_file(g:mynvim_root_path, 'keybinding.vim')
 
 command! Update call UpdateWithSnapshot()
+command! Snapshot exe "PlugSnapshot! " . g:mynvim_root_path . "/snapshot.vim"
 command! RollBack exe "source " . g:mynvim_root_path . "/snapshot.vim"
 
 function! UpdateWithSnapshot() abort
