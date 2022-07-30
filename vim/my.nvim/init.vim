@@ -143,6 +143,7 @@ call plug#begin(g:plugin_dir)
     Plug 'SmiteshP/nvim-gps'
     Plug 'theHamsta/nvim-dap-virtual-text'
 
+    Plug 'Weissle/persistent-breakpoints.nvim'
     " auto save conflicts with ultisnips todo fix conflicts
     "Plug 'Pocco81/AutoSave.nvim'
 

@@ -12,6 +12,33 @@ map('n','<leader>di',[[<cmd>lua require'dap'.step_into()<cr>]],mapopt)
 map('n','<leader>do',[[<cmd>lua require'dap'.step_out()<cr>]],mapopt)
 map('n','<leader>dn',[[<cmd>lua require'dap'.step_over()<cr>]],mapopt)
 map('n','<leader>dc',[[<cmd>lua require'dap'.continue()<cr>]],mapopt)
+map('n','<leader>ds',[[<cmd>lua require'dap'.disconnect()<cr>]],mapopt)
+
+local dap_opt = {
+    breakpoint = {
+      text = "",
+      texthl = "LspDiagnosticsSignError",
+      linehl = "",
+      numhl = "",
+    },
+    breakpoint_rejected = {
+      text = "",
+      texthl = "LspDiagnosticsSignHint",
+      linehl = "",
+      numhl = "",
+    },
+    stopped = {
+      text = "",
+      texthl = "LspDiagnosticsSignInformation",
+      linehl = "DiagnosticUnderlineInfo",
+      numhl = "LspDiagnosticsSignInformation",
+    },
+}
+
+vim.fn.sign_define("DapBreakpoint", dap_opt.breakpoint)
+vim.fn.sign_define("DapBreakpointRejected", dap_opt.breakpoint_rejected)
+vim.fn.sign_define("DapStopped", dap_opt.stopped)
+
 
 
 if loaded('nvim-dap-go') then
@@ -96,3 +123,10 @@ if loaded('nvim-dap-virtual-text') then
     }
 end
 
+if loaded('persistent-breakpoints.nvim') then
+    require('persistent-breakpoints').setup{} -- use default config
+    map("n", "<leader>dd", "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>", mapopt)
+    --map("n", "<YourKey2>", "<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>", mapopt)
+    --map("n", "<YourKey3>", "<cmd>lua require('persistent-breakpoints.api').clear_all_breakpoints()<cr>", mapopt)
+    vim.api.nvim_create_autocmd({"BufReadPost"},{ callback = require('persistent-breakpoints.api').load_breakpoints })
+end
