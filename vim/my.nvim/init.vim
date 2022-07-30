@@ -144,10 +144,8 @@ call plug#begin(g:plugin_dir)
     Plug 'theHamsta/nvim-dap-virtual-text'
 
     Plug 'Weissle/persistent-breakpoints.nvim'
-    " auto save conflicts with ultisnips todo fix conflicts
-    "Plug 'Pocco81/AutoSave.nvim'
 
-    "Plug 'nvim-treesitter/playground'
+    Plug 'nvim-treesitter/playground'
     "Plug 'nvim-treesitter/nvim-treesitter' 
     "Plug 'nvim-treesitter/nvim-treesitter-refactor'
     "Plug 'romgrk/nvim-treesitter-context'
