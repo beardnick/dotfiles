@@ -175,8 +175,6 @@ nmap <silent><LEADER>lp :<C-U>AsyncTask project-run<CR>
 nmap <silent><LEADER>lg :<C-U>TemplateHere<CR>
 nmap <silent><LEADER>lt :<C-U>AsyncTaskFzf<CR>
 
-vmap <silent><LEADER>ls :TREPLSendSelection<CR>
-
 " file
 "nnoremap <silent><LEADER>fs :<C-U>Files<CR>
 nnoremap <silent><LEADER>ft :<C-U>CocCommand explorer<CR>

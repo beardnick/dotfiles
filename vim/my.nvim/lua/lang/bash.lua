@@ -2,6 +2,7 @@ local ts_utils = require 'nvim-treesitter.ts_utils'
 local string = require 'collection.string'
 local toggleterm = require 'toggleterm'
 local Terminal = require 'toggleterm.terminal'.Terminal
+local xvim = require'xvim'
 
 local M = {}
 
@@ -36,6 +37,20 @@ function M.send_cursor_cmd()
     vim.api.nvim_set_current_win(cur)
     vim.cmd("stopinsert")
     --toggleterm.exec(cmd)
+end
+
+function M.send_lines()
+    local cur = vim.api.nvim_get_current_win()
+    local cmd = xvim.visual_selection_text()
+    print('send_lines',cmd)
+    if not term:is_open() then
+        term:open(vim.o.columns * 0.4,'vertical')
+    end
+    vim.api.nvim_set_current_win(term.window)
+    term:send(cmd,false)
+    vim.cmd("normal! G")
+    vim.api.nvim_set_current_win(cur)
+    vim.cmd("stopinsert")
 end
 
 return M
