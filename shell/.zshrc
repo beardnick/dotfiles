@@ -66,7 +66,7 @@ zinit light skywind3000/z.lua
 zinit light xvoland/Extract
 
 #zinit light RobSis/zsh-completion-generator
-zinit light hlissner/zsh-autopair
+#zinit light hlissner/zsh-autopair
 zinit light chrissicool/zsh-256color
 zinit light Tarrasch/zsh-bd
 #zinit light zpm-zsh/ls

@@ -42,7 +42,6 @@ end
 function M.send_lines()
     local cur = vim.api.nvim_get_current_win()
     local cmd = xvim.visual_selection_text()
-    print('send_lines',cmd)
     if not term:is_open() then
         term:open(vim.o.columns * 0.4,'vertical')
     end
