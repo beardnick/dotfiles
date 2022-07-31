@@ -146,6 +146,7 @@ call plug#begin(g:plugin_dir)
     Plug 'Weissle/persistent-breakpoints.nvim'
 
     Plug 'nvim-treesitter/playground'
+    Plug 'michaelb/sniprun'
     "Plug 'nvim-treesitter/nvim-treesitter' 
     "Plug 'nvim-treesitter/nvim-treesitter-refactor'
     "Plug 'romgrk/nvim-treesitter-context'
