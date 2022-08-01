@@ -6,7 +6,9 @@ local xvim = require'xvim'
 
 local M = {}
 
-local term = Terminal:new({})
+local term = Terminal:new({
+    cmd = 'bash',
+})
 
 function M.cursor_cmd()
     local node = ts_utils.get_node_at_cursor()

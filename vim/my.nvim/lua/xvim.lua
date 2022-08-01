@@ -10,7 +10,11 @@ function M.visual_selection_range()
     if end_col == 2147483647 then
         end_col = vim.fn.strlen(vim.fn.getline(end_row))
     end
-    return start_row - 1, start_col, end_row - 1, end_col
+    start_row = start_row - 1
+    start_col = start_col == 0 and start_col or start_col - 1
+    end_row = end_row - 1
+    --end_col = end_col == 0 and end_col or end_col - 1
+    return start_row, start_col,end_row,end_col
 end
 
 function M.visual_selection_text()
