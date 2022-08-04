@@ -132,5 +132,6 @@
     "typescript.implementationsCodeLens.enable": false,
     "java.referencesCodeLens.enabled": false,
     "java.implementationsCodeLens.enabled": false,
-    "coc.preferences.extensionUpdateCheck": "daily"
+    "coc.preferences.extensionUpdateCheck": "daily",
+    "tsserver.implicitProjectConfig.checkJs": true // enable type check for javascript
 }
