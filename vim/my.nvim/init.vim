@@ -127,7 +127,7 @@ call plug#begin(g:plugin_dir)
     " debug
     Plug 'mfussenegger/nvim-dap'
     Plug 'rcarriga/nvim-dap-ui'
-    Plug 'leoluz/nvim-dap-go'
+    Plug 'beardnick/nvim-dap-go'
     Plug 'sunjon/stylish.nvim'
     Plug 'rcarriga/nvim-notify'
 
