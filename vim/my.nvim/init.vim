@@ -197,6 +197,7 @@ let g:coc_global_extensions =['coc-actions@1.5.0'
                             \,'coc-yank@1.2.1'
                             \,'coc-fzf-preview@2.12.8'
                             \,'coc-cmake@0.2.1'
+                            \,'coc-clangd@0.24.0'
                             \]
 
 

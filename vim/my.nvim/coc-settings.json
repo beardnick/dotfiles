@@ -36,29 +36,6 @@
                     }
                 }
             }
-        },
-        "ccls": {
-            "command": "ccls",
-            "filetypes": [
-                "c",
-                "cpp",
-                "cuda",
-                "objc",
-                "objcpp"
-            ],
-            "rootPatterns": [
-                ".ccls-root",
-                "compile_commands.json"
-            ],
-            "initializationOptions": {
-                "cache": {
-                    "directory": ".vim"
-                },
-                "client": {
-                    "snippetSupport": true
-                },
-                "compilationDatabaseDirectory": "cmake-build-Release/"
-            }
         }
     },
     "java.import.maven.enabled": true,
