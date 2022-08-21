@@ -49,11 +49,23 @@ command! Rename call CocActionAsync('rename')
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-nnoremap <silent>K  :<C-U> call CocAction('definitionHover')<CR>
-vnoremap <silent>K  :<C-U> call CocAction('definitionHover')<CR>
+nnoremap <silent>K  :<C-U> call CocActionAsync('definitionHover')<CR>
+vnoremap <silent>K  :<C-U> call CocActionAsync('definitionHover')<CR>
 
 " scroll float documents
 nnoremap <nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
 nnoremap <nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
 inoremap <nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
 inoremap <nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gi <Plug>(coc-implementation)
+
+
+nmap <silent> ]c <Plug>(coc-git-nextchunk)
+nmap <silent> [c <Plug>(coc-git-prevchunk)
+nmap <silent> ]e <Plug>(coc-diagnostic-next-error)
+nmap <silent> [e <Plug>(coc-diagnostic-prev-error)
+nmap <silent> ]w <Plug>(coc-diagnostic-next)
+nmap <silent> [w <Plug>(coc-diagnostic-prev)

@@ -72,9 +72,9 @@ map('n','<C-h>',[[<cmd>Telescope help_tags<cr>]],mapopt)
 
 if loaded('telescope-coc.nvim') then
     require('telescope').load_extension('coc')
-    map('n','gr',[[<cmd>Telescope coc references<cr>]],mapopt)
-    map('n','gd',[[<cmd>Telescope coc definitions<cr>]],mapopt)
-    map('n','gi',[[<cmd>Telescope coc implementations<cr>]],mapopt)
+    --map('n','gr',[[<cmd>Telescope coc references<cr>]],mapopt)
+    --map('n','gd',[[<cmd>Telescope coc definitions<cr>]],mapopt)
+    --map('n','gi',[[<cmd>Telescope coc implementations<cr>]],mapopt)
     -- https://vimhelp.org/vim_faq.txt.html#faq-20.5 only Ctrl-printable-key can be safely mapped
     map('n','<C-\\>',[[<cmd>Telescope coc code_actions<cr>]],mapopt)
     map('i','<C-\\>',[[<cmd>Telescope coc code_actions<cr>]],mapopt)
