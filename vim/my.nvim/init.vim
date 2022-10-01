@@ -148,6 +148,9 @@ call plug#begin(g:plugin_dir)
     Plug 'nvim-treesitter/playground'
     Plug 'michaelb/sniprun'
     Plug 'nvim-orgmode/orgmode'
+    Plug '/data/study/js/coc-go'
+    "Plug 'nvim-treesitter/nvim-treesitter' 
+    "Plug 'nvim-treesitter/nvim-treesitter-refactor'
     "Plug 'romgrk/nvim-treesitter-context'
     " 有点慢
     "Plug 'ZSaberLv0/ZFVimIM'
@@ -166,7 +169,6 @@ let g:coc_global_extensions =['coc-actions@1.5.0'
                             \,'coc-explorer@0.22.6'
                             \,'coc-git@2.4.7'
                             \,'coc-gitignore@0.0.4'
-                            \,'coc-go@1.1.0'
                             \,'coc-highlight@1.3.0'
                             \,'coc-html@1.6.1'
                             \,'coc-java@1.5.5'
@@ -197,7 +199,9 @@ let g:coc_global_extensions =['coc-actions@1.5.0'
                             \,'coc-fzf-preview@2.12.8'
                             \,'coc-cmake@0.2.1'
                             \,'coc-clangd@0.24.0'
+                            \,'coc-zi@1.1.2'
                             \]
+
 
 
 silent! execute 'source ' . g:mynvim_config_default

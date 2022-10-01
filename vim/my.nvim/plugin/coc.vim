@@ -69,3 +69,8 @@ nmap <silent> ]e <Plug>(coc-diagnostic-next-error)
 nmap <silent> [e <Plug>(coc-diagnostic-prev-error)
 nmap <silent> ]w <Plug>(coc-diagnostic-next)
 nmap <silent> [w <Plug>(coc-diagnostic-prev)
+
+nmap <silent> <Leader>t <Plug>(coc-translator-p)
+vmap <silent> <Leader>t <Plug>(coc-translator-pv)
+
+nnoremap <Leader>sw :<C-U>CocList translators<CR>
