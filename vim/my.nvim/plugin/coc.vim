@@ -41,7 +41,7 @@ augroup mygroup
 augroup end
 
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-autocmd BufWritePre *.go,*.json :silent call CocAction('format')
+autocmd BufWritePre *.go :silent call CocAction('format')
 
 command! Refactor call CocActionAsync('refactor')
 " will popup a rename dialog

@@ -48,7 +48,7 @@ call plug#begin(g:plugin_dir)
     Plug 'gcmt/wildfire.vim'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-repeat'
-    Plug 'Krasjet/auto.pairs'
+    Plug 'windwp/nvim-autopairs',
     Plug 'godlygeek/tabular'
     " 三个插件加起来有最好的文件搜索体验
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -147,8 +147,7 @@ call plug#begin(g:plugin_dir)
 
     Plug 'nvim-treesitter/playground'
     Plug 'michaelb/sniprun'
-    "Plug 'nvim-treesitter/nvim-treesitter' 
-    "Plug 'nvim-treesitter/nvim-treesitter-refactor'
+    Plug 'nvim-orgmode/orgmode'
     "Plug 'romgrk/nvim-treesitter-context'
     " 有点慢
     "Plug 'ZSaberLv0/ZFVimIM'

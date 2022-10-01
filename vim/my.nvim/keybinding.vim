@@ -1,4 +1,5 @@
 let g:mapleader="\<Space>"
+let maplocalleader=","
 
 nnoremap <silent><LEADER>/ :<C-U>FzfPreviewLines <C-R><C-W><CR>
 nnoremap <silent><C-F> :<C-U>Rg <C-R><C-W><CR>
@@ -15,9 +16,6 @@ nnoremap <silent><C-G> :<C-U>Note<CR>
 nnoremap <silent><C-L> :<C-U>nohlsearch<CR>
 
 "noremap <F2> :<C-U>LeaderfBufTag<cr>
-"nnoremap <silent><LEADER>t :<C-U>CocCommand translator.echo<CR>
-"nmap <silent> <Leader>t <Plug>TranslateW
-"vmap <silent> <Leader>t <Plug>TranslateWV
 
 " 跳转
 noremap <Leader>w <C-W>
@@ -209,8 +207,8 @@ nmap <Leader>ca <Plug>(coc-calc-result-append)
 " replace result on current expression
 nmap <Leader>cr <Plug>(coc-calc-result-replace)
 nmap <Leader>cq <Plug>(coc-fix-current)
-nmap <M-CR>  <Plug>(coc-codeaction-selected)w
-xmap <M-CR>  <Plug>(coc-codeaction-selected)
+"nmap <M-CR>  <Plug>(coc-codeaction-selected)w
+"xmap <M-CR>  <Plug>(coc-codeaction-selected)
 nmap <leader>ca  :<C-U>CocCommand actions.open<CR>
 xmap <leader>ca  :<C-U>CocCommand actions.open<CR>
 nmap <leader>co  :<C-U>call CocAction('runCommand', 'editor.action.organizeImport')<CR>
@@ -251,9 +249,6 @@ nnoremap <silent> <Leader>sh  :<C-u>History:<CR>
 "nmap mm <Plug>(coc-bookmark-toggle)
 "nmap mi <Plug>(coc-bookmark-annotate)
 "nnoremap ma :<C-U>CocList bookmark<CR>
-
-nmap <M-k> <Plug>(coc-translator-p)
-vmap <M-k> <Plug>(coc-translator-pv)
 
 "nmap <silent> w <Plug>(coc-ci-w)
 "nmap <silent> b <Plug>(coc-ci-b)

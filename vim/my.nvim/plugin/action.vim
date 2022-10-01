@@ -15,4 +15,4 @@ let g:action_map = {
 
 
 
-inoremap <silent> <M-CR> <ESC>:<C-U>call action#OpenActions()<CR>
+"inoremap <silent> <M-CR> <ESC>:<C-U>call action#OpenActions()<CR>
