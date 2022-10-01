@@ -159,6 +159,7 @@ call plug#end()
 
 let g:coc_global_extensions =['coc-actions@1.5.0'
                             \,'coc-browser@1.5.0'
+                            \,'coc-go@1.3.0'
                             \,'coc-calc@2.1.1'
                             \,'coc-clock@0.0.12'
                             \,'coc-css@1.3.0'
