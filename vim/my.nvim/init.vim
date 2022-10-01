@@ -148,7 +148,6 @@ call plug#begin(g:plugin_dir)
     Plug 'nvim-treesitter/playground'
     Plug 'michaelb/sniprun'
     Plug 'nvim-orgmode/orgmode'
-    Plug '/data/study/js/coc-go'
     "Plug 'nvim-treesitter/nvim-treesitter' 
     "Plug 'nvim-treesitter/nvim-treesitter-refactor'
     "Plug 'romgrk/nvim-treesitter-context'
