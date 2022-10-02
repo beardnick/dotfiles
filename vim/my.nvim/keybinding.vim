@@ -45,8 +45,6 @@ vnoremap <silent><C-_> :call NERDComment("n", "Toggle")<CR>gv
 "nnoremap <Leader>yb viw"by
 "nnoremap <Leader>yc viw"cy
 
-" yank with osc52 protocol that can yank over ssh
-vnoremap <C-c> :OSCYank<CR> 
 vnoremap <C-v> "+p
 vnoremap <Leader>yy "+y
 vnoremap <Leader>ya "ay
