@@ -3,7 +3,7 @@ if not require 'plug'.loaded('orgmode') then
 end
 
 require('orgmode').setup({
-    org_todo_keywords = { 'TODO', 'WAITING', '|', 'DONE', 'DELEGATED','CANCEL' },
+    org_todo_keywords = { 'TODO', 'DONE', 'WAITING', '|', 'DELEGATED', 'CANCEL' },
     mappings = {
         prefix = '<LocalLeader>',
         --prefix = ',o',
