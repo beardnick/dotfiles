@@ -5,7 +5,7 @@ endif
 
 
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent! call CocActionAsync('highlight')
 
 " C-n C-p vim style completion keymaps
 inoremap <silent><expr> <C-n>
