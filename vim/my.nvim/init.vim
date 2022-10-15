@@ -109,7 +109,8 @@ call plug#begin(g:plugin_dir)
     Plug 'rizzatti/dash.vim'
     Plug 'drmikehenry/vim-fixkey'
     Plug 'posva/vim-vue'
-    Plug 'easymotion/vim-easymotion' " 快速跳转
+    "Plug 'easymotion/vim-easymotion' " 快速跳转
+    Plug 'phaazon/hop.nvim'
     Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
     Plug 'NLKNguyen/papercolor-theme'
     Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
