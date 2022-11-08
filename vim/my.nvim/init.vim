@@ -88,7 +88,6 @@ call plug#begin(g:plugin_dir)
     Plug 'zenbro/mirror.vim' 
     Plug 'antoinemadec/coc-fzf' 
     Plug 'liuchengxu/vista.vim' 
-    "Plug 'puremourning/vimspector' 
     Plug 'dearrrfish/vim-applescript' 
     Plug 'skywind3000/vim-dict'
     Plug 'kristijanhusak/vim-dadbod-ui'
@@ -98,7 +97,6 @@ call plug#begin(g:plugin_dir)
     Plug 'sickill/vim-monokai' " monokai theme
     Plug 'kurkale6ka/vim-swap' " visualmode <Leader>x交换位置
     Plug 'tpope/vim-dotenv'
-    "Plug 'itchyny/lightline.vim'
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'rakr/vim-one'
     Plug 'tomasiser/vim-code-dark' " vscode主题
@@ -109,8 +107,6 @@ call plug#begin(g:plugin_dir)
     Plug 'rizzatti/dash.vim'
     Plug 'drmikehenry/vim-fixkey'
     Plug 'posva/vim-vue'
-    "Plug 'easymotion/vim-easymotion' " 快速跳转
-    Plug 'phaazon/hop.nvim'
     Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
     Plug 'NLKNguyen/papercolor-theme'
     Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
@@ -122,7 +118,8 @@ call plug#begin(g:plugin_dir)
     Plug 'beardnick/mynvim', {'do':'make'}
     Plug 'tpope/vim-fugitive'
     Plug 'ilyachur/cmake4vim' " generate compile_commands.json for lsp
-    Plug 'ojroques/vim-oscyank'
+    "Plug 'ojroques/vim-oscyank'
+    Plug 'ojroques/nvim-osc52'
     Plug 'akinsho/toggleterm.nvim'
 
     " debug
@@ -133,6 +130,7 @@ call plug#begin(g:plugin_dir)
     Plug 'rcarriga/nvim-notify'
 
     Plug 'nvim-lua/plenary.nvim'
+    Plug 'sindrets/diffview.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'fannheyward/telescope-coc.nvim'
@@ -155,12 +153,14 @@ call plug#begin(g:plugin_dir)
     " 有点慢
     "Plug 'ZSaberLv0/ZFVimIM'
     "Plug 'ZSaberLv0/ZFVimJob' " 用于提升词库加载性能
+    Plug 'beardnick/coc-go' , {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+    Plug 'ggandor/leap.nvim'
+    Plug 'andythigpen/nvim-coverage'
 
 call plug#end()
 
 let g:coc_global_extensions =['coc-actions@1.5.0'
                             \,'coc-browser@1.5.0'
-                            \,'coc-go@1.3.0'
                             \,'coc-calc@2.1.1'
                             \,'coc-clock@0.0.12'
                             \,'coc-css@1.3.0'

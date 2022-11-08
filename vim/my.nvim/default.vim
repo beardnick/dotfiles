@@ -134,9 +134,9 @@ set updatetime=300
 set shortmess+=c
 
 " always show signcolumns
-set signcolumn=yes
+set signcolumn=auto:5
 
-let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
+let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/','go.mod','package.json']
 
 " 在使用O换行时不自动添加注释行
 augroup Format-Options  
@@ -147,7 +147,7 @@ augroup Format-Options
     autocmd BufEnter * setlocal formatoptions=crqn2l1j  
 augroup END
 
-"let g:bookmark_save_per_working_dir = 1
+let g:bookmark_save_per_working_dir = 1
 
 " 自动显示文档
 "autocmd CursorHold  * if &filetype !=# "vim" | call autocomplete#ShowDocumentation()
@@ -295,11 +295,13 @@ set mouse=nvi
 
 let g:asynctasks_config_name = '.vim/tasks.ini'
 
-let g:bookmark_save_per_working_dir = 1
+"let g:bookmark_save_per_working_dir = 1
 
 let g:cmake_compile_commands = 1
 
 "set shortmess=at
 
 set colorcolumn=80,120
+
+set noswapfile
 

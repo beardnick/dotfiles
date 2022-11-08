@@ -274,7 +274,7 @@ function! ToggleRecording() abort
     endif
 endfunction
 
-nmap s <Plug>(easymotion-prefix)
+"nmap s <Plug>(easymotion-prefix)
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
