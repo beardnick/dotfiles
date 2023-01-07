@@ -156,6 +156,7 @@ call plug#begin(g:plugin_dir)
     Plug 'beardnick/coc-go' , {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
     Plug 'ggandor/leap.nvim'
     Plug 'andythigpen/nvim-coverage'
+    Plug 'ruifm/gitlinker.nvim'
 
 call plug#end()
 
