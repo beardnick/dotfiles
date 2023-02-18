@@ -114,7 +114,7 @@ call plug#begin(g:plugin_dir)
     Plug 'hzchirs/vim-material'
     Plug 'patstockwell/vim-monokai-tasty'
     Plug 'unblevable/quick-scope'
-    Plug 'MattesGroeger/vim-bookmarks'
+    Plug 'beardnick/vim-bookmarks', {'branch': 'feature-relative-path'}
     Plug 'beardnick/mynvim', {'do':'make'}
     Plug 'tpope/vim-fugitive'
     Plug 'ilyachur/cmake4vim' " generate compile_commands.json for lsp

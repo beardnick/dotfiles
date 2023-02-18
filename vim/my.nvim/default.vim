@@ -148,6 +148,7 @@ augroup Format-Options
 augroup END
 
 let g:bookmark_save_per_working_dir = 1
+let g:bookmark_save_relative_dir = 1
 
 " 自动显示文档
 "autocmd CursorHold  * if &filetype !=# "vim" | call autocomplete#ShowDocumentation()
