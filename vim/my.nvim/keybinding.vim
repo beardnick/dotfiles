@@ -296,8 +296,8 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-nnoremap H ^
-nnoremap L $
+"nnoremap H ^
+"nnoremap L $
 
 map Y y$
 
