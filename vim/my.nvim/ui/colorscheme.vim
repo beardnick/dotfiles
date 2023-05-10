@@ -37,6 +37,8 @@ function! LightlineGitBlame() abort
 endfunction
 
 highlight default link CocHighlightText  MatchParen
+highlight default link CocUnusedHighlight  MatchParen
+"highlight default link CocUnusedHighlight  CocInfoVirtualText
 "highlight default link BufTabLineActive TabLineSel
 "highlight default link BufTabLineCurrent PmenuSel
 

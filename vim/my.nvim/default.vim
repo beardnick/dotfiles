@@ -134,9 +134,9 @@ set updatetime=300
 set shortmess+=c
 
 " always show signcolumns
-set signcolumn=auto:5
+set signcolumn=yes:3
 
-let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/','go.mod','package.json']
+let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/','go.mod']
 
 " 在使用O换行时不自动添加注释行
 augroup Format-Options  
@@ -306,3 +306,24 @@ set colorcolumn=80,120
 
 set noswapfile
 
+function! s:Camelize(range) abort
+  if a:range == 0
+    s#\(\%(\<\l\+\)\%(_\)\@=\)\|_\(\l\)#\u\1\2#g
+  else
+    s#\%V\(\%(\<\l\+\)\%(_\)\@=\)\|_\(\l\)\%V#\u\1\2#g
+  endif
+endfunction
+
+function! s:Snakeize(range) abort
+  if a:range == 0
+    s#\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)#\l\1_\l\2#g
+  else
+    s#\%V\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)\%V#\l\1_\l\2#g
+  endif
+endfunction
+
+command! -range CamelCase silent! call <SID>Camelize(<range>)
+command! -range SnakeCase silent! call <SID>Snakeize(<range>)
+
+
+command! -bang -nargs=* Rgx call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, <bang>0)

@@ -48,7 +48,7 @@ call plug#begin(g:plugin_dir)
     Plug 'gcmt/wildfire.vim'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-repeat'
-    Plug 'windwp/nvim-autopairs',
+    "Plug 'windwp/nvim-autopairs',
     Plug 'godlygeek/tabular'
     " 三个插件加起来有最好的文件搜索体验
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -139,7 +139,7 @@ call plug#begin(g:plugin_dir)
     Plug 'xiyaowong/nvim-transparent'
     Plug 'github/copilot.vim'
 
-    Plug 'SmiteshP/nvim-gps'
+    "Plug 'SmiteshP/nvim-gps'
     Plug 'theHamsta/nvim-dap-virtual-text'
 
     Plug 'Weissle/persistent-breakpoints.nvim'
@@ -147,16 +147,11 @@ call plug#begin(g:plugin_dir)
     Plug 'nvim-treesitter/playground'
     Plug 'michaelb/sniprun'
     Plug 'nvim-orgmode/orgmode'
-    "Plug 'nvim-treesitter/nvim-treesitter' 
-    "Plug 'nvim-treesitter/nvim-treesitter-refactor'
-    "Plug 'romgrk/nvim-treesitter-context'
-    " 有点慢
-    "Plug 'ZSaberLv0/ZFVimIM'
-    "Plug 'ZSaberLv0/ZFVimJob' " 用于提升词库加载性能
-    Plug 'beardnick/coc-go' , {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+    Plug 'beardnick/coc-go' , {'branch': 'feature-goimpl-list', 'do': 'yarn install --frozen-lockfile'}
     Plug 'ggandor/leap.nvim'
     Plug 'andythigpen/nvim-coverage'
     Plug 'ruifm/gitlinker.nvim'
+    Plug 'will133/vim-dirdiff'
 
 call plug#end()
 

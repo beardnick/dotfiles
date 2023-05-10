@@ -71,8 +71,8 @@ nnoremap <Leader>rr viw"+p
 nnoremap <Leader>ra viw"ap
 nnoremap <Leader>rb viw"bp
 nnoremap <Leader>rc viw"cp
-nnoremap <silent>]] :<C-U>call NextUncommentedBlock(1)<CR>
-nnoremap <silent>[[ :<C-U>call NextUncommentedBlock(-1)<CR>
+"nnoremap <silent>]] :<C-U>call NextUncommentedBlock(1)<CR>
+"nnoremap <silent>[[ :<C-U>call NextUncommentedBlock(-1)<CR>
 nnoremap <C-Y> :<C-U>FZFYank<CR>
 
 

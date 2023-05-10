@@ -2,7 +2,8 @@
     "coc.preferences.rootPatterns": [
         ".git",
         ".hg",
-        ".projections.json"
+        ".projections.json",
+        "go.mod"
     ],
     "languageserver": {
         "bash": {
@@ -110,5 +111,6 @@
     "java.referencesCodeLens.enabled": false,
     "java.implementationsCodeLens.enabled": false,
     "coc.preferences.extensionUpdateCheck": "daily",
+    "typescript.format.enabled": true,
     "tsserver.implicitProjectConfig.checkJs": true // enable type check for javascript
 }
