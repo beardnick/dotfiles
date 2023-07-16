@@ -148,10 +148,12 @@ call plug#begin(g:plugin_dir)
     Plug 'michaelb/sniprun'
     Plug 'nvim-orgmode/orgmode'
     Plug 'beardnick/coc-go' , {'branch': 'feature-goimpl-list', 'do': 'yarn install --frozen-lockfile'}
-    Plug 'ggandor/leap.nvim'
+    "Plug 'ggandor/leap.nvim'
     Plug 'andythigpen/nvim-coverage'
     Plug 'ruifm/gitlinker.nvim'
     Plug 'will133/vim-dirdiff'
+    Plug 'folke/flash.nvim'
+    Plug 'norcalli/nvim-colorizer.lua'
 
 call plug#end()
 
