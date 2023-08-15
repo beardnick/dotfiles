@@ -11,7 +11,12 @@ require('flash').setup(
             char = {
                 enabled = false
             }
+        },
+        highlight = {
+            -- show a backdrop with hl FlashBackdrop
+            backdrop = false,
         }
+
     }
 )
 
