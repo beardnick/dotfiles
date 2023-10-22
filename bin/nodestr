@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+const code = process.argv.splice(2).join('');
+
+Array.prototype.grep = function (t) {return this.filter(l => l.includes(t));};
+Array.prototype.replace = function (...args) {return this.map(l => l.replace(...args));};
+Array.prototype.unique = function () {return [...new Set(this)];};
+
+const c = `return lines.${code};`;
+//console.log(c);
+const handler = new Function('lines', c);
+
+// 接收命令行管道中的数据
+process.stdin.on('data', (input) => {
+    const data = input.toString().trim();
+    try {
+        const lines = data.split('\n');
+        const result = handler(lines);
+        if (!result) {
+            return;
+        }
+        console.log(result.join('\n'));
+    } catch (error) {
+        console.error(error);
+    }
+});
