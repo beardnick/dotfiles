@@ -136,7 +136,7 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes:3
 
-let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/','go.mod']
+let g:rooter_patterns = ['.vim','.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/','go.mod']
 
 " 在使用O换行时不自动添加注释行
 augroup Format-Options  

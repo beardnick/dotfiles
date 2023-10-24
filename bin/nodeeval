@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+process.stdin.on('data', (input) => {
+  const data = input.toString().trim();
+  try {
+    const result = eval(data);
+    console.log(result);
+  } catch (error) {
+    console.error('执行出错：', error);
+  }
+});
