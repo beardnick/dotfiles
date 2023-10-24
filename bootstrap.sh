@@ -12,9 +12,22 @@ function ensure_dir() {
     mkdir -p "$path"
 }
 
+function link_once() {
+    src="${1:?'src path is required'}"
+    dst="${2:?'dst path is required'}"
+    if [[ -e "$dst" ]]; then
+        if [[ -L "$dst" ]]; then
+            return 0;
+        fi
+        echo "$dst exists,link failed"
+        return 1;
+    fi
+    ln -s "$src" "$dst"
+}
+
 function link_all() {
     for f in $(find "$1"/*) ; do
-        ln -s "$f" "$2/$(basename $f)"
+        link_once "$f" "$2/$(basename $f)"
     done
 }
 
@@ -22,22 +35,26 @@ ensure_dir "$CONF"
 
 DOTDIR="$(pwd)"
 # ideavim
-ln -s "$DOTDIR/idea/.ideavimrc" "$HOME/.ideavimrc"
+link_once "$DOTDIR/idea/.ideavimrc" "$HOME/.ideavimrc"
 
 # .zshrc .zsh_history
-ln -s  "$DOTDIR/shell/zsh" "$CONF/zsh"
-ln -s  "$DOTDIR/shell/.zshrc" "$HOME/.zshrc"
+link_once  "$DOTDIR/shell/zsh" "$CONF/zsh"
+link_once  "$DOTDIR/shell/.zshrc" "$HOME/.zshrc"
 
 # .tmux.conf
-ln -s  "$DOTDIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
-ln -s  "$DOTDIR/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
+link_once  "$DOTDIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+link_once  "$DOTDIR/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
 
 # vim
-ln -s "$DOTDIR/vim/.vimlite.vim" "$HOME/.vimlite.vim"
-ln -s "$DOTDIR/vim/my.nvim" "$HOME/.config/nvim"
+link_once "$DOTDIR/vim/.vimlite.vim" "$HOME/.vimlite.vim"
+link_once "$DOTDIR/vim/my.nvim" "$HOME/.config/nvim"
 
 # vifm
-ln -s "$DOTDIR/vifm" "$HOME/.config/vifm"
+link_once "$DOTDIR/vifm" "$HOME/.config/vifm"
+
+# navi
+
+link_once "$DOTDIR/navi" "$HOME/.config/navi"
 
 ensure_dir "$LOCAL_BIN"
 
