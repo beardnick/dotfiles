@@ -23,9 +23,6 @@ zinit light-mode for \
    zdharma-continuum/z-a-as-monitor \
    zdharma-continuum/z-a-bin-gem-node
 
-
-
-
 # history
 
 [ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
@@ -46,11 +43,7 @@ bindkey "^X^E" edit-command-line
 # 在输入的指令是路径时自动进入
 setopt autocd
 
-# 启用fzf的一些key binding和小组件
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 #zinit light Aloxaf/fzf-tab
-
 
 # Two regular plugins loaded without tracking.
 zinit light zsh-users/zsh-completions
@@ -113,18 +106,6 @@ export CHEAT_EDITOR="nvim -u $HOME/vimlite.vim -N"
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
-export EDITOR="nvim -u $HOME/.vimlite.vim -N"
-
-export FZF_DEFAULT_OPTS="--height 80% --layout=reverse --preview '(bat --color=always {}) 2> /dev/null | head -500'"
-
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude vendor'
-
-export VIFM="$HOME/.config/vifm"
-
-export BAT_CONFIG_PATH="$HOME/.config/.batrc"
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 setopt append_history
 
