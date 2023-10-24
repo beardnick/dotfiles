@@ -112,5 +112,10 @@
     "java.implementationsCodeLens.enabled": false,
     "coc.preferences.extensionUpdateCheck": "daily",
     "typescript.format.enabled": true,
-    "tsserver.implicitProjectConfig.checkJs": true // enable type check for javascript
+    "tsserver.implicitProjectConfig.checkJs": true, // enable type check for javascript
+    "zig.enabled": true,
+    "zig.startUpMessage": true,
+    "zig.path": "zls",
+    "zig.debugLog": false,
+    "java.import.gradle.java.home": "/Users/hugocheng/Library/Java/JavaVirtualMachines/jbr-17.0.5/Contents/Home",
 }

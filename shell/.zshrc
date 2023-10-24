@@ -73,12 +73,11 @@ zinit light Tarrasch/zsh-bd
 
 zinit light zdharma-continuum/fast-syntax-highlighting
 
-
 # git
 zinit snippet OMZP::git
 
-
 CONFIG="$HOME/.config/zsh"
+LOCAL_CONFIG="$HOME/.config/local/config_zsh.zsh"
 
 #lib 
 
@@ -97,6 +96,9 @@ source "$CONFIG/alias.zsh"
 # env
 
 source "$CONFIG/env.zsh"
+
+# core config
+load_all "$CONFIG/core"
 
 # rvm
 
@@ -137,10 +139,8 @@ bindkey '^g' _call_navi
 
 export BAT_CONFIG_PATH="$HOME/.config/.batrc"
 
-export PATH=${PATH}:/usr/local/mysql/bin
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 setopt append_history
 
-add_path "$HOME/application"
+[[ -f "$LOCAL_CONFIG" ]] && source "$LOCAL_CONFIG"
