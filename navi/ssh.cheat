@@ -1,0 +1,7 @@
+% ssh
+
+# ssh log to server
+ssh <hostname>
+
+$ hostname: cat ~/.ssh/config  | grep "Host "  | awk '{print $2}'
+
