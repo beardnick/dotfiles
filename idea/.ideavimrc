@@ -10,7 +10,7 @@ set ignorecase
 
 " Insert
 inoremap jk <Esc>
-nnoremap <LEADER>w <C-W>
+nnoremap <Leader>w <C-W>
 
 " 启用vim surround功能
 set surround
@@ -22,14 +22,14 @@ inoremap jj <esc>
 inoremap kk <esc>
 inoremap jk <esc>
 
-noremap <Leader>/ :action Find<cr>
+noremap <Leader>/ :action Find<CR>
 
-noremap <M-r> :action Run<cr>
-noremap <LEADER>lr :action Run<cr>
-noremap <LEADER>ls :action Stop<cr>
-noremap <LEADER>ld :action Debug<cr>
-noremap <LEADER>lf :action ReformatCode<cr>
-nnoremap <LEADER><LEADER> :action GotoAction<cr> 
+noremap <M-r> :action Run<CR>
+noremap <Leader>lr :action Run<CR>
+noremap <Leader>ls :action Stop<CR>
+noremap <Leader>ld :action Debug<CR>
+noremap <Leader>lf :action ReformatCode<CR>
+nnoremap <Leader><Leader> :action GotoAction<CR>
 nnoremap <C-P> :action RecentFiles<CR>
 
 nnoremap <Leader>; :action CommentByLineComment<CR>
@@ -39,11 +39,11 @@ nnoremap ]e :action GotoNextError<CR>
 nnoremap [e :action GotoPreviousError<CR>
 
 
-nnoremap <LEADER>pp "*P
-nnoremap <LEADER>yy "*y
-nnoremap <LEADER>us :action ActivateTerminalToolWindow<CR>
-nnoremap <LEADER>ut :action ActivateStructureToolWindow<CR>
-nnoremap <LEADER>ft :action ActivateProjectToolWindow<CR>
+nnoremap <Leader>pp "*P
+nnoremap <Leader>yy "*y
+nnoremap <Leader>us :action ActivateTerminalToolWindow<CR>
+nnoremap <Leader>ut :action ActivateStructureToolWindow<CR>
+nnoremap <Leader>ft :action ActivateProjectToolWindow<CR>
 
 nnoremap <Leader>wm :action HideAllWindows<CR>
 
@@ -56,7 +56,15 @@ nnoremap mp :action   GotoPreviousBookmark<CR>
 nnoremap ]e :action GotoNextError<CR>
 nnoremap [e :action GotoPreviousError<CR>
 
-noremap <Leader>wm :action HideAllWindows<cr>
+noremap <Leader>wm :action HideAllWindows<CR>
 
 
-noremap gi :action GotoImplementation<cr>
+noremap gi :action GotoImplementation<CR>
+noremap gr :action FindUsages<CR>
+
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+
+nnoremap <Leader>gu :action Vcs.RollbackChangedLines<CR>
+nnoremap <Leader>gi :action Vcs.RollbackChangedLines<CR>
+
