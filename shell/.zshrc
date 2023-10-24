@@ -122,21 +122,6 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclu
 
 export VIFM="$HOME/.config/vifm"
 
-# navi
-
-export NAVI_PATH="$HOME/dotfiles/navi"
-
-_call_navi() {
-   local -r buff="$BUFFER"
-   local -r r="$(printf "$(navi --print </dev/tty)")"
-   zle kill-whole-line
-   zle -U "${buff}${r}"
-}
-
-zle -N _call_navi
-
-bindkey '^g' _call_navi
-
 export BAT_CONFIG_PATH="$HOME/.config/.batrc"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
