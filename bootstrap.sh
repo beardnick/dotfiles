@@ -12,6 +12,12 @@ function ensure_dir() {
     mkdir -p "$path"
 }
 
+function link_all() {
+    for f in $(find "$1"/*) ; do
+        ln -s "$f" "$2/$(basename $f)"
+    done
+}
+
 ensure_dir "$CONF"
 
 DOTDIR="$(pwd)"
@@ -33,5 +39,7 @@ ln -s "$DOTDIR/vim/my.nvim" "$HOME/.config/nvim"
 # vifm
 ln -s "$DOTDIR/vifm" "$HOME/.config/vifm"
 
+ensure_dir "$LOCAL_BIN"
+
 # tiny scripts
-ln -s "$DOTDIR/bin" "$LOCAL_BIN"
+link_all "$DOTDIR/bin" "$LOCAL_BIN"

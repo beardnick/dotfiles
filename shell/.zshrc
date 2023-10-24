@@ -144,3 +144,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 setopt append_history
 
 [[ -f "$LOCAL_CONFIG" ]] && source "$LOCAL_CONFIG"
+
+add_path "$HOME/.local/bin"

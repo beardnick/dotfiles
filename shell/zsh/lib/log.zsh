@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-sleep_count() {
+countdown() {
     hide_cursor
     number=$1
     for (( i = 0; i < $number; i++ )) {
