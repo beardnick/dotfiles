@@ -26,8 +26,10 @@ function link_once() {
 }
 
 function link_all() {
-    for f in $(find "$1"/*) ; do
-        link_once "$f" "$2/$(basename $f)"
+    src="${1:?'link all src path is required'}"
+    dst="${2:?'link all dst path is required'}"
+    for f in $(find "$src"/*) ; do
+        link_once "$f" "$dst/$(basename $f)"
     done
 }
 
