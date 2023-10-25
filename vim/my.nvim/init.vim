@@ -14,8 +14,9 @@ let g:plugin_dir=expand('$HOME/.config/mynvim')
 let g:coc_data_home = g:plugin_dir . '/coc'
 let g:mynvim_root_path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 let g:mynvim_config_default=g:mynvim_root_path . '/default.vim'
-let g:mynvim_config_before=expand('$HOME/.mynvim_config_before.vim')
-let g:mynvim_config_after=expand('$HOME/.mynvim_config_after.vim')
+"let g:mynvim_config_before=expand('$HOME/.config/local/local_vim_before.vim')
+let g:local_config_after=expand('$HOME/.config/local/config_vim.vim')
+let g:local_config_lua_after=expand('$HOME/.config/local/config_nvim.lua')
 
 set wildignore+=*.o,*.obj,*/.ccls-cache/*,*/vendor/*
 set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls,*/.fdb*/,*/.toc,*/.out,*/.glo,*/.log,*/.ist,*/.fdb_latexmk
@@ -205,13 +206,14 @@ let g:coc_global_extensions =['coc-actions@1.5.0'
 
 
 silent! execute 'source ' . g:mynvim_config_default
-silent! execute 'source ' . g:mynvim_config_before
+"silent! execute 'source ' . g:mynvim_config_before
 
 call utils#source_path(g:mynvim_root_path,"ui")
 call utils#source_path(g:mynvim_root_path,"plugin")
 call utils#source_path(g:mynvim_root_path,"lang")
 
-silent! execute 'source ' . g:mynvim_config_after
+silent! execute 'source ' . g:local_config_after
+silent! execute 'luafile ' . g:local_config_lua_after
 call utils#source_file(g:mynvim_root_path, 'keybinding.vim')
 
 command! Update call UpdateWithSnapshot()
