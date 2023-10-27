@@ -153,7 +153,7 @@ call plug#begin(g:plugin_dir)
     Plug 'andythigpen/nvim-coverage'
     Plug 'ruifm/gitlinker.nvim'
     Plug 'will133/vim-dirdiff'
-    Plug 'folke/flash.nvim'
+    Plug 'folke/flash.nvim', {'branch': 'main'}
     Plug 'norcalli/nvim-colorizer.lua'
 
 call plug#end()
