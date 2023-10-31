@@ -4,7 +4,10 @@
 ssh <hostname>
 
 
-# scp host files
+# scp remote host files to local
 scp <hostname>:<path> .
+
+# scp local files to remote host
+scp <file> <hostname>:<path>
 
 $ hostname: cat ~/.ssh/config  | grep "Host "  | awk '{print $2}'
