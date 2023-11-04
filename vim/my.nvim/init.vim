@@ -1,5 +1,5 @@
 if exists('g:vscode')
-    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/vscode.vim'
+    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/vscode/init.vim'
     finish
 endif
 
