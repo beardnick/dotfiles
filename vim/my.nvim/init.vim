@@ -1,5 +1,5 @@
 if exists('g:vscode')
-    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/vscode.vim'
+    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/vscode/init.vim'
     finish
 endif
 
@@ -209,7 +209,7 @@ silent! execute 'source ' . g:mynvim_config_default
 "silent! execute 'source ' . g:mynvim_config_before
 
 call utils#source_path(g:mynvim_root_path,"ui")
-call utils#source_path(g:mynvim_root_path,"plugin")
+call utils#source_path(g:mynvim_root_path,"plugins")
 call utils#source_path(g:mynvim_root_path,"lang")
 
 silent! execute 'source ' . g:local_config_after
