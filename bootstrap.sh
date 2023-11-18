@@ -5,7 +5,7 @@ CONF="$HOME/.config"
 LOCAL_BIN="$HOME/.local/bin"
 
 function ensure_dir() {
-    path="${1:?'path is required'}"
+    local path="${1:?'path is required'}"
     if [[ -d "$path" ]]; then
         return;
     fi
@@ -13,8 +13,10 @@ function ensure_dir() {
 }
 
 function link_once() {
-    src="${1:?'src path is required'}"
-    dst="${2:?'dst path is required'}"
+    local src="${1:?'src path is required'}"
+    local dst="${2:?'dst path is required'}"
+    echo "$src => $dst"
+    return 0;
     if [[ -e "$dst" ]]; then
         if [[ -L "$dst" ]]; then
             return 0;
@@ -26,8 +28,8 @@ function link_once() {
 }
 
 function link_all() {
-    src="${1:?'link all src path is required'}"
-    dst="${2:?'link all dst path is required'}"
+    local src="${1:?'link all src path is required'}"
+    local dst="${2:?'link all dst path is required'}"
     for f in $(find "$src"/*) ; do
         link_once "$f" "$dst/$(basename $f)"
     done
