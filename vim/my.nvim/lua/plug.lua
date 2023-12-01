@@ -1,20 +1,18 @@
-local M = {}
-
-function M.loaded (p)
-    if vim.g.plugs == nil then
-        vim.notify('vim-plug not installed no g:plugs')
-        return
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+function ____exports.loaded(p)
+    if not vim.g.plugs then
+        vim.notify("vim-plug not installed no g:plugs")
+        return false
     end
-    for key, value in pairs(vim.g.plugs) do
-        if key ~= p then
-            goto continue
-        end
-        if vim.fn.isdirectory(value.dir) == 1  then
-            return true;
-        end
-        ::continue::
+    local ____opt_0 = vim.g.plugs[p]
+    if ____opt_0 ~= nil then
+        ____opt_0 = ____opt_0.dir
     end
-    return false
+    local dir = ____opt_0
+    if not dir then
+        return false
+    end
+    return vim.fn.isdirectory(dir) == 1
 end
-
-return M
+return ____exports

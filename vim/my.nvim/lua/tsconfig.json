@@ -1,0 +1,10 @@
+
+{
+  "compilerOptions": {
+    "types": ["./vim.d.ts"]
+  },
+  "tstl": {
+    // Custom options
+    "noImplicitSelf":true
+  }
+}
