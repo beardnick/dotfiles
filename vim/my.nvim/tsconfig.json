@@ -1,7 +1,9 @@
 
 {
   "compilerOptions": {
-    "types": ["./vim.d.ts"]
+    "types": ["./vim.d.ts"],
+     "rootDir": "ts",
+     "outDir":"lua"
   },
   "tstl": {
     // Custom options
