@@ -203,7 +203,7 @@ function configVim() {
   vim.fn.execute(`source ${vim.g.configDefault}`, 'silent!');
 
   vim.fn['utils#source_path'](vim.g.rootPath, 'ui');
-  vim.fn['utils#source_path'](vim.g.rootPath, 'plugins');
+  vim.fn['utils#source_path'](vim.g.rootPath, 'lua/plugins');
   vim.fn['utils#source_path'](vim.g.rootPath, 'lang');
 
   vim.g.localConfigAfter = vim.fn.expand('$HOME/.config/local/config_vim.vim');
