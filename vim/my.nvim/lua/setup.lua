@@ -107,7 +107,6 @@ function ensurePlugins(dir)
         "akinsho/toggleterm.nvim",
         "mfussenegger/nvim-dap",
         "rcarriga/nvim-dap-ui",
-        "beardnick/nvim-dap-go",
         "sunjon/stylish.nvim",
         "rcarriga/nvim-notify",
         "nvim-lua/plenary.nvim",
