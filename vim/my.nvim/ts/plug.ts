@@ -1,11 +1,3 @@
 export function loaded(p: string): boolean {
-  if (!vim.g.plugs) {
-    vim.notify('vim-plug not installed no g:plugs');
-    return false;
-  }
-  const dir = vim.g.plugs[p]?.dir;
-  if (!dir) {
-    return false;
-  }
-  return vim.fn.isdirectory(dir) === 1;
+  return vim.api.nvim_list_runtime_paths().indexOf(`${vim.g.pluginDir}/${p}`) !== -1;
 }

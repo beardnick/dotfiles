@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@gkzhb/lua-types-nvim": "^0.0.7"
+  }
+}
