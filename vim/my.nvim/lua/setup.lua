@@ -35,7 +35,7 @@ function ensurePlugins(dir)
         "morhetz/gruvbox",
         "mg979/vim-visual-multi",
         "luochen1990/rainbow",
-        {[1] = "neoclide/coc.nvim", branch = "master", build = "npm ci"},
+        {[1] = "neoclide/coc.nvim", branch = "master", build = "yarn install --frozen-lockfile"},
         "ludovicchabant/vim-gutentags",
         "mhinz/vim-startify",
         "scrooloose/nerdcommenter",
