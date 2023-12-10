@@ -59,7 +59,7 @@
   "todo.txt-vim": { "branch": "master", "commit": "ed9d639de2e34eafb82f2682010ab361966ee40f" },
   "toggleterm.nvim": { "branch": "main", "commit": "6b334b9d1266b0f58ab1b6965c1e5b7eb5c34523" },
   "traces.vim": { "branch": "master", "commit": "9663fcf84de5776bee71b6c816c25ccb6ea11d1a" },
-  "ultisnips": { "branch": "master", "commit": "b393ba65386d47664421e1f8b246a87a6e8b218c" },
+  "ultisnips": { "branch": "master", "commit": "204b501cc8f4acd7f32ebdea262bd5772ca007a2" },
   "vim-applescript": { "branch": "master", "commit": "91a5af926da819dd9d812ed79a8aac6bbdedeee9" },
   "vim-bookmarks": { "branch": "feature-relative-path", "commit": "fc3ff7facb451267f05f28be3f106e093165750b" },
   "vim-choosewin": { "branch": "master", "commit": "839da609d9b811370216bdd9d4512ec2d0ac8644" },

@@ -13,6 +13,8 @@ function loadVim() {
   vim.g.rootPath = vim.fn.fnamemodify(vim.fn.resolve(vim.fn.expand('<sfile>:p')), ':h');
   vim.g.configDefault = `${vim.g.rootPath}/default.vim`;
 
+  vim.fn.execute(`source ${vim.g.configDefault}`, 'silent!');
+
   ensurePluginManager(vim.g.pluginDir);
   ensurePlugins(vim.g.pluginDir);
   configCoc();
@@ -197,10 +199,6 @@ function configCoc() {
 }
 
 function configVim() {
-
-  vim.fn.execute(`source ${vim.g.configDefault}`, 'silent!');
-  vim.fn.execute(`source ${vim.g.configDefault}`, 'silent!');
-  vim.fn.execute(`source ${vim.g.configDefault}`, 'silent!');
 
   vim.fn['utils#source_path'](vim.g.rootPath, 'ui');
   vim.fn['utils#source_path'](vim.g.rootPath, 'lua/plugins');

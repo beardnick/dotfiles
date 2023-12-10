@@ -10,6 +10,10 @@ function loadVim()
         ":h"
     )
     vim.g.configDefault = tostring(vim.g.rootPath) .. "/default.vim"
+    vim.fn.execute(
+        "source " .. tostring(vim.g.configDefault),
+        "silent!"
+    )
     ensurePluginManager(vim.g.pluginDir)
     ensurePlugins(vim.g.pluginDir)
     configCoc()
@@ -181,18 +185,6 @@ function configCoc()
     }
 end
 function configVim()
-    vim.fn.execute(
-        "source " .. tostring(vim.g.configDefault),
-        "silent!"
-    )
-    vim.fn.execute(
-        "source " .. tostring(vim.g.configDefault),
-        "silent!"
-    )
-    vim.fn.execute(
-        "source " .. tostring(vim.g.configDefault),
-        "silent!"
-    )
     vim.fn["utils#source_path"](vim.g.rootPath, "ui")
     vim.fn["utils#source_path"](vim.g.rootPath, "lua/plugins")
     vim.fn["utils#source_path"](vim.g.rootPath, "lang")
