@@ -1,3 +1,5 @@
+" vim: set foldmethod=marker foldlevel=0 :
+
 let mapleader = " "
 " 在normal模式下一直为英文输入法
 set keep-english-in-normal
@@ -68,3 +70,12 @@ nnoremap [c :action VcsShowPrevChangeMarker<CR>
 nnoremap <Leader>gu :action Vcs.RollbackChangedLines<CR>
 nnoremap <Leader>gi :action Vcs.RollbackChangedLines<CR>
 
+"{{{ idea vim quick scope
+
+set quickscope
+let g:qs_primary_color = '#afff5f' 
+let g:qs_secondary_color = '#5fffff'
+
+set easymotion
+
+"}}}
