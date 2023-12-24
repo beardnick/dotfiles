@@ -43,6 +43,8 @@ call plug#begin(g:plugin_dir)
     Plug 'unblevable/quick-scope'
     Plug 'folke/flash.nvim', {'branch': 'main'}
     Plug 'tpope/vim-surround'
+    Plug 'ruifm/gitlinker.nvim'
+    Plug 'nvim-lua/plenary.nvim'
 
 call plug#end()
 
