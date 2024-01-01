@@ -178,6 +178,7 @@ function! s:feed_popup()
 	let context = s:get_context()
 	if s:meets_keyword(context)
 		silent! call feedkeys("\<c-n>", 'n')
+        silent! call feedkeys("\<c-p>", 'n')
 		let b:apc_lastx = x
 		let b:apc_lasty = y
 		let b:apc_tick = b:changedtick
@@ -259,5 +260,5 @@ augroup ApcInitGroup
 augroup END
 
 let g:apc_enable_ft = {'*':1}
-set completeopt=menu,menuone,noselect
+set completeopt=menu,menuone
 set cpt=.,k,w,b
