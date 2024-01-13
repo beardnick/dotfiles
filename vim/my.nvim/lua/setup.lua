@@ -1,15 +1,24 @@
 --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
 local ____exports = {}
-local loadVim, ensurePluginManager, ensurePlugins, configCoc, configVim
+local loadVscode, loadVim, ensurePluginManager, ensurePlugins, configCoc, configVim
 local plug = require("plug")
+function loadVscode()
+    local vscode = require("vscode.init")
+    if not vim.g.pluginDir then
+        vim.g.pluginDir = vim.fn.stdpath("data") .. "/mynvim"
+    end
+    vscode.setup()
+end
 function loadVim()
-    vim.g.pluginDir = vim.fn.stdpath("data") .. "/mynvim"
-    vim.g.cocData = tostring(vim.g.pluginDir) .. "/coc"
-    vim.g.rootPath = vim.fn.fnamemodify(
-        vim.fn.resolve(vim.fn.expand("<sfile>:p")),
-        ":h"
-    )
-    vim.g.configDefault = tostring(vim.g.rootPath) .. "/default.vim"
+    if not vim.g.pluginDir then
+        vim.g.pluginDir = vim.fn.stdpath("data") .. "/mynvim"
+        vim.g.cocData = tostring(vim.g.pluginDir) .. "/coc"
+        vim.g.rootPath = vim.fn.fnamemodify(
+            vim.fn.resolve(vim.fn.expand("<sfile>:p")),
+            ":h"
+        )
+        vim.g.configDefault = tostring(vim.g.rootPath) .. "/default.vim"
+    end
     vim.fn.execute(
         "source " .. tostring(vim.g.configDefault),
         "silent!"
@@ -201,12 +210,11 @@ function configVim()
     print(vim.g.rootPath)
     vim.fn["utils#source_file"](vim.g.rootPath, "keybinding.vim")
 end
-if vim.fn.exists("g:vscode") == 1 then
-    vim.fn.execute(("source " .. vim.fn.fnamemodify(
-        vim.fn.expand("<sfile>"),
-        ":h"
-    )) .. "/vscode/init.vim")
-else
-    loadVim()
+function ____exports.setup()
+    if vim.fn.exists("g:vscode") == 1 then
+        loadVscode()
+    else
+        loadVim()
+    end
 end
 return ____exports
