@@ -17,3 +17,9 @@ snippet tryf "try { ... } catch(e) { ... } finally { ... }"
 		${3:/* be executed regardless of the try / catch result*/}
 	}
 endsnippet
+
+snippet jq "script like jq"
+const fs = require('fs');
+const data = JSON.parse(fs.readFileSync('${1:file}').toString());
+${2:code}
+endsnippet
