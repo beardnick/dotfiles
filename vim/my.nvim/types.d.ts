@@ -16,3 +16,5 @@ declare module "nvim-semantic-tokens.table-highlighter" {}
 declare module "lsp-inlayhints" {}
 /** @noResolution */
 declare module "null-ls" {}
+/** @noResolution */
+declare module "fidget" {}

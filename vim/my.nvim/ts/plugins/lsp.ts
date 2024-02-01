@@ -4,8 +4,26 @@ let map = vim.keymap.set;
 let mapopt = { noremap: true, silent: true };
 
 if (plug.loaded("nvim-lspconfig")) {
+  setupLsp();
+}
+
+if (plug.loaded("none-ls.nvim")) {
+  setupNullLs();
+}
+
+if (plug.loaded("nvim-cmp")) {
+  setupCmp();
+}
+
+function setupLsp() {
+  import * as lspconfig from "lspconfig";
+  import * as nvim_semantic_tokens from "nvim-semantic-tokens";
+  import * as highlighters from "nvim-semantic-tokens.table-highlighter";
   import * as mason from "mason";
   import * as mason_lspconfig from "mason-lspconfig";
+  import * as fidget from "fidget";
+
+  fidget.setup();
   mason.setup();
   mason_lspconfig.setup(
     {
@@ -20,12 +38,57 @@ if (plug.loaded("nvim-lspconfig")) {
       ],
     }
   );
-  configLsp();
-  configCmp();
+
+  nvim_semantic_tokens.setup(
+    {
+      preset: "default",
+      highlighters: highlighters,
+    }
+  );
+  lspconfig.tsserver.setup({});
+  lspconfig.gopls.setup({
+    settings: {
+      gopls: {
+        hints: {
+          assignVariableTypes: true,
+          compositeLiteralFields: true,
+          compositeLiteralTypes: true,
+          constantValues: true,
+          functionTypeParameters: true,
+          parameterNames: true,
+          rangeVariableTypes: true,
+        },
+        semanticTokens: true,
+      }
+    }
+  });
+
+  //vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
+  map('n', ']e', vim.diagnostic.goto_next, mapopt);
+  map('n', '[e', vim.diagnostic.goto_prev, mapopt);
+  map('n', '<leader>e', vim.diagnostic.open_float, mapopt);
+
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group: vim.api.nvim_create_augroup("UserLspConfig", {}),
+    callback: onLspAttach,
+  });
 }
 
+function onLspAttach() {
+  vim.lsp.inlay_hint.enable(0, true);
+  map("n", "gD", vim.lsp.buf.declaration, mapopt);
+  map("n", "gd", vim.lsp.buf.definition, mapopt);
+  map('n', 'gr', vim.lsp.buf.references, mapopt);
+  map("n", "K", vim.lsp.buf.hover, mapopt);
+  map("n", "gi", vim.lsp.buf.implementation, mapopt);
+  map("n", "<C-k>", vim.lsp.buf.signature_help, mapopt);
+  map("n", `<C-\\>`, vim.lsp.buf.code_action, mapopt);
+  map("n", "<leader>rn", vim.lsp.buf.rename, mapopt);
+  map("n", "<leader>lf", () => vim.lsp.buf.format({ async: true }), mapopt);
+}
 
-function configCmp() {
+function setupCmp() {
   import * as cmp from "cmp";
   cmp.setup({
     mapping: cmp.mapping.preset.insert({
@@ -65,65 +128,14 @@ function configCmp() {
   );
 }
 
-function configLsp() {
-  import * as lspconfig from "lspconfig";
-  import * as nvim_semantic_tokens from "nvim-semantic-tokens";
-  import * as highlighters from "nvim-semantic-tokens.table-highlighter";
+
+function setupNullLs() {
   import * as null_ls from "null-ls";
+
   null_ls.setup({
     sources: [
       null_ls.builtins.formatting.golines
     ]
   });
 
-  nvim_semantic_tokens.setup(
-    {
-      preset: "default",
-      highlighters: highlighters,
-    }
-  );
-  lspconfig.tsserver.setup({});
-  lspconfig.gopls.setup({
-    settings: {
-      gopls: {
-        hints: {
-          assignVariableTypes: true,
-          compositeLiteralFields: true,
-          compositeLiteralTypes: true,
-          constantValues: true,
-          functionTypeParameters: true,
-          parameterNames: true,
-          rangeVariableTypes: true,
-        },
-        semanticTokens: true,
-      }
-    }
-  });
-
-  //vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
-  map('n', ']e', vim.diagnostic.goto_next, mapopt);
-  map('n', '[e', vim.diagnostic.goto_prev, mapopt);
-  map('n', '<leader>e', vim.diagnostic.open_float, mapopt);
-
-  vim.api.nvim_create_autocmd("LspAttach", {
-    group: vim.api.nvim_create_augroup("UserLspConfig", {}),
-    callback: setupLsp,
-  });
 }
-
-function setupLsp() {
-  vim.lsp.inlay_hint.enable(0, true);
-  map("n", "gD", vim.lsp.buf.declaration, mapopt);
-  map("n", "gd", vim.lsp.buf.definition, mapopt);
-  map('n', 'gr', vim.lsp.buf.references, mapopt);
-  map("n", "K", vim.lsp.buf.hover, mapopt);
-  map("n", "gi", vim.lsp.buf.implementation, mapopt);
-  map("n", "<C-k>", vim.lsp.buf.signature_help, mapopt);
-  map("n", `<C-\\>`, vim.lsp.buf.code_action, mapopt);
-  map("n", "<leader>rn", vim.lsp.buf.rename, mapopt);
-  map("n", "<leader>lf", () => vim.lsp.buf.format({ async: true }), mapopt);
-}
-
-
-
