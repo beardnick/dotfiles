@@ -22,8 +22,8 @@ if loaded('telescope-fzy-native.nvim') then
     require('telescope').load_extension('fzy_native')
 end
 
-require'telescope'.load_extension('goimpl')
-vim.api.nvim_create_user_command('Goimpl','Telescope goimpl',{})
+-- require'telescope'.load_extension('goimpl')
+-- vim.api.nvim_create_user_command('Goimpl','Telescope goimpl',{})
 
 require('telescope').setup{
   defaults = {
@@ -76,8 +76,8 @@ if loaded('telescope-coc.nvim') then
     --map('n','gd',[[<cmd>Telescope coc definitions<cr>]],mapopt)
     --map('n','gi',[[<cmd>Telescope coc implementations<cr>]],mapopt)
     -- https://vimhelp.org/vim_faq.txt.html#faq-20.5 only Ctrl-printable-key can be safely mapped
-    map('n','<C-\\>',[[<cmd>Telescope coc code_actions<cr>]],mapopt)
-    map('i','<C-\\>',[[<cmd>Telescope coc code_actions<cr>]],mapopt)
+    --map('n','<C-\\>',[[<cmd>Telescope coc code_actions<cr>]],mapopt)
+    --map('i','<C-\\>',[[<cmd>Telescope coc code_actions<cr>]],mapopt)
 end
 
 -- better telescope highlights

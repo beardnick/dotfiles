@@ -1,13 +1,15 @@
 {
     "compilerOptions": {
         "types": [
-            "@gkzhb/lua-types-nvim"
+            "@gkzhb/lua-types-nvim",
+            "types"
         ],
         "rootDir": "ts",
         "outDir": "lua"
     },
     "tstl": {
         // Custom options
-        "noImplicitSelf": true
+        "noImplicitSelf": true,
+        "noResolution": true
     }
 }

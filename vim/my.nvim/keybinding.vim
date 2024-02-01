@@ -307,3 +307,8 @@ cnoremap <C-e> <End>
 
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>ev :e $MYVIMRC<CR>
+
+
+if &filetype == "go" || &filetype == "cuda" || &filetype == "c"
+  autocmd BufEnter,TextChanged <buffer> lua require 'vim.lsp.buf'.semantic_tokens_full()
+endif
