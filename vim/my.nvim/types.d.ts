@@ -20,3 +20,11 @@ declare module "null-ls" {}
 declare module "fidget" {}
 /** @noResolution */
 declare module "neo-tree" {}
+/** @noResolution */
+declare module "lsputil.codeAction" {}
+/** @noResolution */
+declare module "lsputil.symbols" {}
+/** @noResolution */
+declare module "lsputil.locations" {}
+/** @noResolution */
+declare module "renamer" {}

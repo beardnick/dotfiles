@@ -71,6 +71,11 @@ function ensurePlugins(dir: string) {
           "lvimuser/lsp-inlayhints.nvim",
           "nvimtools/none-ls.nvim",
           "j-hui/fidget.nvim",
+          "RishabhRD/popfix",
+          "RishabhRD/nvim-lsputils",
+          { dir: "/Users/hugocheng/study/mycode/nvim-lsputils" },
+          "filipdutescu/renamer.nvim",
+          //{ dir: "/Users/hugocheng/study/mycode/renamer.nvim" }
         ]
       },
       {

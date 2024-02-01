@@ -58,7 +58,11 @@ function ensurePlugins(dir)
             "theHamsta/nvim-semantic-tokens",
             "lvimuser/lsp-inlayhints.nvim",
             "nvimtools/none-ls.nvim",
-            "j-hui/fidget.nvim"
+            "j-hui/fidget.nvim",
+            "RishabhRD/popfix",
+            "RishabhRD/nvim-lsputils",
+            {dir = "/Users/hugocheng/study/mycode/nvim-lsputils"},
+            "filipdutescu/renamer.nvim"
         }},
         {[1] = "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", dependencies = {"nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim"}},
         "morhetz/gruvbox",

@@ -15,6 +15,16 @@ if (plug.loaded("nvim-cmp")) {
   setupCmp();
 }
 
+//if (plug.loaded("nvim-lsputils")) {
+setupLspUtils();
+//}
+
+if (plug.loaded("renamer.nvim")) {
+  import * as renamer from "renamer";
+  renamer.setup();
+  map("n", "<leader>rn", renamer.rename, mapopt);
+}
+
 function setupLsp() {
   import * as lspconfig from "lspconfig";
   import * as nvim_semantic_tokens from "nvim-semantic-tokens";
@@ -45,6 +55,7 @@ function setupLsp() {
       highlighters: highlighters,
     }
   );
+  lspconfig.lua_ls.setup({});
   lspconfig.tsserver.setup({});
   lspconfig.gopls.setup({
     settings: {
@@ -84,7 +95,7 @@ function onLspAttach() {
   map("n", "gi", vim.lsp.buf.implementation, mapopt);
   map("n", "<C-k>", vim.lsp.buf.signature_help, mapopt);
   map("n", `<C-\\>`, vim.lsp.buf.code_action, mapopt);
-  map("n", "<leader>rn", vim.lsp.buf.rename, mapopt);
+  //map("n", "<leader>rn", vim.lsp.buf.rename, mapopt);
   map("n", "<leader>lf", () => vim.lsp.buf.format({ async: true }), mapopt);
 }
 
@@ -139,3 +150,23 @@ function setupNullLs() {
   });
 
 }
+
+function setupLspUtils() {
+  import * as code_action from "lsputil.codeAction";
+  import * as lsp_locations from "lsputil.locations";
+  import * as lsp_symbols from "lsputil.symbols";
+
+
+  // not work any more
+  // https://github.com/RishabhRD/nvim-lsputils/issues/44
+  //vim.lsp.handlers['textDocument/codeAction'] = code_action.code_action_handler;
+
+  vim.lsp.handlers['textDocument/references'] = lsp_locations.references_handler;
+  vim.lsp.handlers['textDocument/definition'] = lsp_locations.definition_handler;
+  vim.lsp.handlers['textDocument/declaration'] = lsp_locations.declaration_handler;
+  vim.lsp.handlers['textDocument/typeDefinition'] = lsp_locations.typeDefinition_handler;
+  vim.lsp.handlers['textDocument/implementation'] = lsp_locations.implementation_handler;
+  vim.lsp.handlers['textDocument/documentSymbol'] = lsp_symbols.document_handler
+  vim.lsp.handlers['workspace/symbol'] = lsp_symbols.workspace_handler;
+  vim.g.lsp_utils_location_opts = { mode: 'editor' };
+} 

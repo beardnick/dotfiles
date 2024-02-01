@@ -1,6 +1,6 @@
 --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
 local ____exports = {}
-local setupLsp, onLspAttach, setupCmp, setupNullLs, map, mapopt
+local setupLsp, onLspAttach, setupCmp, setupNullLs, setupLspUtils, map, mapopt
 local plug = require("plug")
 function setupLsp()
     local lspconfig = require("lspconfig")
@@ -21,6 +21,7 @@ function setupLsp()
         "bash-language-server"
     }})
     nvim_semantic_tokens.setup({preset = "default", highlighters = highlighters})
+    lspconfig.lua_ls.setup({})
     lspconfig.tsserver.setup({})
     lspconfig.gopls.setup({settings = {gopls = {hints = {
         assignVariableTypes = true,
@@ -51,7 +52,6 @@ function onLspAttach()
     map("n", "gi", vim.lsp.buf.implementation, mapopt)
     map("n", "<C-k>", vim.lsp.buf.signature_help, mapopt)
     map("n", "<C-\\>", vim.lsp.buf.code_action, mapopt)
-    map("n", "<leader>rn", vim.lsp.buf.rename, mapopt)
     map(
         "n",
         "<leader>lf",
@@ -90,6 +90,18 @@ function setupNullLs()
     local null_ls = require("null-ls")
     null_ls.setup({sources = {null_ls.builtins.formatting.golines}})
 end
+function setupLspUtils()
+    local lsp_locations = require("lsputil.locations")
+    local lsp_symbols = require("lsputil.symbols")
+    vim.lsp.handlers["textDocument/references"] = lsp_locations.references_handler
+    vim.lsp.handlers["textDocument/definition"] = lsp_locations.definition_handler
+    vim.lsp.handlers["textDocument/declaration"] = lsp_locations.declaration_handler
+    vim.lsp.handlers["textDocument/typeDefinition"] = lsp_locations.typeDefinition_handler
+    vim.lsp.handlers["textDocument/implementation"] = lsp_locations.implementation_handler
+    vim.lsp.handlers["textDocument/documentSymbol"] = lsp_symbols.document_handler
+    vim.lsp.handlers["workspace/symbol"] = lsp_symbols.workspace_handler
+    vim.g.lsp_utils_location_opts = {mode = "editor"}
+end
 map = vim.keymap.set
 mapopt = {noremap = true, silent = true}
 if plug.loaded("nvim-lspconfig") then
@@ -100,5 +112,11 @@ if plug.loaded("none-ls.nvim") then
 end
 if plug.loaded("nvim-cmp") then
     setupCmp()
+end
+setupLspUtils()
+if plug.loaded("renamer.nvim") then
+    local renamer = require("renamer")
+    renamer.setup()
+    map("n", "<leader>rn", renamer.rename, mapopt)
 end
 return ____exports
