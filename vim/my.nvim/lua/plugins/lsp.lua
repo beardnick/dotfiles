@@ -113,7 +113,9 @@ end
 if plug.loaded("nvim-cmp") then
     setupCmp()
 end
-setupLspUtils()
+if plug.loaded("nvim-lsputils") then
+    setupLspUtils()
+end
 if plug.loaded("renamer.nvim") then
     local renamer = require("renamer")
     renamer.setup()

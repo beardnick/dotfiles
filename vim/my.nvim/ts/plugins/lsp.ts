@@ -15,9 +15,9 @@ if (plug.loaded("nvim-cmp")) {
   setupCmp();
 }
 
-//if (plug.loaded("nvim-lsputils")) {
+if (plug.loaded("nvim-lsputils")) {
 setupLspUtils();
-//}
+}
 
 if (plug.loaded("renamer.nvim")) {
   import * as renamer from "renamer";

@@ -73,9 +73,7 @@ function ensurePlugins(dir: string) {
           "j-hui/fidget.nvim",
           "RishabhRD/popfix",
           "RishabhRD/nvim-lsputils",
-          { dir: "/Users/hugocheng/study/mycode/nvim-lsputils" },
           "filipdutescu/renamer.nvim",
-          //{ dir: "/Users/hugocheng/study/mycode/renamer.nvim" }
         ]
       },
       {
