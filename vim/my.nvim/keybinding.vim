@@ -159,7 +159,7 @@ nmap <silent><LEADER>lt :<C-U>AsyncTaskFzf<CR>
 
 " file
 "nnoremap <silent><LEADER>fs :<C-U>Files<CR>
-nnoremap <silent><LEADER>ft :<C-U>CocCommand explorer<CR>
+"nnoremap <silent><LEADER>ft :<C-U>CocCommand explorer<CR>
 
 " 使用fzfmru来模拟如vscode go to file 那样的文件模糊查找行为
 "nnoremap <silent><C-P> :<C-U>Files<CR>

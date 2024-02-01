@@ -60,6 +60,7 @@ function ensurePlugins(dir)
             "nvimtools/none-ls.nvim",
             "j-hui/fidget.nvim"
         }},
+        {[1] = "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", dependencies = {"nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim"}},
         "morhetz/gruvbox",
         "mg979/vim-visual-multi",
         "luochen1990/rainbow",
@@ -136,7 +137,6 @@ function ensurePlugins(dir)
         "rcarriga/nvim-dap-ui",
         "sunjon/stylish.nvim",
         "rcarriga/nvim-notify",
-        "nvim-lua/plenary.nvim",
         "sindrets/diffview.nvim",
         "nvim-telescope/telescope.nvim",
         {[1] = "nvim-telescope/telescope-fzf-native.nvim", build = "make"},

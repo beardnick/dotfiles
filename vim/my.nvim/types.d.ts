@@ -18,3 +18,5 @@ declare module "lsp-inlayhints" {}
 declare module "null-ls" {}
 /** @noResolution */
 declare module "fidget" {}
+/** @noResolution */
+declare module "neo-tree" {}

@@ -73,6 +73,15 @@ function ensurePlugins(dir: string) {
           "j-hui/fidget.nvim",
         ]
       },
+      {
+        1: "nvim-neo-tree/neo-tree.nvim",
+        branch: "v3.x",
+        dependencies: [
+          "nvim-lua/plenary.nvim",
+          "nvim-tree/nvim-web-devicons",
+          "MunifTanjim/nui.nvim",
+        ]
+      },
       "morhetz/gruvbox", // 主题
       "mg979/vim-visual-multi",
       "luochen1990/rainbow",
@@ -150,7 +159,6 @@ function ensurePlugins(dir: string) {
       //'leoluz/nvim-dap-go',
       "sunjon/stylish.nvim",
       "rcarriga/nvim-notify",
-      "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
       { 1: "nvim-telescope/telescope-fzf-native.nvim", build: "make" },
