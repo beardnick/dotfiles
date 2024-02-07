@@ -4,7 +4,7 @@ local setupNeoTree, map, mapopt
 local plug = require("plug")
 function setupNeoTree()
     local neo_tree = require("neo-tree")
-    neo_tree.setup({window = {mapping_options = {noremap = true, nowait = true}, mappings = {l = {[1] = "toggle_node", nowait = false}, h = {[1] = "toggle_node", nowait = false}}}})
+    neo_tree.setup({window = {mapping_options = {noremap = true, nowait = true}, mappings = {l = {[1] = "toggle_node", nowait = false}, h = {[1] = "toggle_node", nowait = false}}}, filesystem = {follow_current_file = {enabled = true}}})
     map("n", "<leader>ft", "<cmd>Neotree toggle<cr>", mapopt)
 end
 map = vim.keymap.set

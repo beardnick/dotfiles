@@ -16,7 +16,7 @@ if (plug.loaded("nvim-cmp")) {
 }
 
 if (plug.loaded("nvim-lsputils")) {
-setupLspUtils();
+  setupLspUtils();
 }
 
 if (plug.loaded("renamer.nvim")) {
@@ -45,6 +45,7 @@ function setupLsp() {
         "typescript-language-server",
         "vim-language-server",
         "bash-language-server",
+        "jdtls",
       ],
     }
   );
@@ -55,6 +56,10 @@ function setupLsp() {
       highlighters: highlighters,
     }
   );
+  lspconfig.vimls.setup({});
+  lspconfig.zls.setup({});
+  lspconfig.jdtls.setup({});
+  lspconfig.bashls.setup({});
   lspconfig.lua_ls.setup({});
   lspconfig.tsserver.setup({});
   lspconfig.gopls.setup({
@@ -76,8 +81,10 @@ function setupLsp() {
 
   //vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
-  map('n', ']e', vim.diagnostic.goto_next, mapopt);
-  map('n', '[e', vim.diagnostic.goto_prev, mapopt);
+  map('n', ']e', () => vim.diagnostic.goto_next({ severity: vim.diagnostic.severity.ERROR }), mapopt);
+  map('n', '[e', () => vim.diagnostic.goto_prev({ severity: vim.diagnostic.severity.ERROR }), mapopt);
+  map('n', ']w', () => vim.diagnostic.goto_next({ severity: vim.diagnostic.severity.WARN }), mapopt);
+  map('n', '[w', () => vim.diagnostic.goto_prev({ severity: vim.diagnostic.severity.WARN }), mapopt);
   map('n', '<leader>e', vim.diagnostic.open_float, mapopt);
 
   vim.api.nvim_create_autocmd("LspAttach", {

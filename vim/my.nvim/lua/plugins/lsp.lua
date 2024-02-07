@@ -18,9 +18,14 @@ function setupLsp()
         "zls",
         "typescript-language-server",
         "vim-language-server",
-        "bash-language-server"
+        "bash-language-server",
+        "jdtls"
     }})
     nvim_semantic_tokens.setup({preset = "default", highlighters = highlighters})
+    lspconfig.vimls.setup({})
+    lspconfig.zls.setup({})
+    lspconfig.jdtls.setup({})
+    lspconfig.bashls.setup({})
     lspconfig.lua_ls.setup({})
     lspconfig.tsserver.setup({})
     lspconfig.gopls.setup({settings = {gopls = {hints = {
@@ -32,8 +37,30 @@ function setupLsp()
         parameterNames = true,
         rangeVariableTypes = true
     }, semanticTokens = true}}})
-    map("n", "]e", vim.diagnostic.goto_next, mapopt)
-    map("n", "[e", vim.diagnostic.goto_prev, mapopt)
+    map(
+        "n",
+        "]e",
+        function() return vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR}) end,
+        mapopt
+    )
+    map(
+        "n",
+        "[e",
+        function() return vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR}) end,
+        mapopt
+    )
+    map(
+        "n",
+        "]w",
+        function() return vim.diagnostic.goto_next({severity = vim.diagnostic.severity.WARN}) end,
+        mapopt
+    )
+    map(
+        "n",
+        "[w",
+        function() return vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.WARN}) end,
+        mapopt
+    )
     map("n", "<leader>e", vim.diagnostic.open_float, mapopt)
     vim.api.nvim_create_autocmd(
         "LspAttach",

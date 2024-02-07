@@ -19,6 +19,12 @@ function setupNeoTree() {
       mappings: {
         ["l"]: { 1: "toggle_node", nowait: false },
         ["h"]: { 1: "toggle_node", nowait: false },
+      },
+    },
+
+    filesystem: {
+      follow_current_file: {
+        enabled: true
       }
     }
   });
