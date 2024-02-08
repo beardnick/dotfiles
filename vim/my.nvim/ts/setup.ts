@@ -85,6 +85,8 @@ function ensurePlugins(dir: string) {
           "MunifTanjim/nui.nvim",
         ]
       },
+      { 1: 'nvim-treesitter/nvim-treesitter', build: ':TSUpdate' },
+      "nvim-treesitter/playground",
       "morhetz/gruvbox", // 主题
       "mg979/vim-visual-multi",
       "luochen1990/rainbow",

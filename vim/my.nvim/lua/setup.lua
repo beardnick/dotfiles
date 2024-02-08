@@ -64,6 +64,8 @@ function ensurePlugins(dir)
             "filipdutescu/renamer.nvim"
         }},
         {[1] = "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", dependencies = {"nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim"}},
+        {[1] = "nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+        "nvim-treesitter/playground",
         "morhetz/gruvbox",
         "mg979/vim-visual-multi",
         "luochen1990/rainbow",
