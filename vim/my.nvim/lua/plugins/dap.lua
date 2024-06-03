@@ -9,11 +9,11 @@ local map = vim.api.nvim_set_keymap
 local dap = require('dap')
 
 function _G.dapContinue()
-    if vim.fn.filereadable('.vim/launch.json') then
-        require('dap.ext.vscode').load_launchjs('.vim/launch.json')
-    elseif vim.fn.filereadable('.vscode/launch.json') then
-        require('dap.ext.vscode').load_launchjs('.vscode/launch.json')
-    end
+    --if vim.fn.filereadable('.vim/launch.json') then
+    --    require('dap.ext.vscode').load_launchjs('.vim/launch.json')
+    --elseif vim.fn.filereadable('.vscode/launch.json') then
+    --    require('dap.ext.vscode').load_launchjs('.vscode/launch.json')
+    --end
 
     require('dap').continue()
 end

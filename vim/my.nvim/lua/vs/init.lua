@@ -66,7 +66,7 @@ local function loadConfig()
         }
     )
 
-    map('n', 's', require('flash').jump, mapopt)
+    map('n', 's', [[<cmd>lua require('flash').jump()<cr>]], mapopt)
 
     vim.api.nvim_set_hl(0, "FlashLabel", { ctermbg = 0, bg = '#fa036a' })
     vim.api.nvim_set_hl(0, "FlashMatch", { ctermbg = 0, bg = '#2f50cd' })

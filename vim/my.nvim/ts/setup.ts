@@ -12,8 +12,16 @@ function loadVscode() {
   if (!vim.g.pluginDir) {
     vim.g.pluginDir = `${vim.fn.stdpath("data")}/mynvim`;
   }
-  import * as vscode from "vscode/init";
+  import * as vscode from "vs/init";
   vscode.setup();
+  vim.g.localConfigAfter = vim.fn.expand("$HOME/.config/local/config_vim.vim");
+  vim.g.localConfigLuaAfter = vim.fn.expand(
+    "$HOME/.config/local/config_nvim.lua"
+  );
+
+  vim.fn.execute(`source ${vim.g.localConfigAfter}`, "silent!");
+  vim.fn.execute(`luafile ${vim.g.localConfigLuaAfter}`, "silent!");
+
 }
 
 function loadVim() {
@@ -62,7 +70,7 @@ function ensurePlugins(dir: string) {
         branch: "master",
         build: "yarn install --frozen-lockfile",
       },
-      "ludovicchabant/vim-gutentags",
+      //"ludovicchabant/vim-gutentags",
       "mhinz/vim-startify",
       "scrooloose/nerdcommenter",
       "SirVer/ultisnips",
@@ -142,7 +150,7 @@ function ensurePlugins(dir: string) {
       { 1: "nvim-telescope/telescope-fzf-native.nvim", build: "make" },
       "fannheyward/telescope-coc.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "xiyaowong/nvim-transparent",
+      //"xiyaowong/nvim-transparent",
       "github/copilot.vim",
       "theHamsta/nvim-dap-virtual-text",
       "Weissle/persistent-breakpoints.nvim",

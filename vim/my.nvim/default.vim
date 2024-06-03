@@ -327,3 +327,5 @@ command! -range SnakeCase silent! call <SID>Snakeize(<range>)
 
 
 command! -bang -nargs=* Rgx call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, <bang>0)
+
+let g:indentLine_setConceal = 0

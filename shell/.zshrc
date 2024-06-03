@@ -112,3 +112,9 @@ setopt append_history
 [[ -f "$LOCAL_CONFIG" ]] && source "$LOCAL_CONFIG"
 
 add_path "$HOME/.local/bin"
+
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=1000
+setopt SHARE_HISTORY

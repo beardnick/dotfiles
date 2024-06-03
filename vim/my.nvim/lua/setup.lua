@@ -3,11 +3,21 @@ local ____exports = {}
 local loadVscode, loadVim, ensurePluginManager, ensurePlugins, configCoc, configVim
 local plug = require("plug")
 function loadVscode()
-    local vscode = require("vscode.init")
+    local vscode = require("vs.init")
     if not vim.g.pluginDir then
         vim.g.pluginDir = vim.fn.stdpath("data") .. "/mynvim"
     end
     vscode.setup()
+    vim.g.localConfigAfter = vim.fn.expand("$HOME/.config/local/config_vim.vim")
+    vim.g.localConfigLuaAfter = vim.fn.expand("$HOME/.config/local/config_nvim.lua")
+    vim.fn.execute(
+        "source " .. tostring(vim.g.localConfigAfter),
+        "silent!"
+    )
+    vim.fn.execute(
+        "luafile " .. tostring(vim.g.localConfigLuaAfter),
+        "silent!"
+    )
 end
 function loadVim()
     if not vim.g.pluginDir then
@@ -49,7 +59,6 @@ function ensurePlugins(dir)
         "mg979/vim-visual-multi",
         "luochen1990/rainbow",
         {[1] = "neoclide/coc.nvim", branch = "master", build = "yarn install --frozen-lockfile"},
-        "ludovicchabant/vim-gutentags",
         "mhinz/vim-startify",
         "scrooloose/nerdcommenter",
         "SirVer/ultisnips",
@@ -128,7 +137,6 @@ function ensurePlugins(dir)
         {[1] = "nvim-telescope/telescope-fzf-native.nvim", build = "make"},
         "fannheyward/telescope-coc.nvim",
         "nvim-treesitter/nvim-treesitter",
-        "xiyaowong/nvim-transparent",
         "github/copilot.vim",
         "theHamsta/nvim-dap-virtual-text",
         "Weissle/persistent-breakpoints.nvim",
