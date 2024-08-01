@@ -8,22 +8,6 @@ end
 
 local extensions = {}
 
-if loaded('telescope-fzf-native.nvim') then
-    require('telescope').load_extension('fzf')
-    extensions.fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-    }
-end
-
-if loaded('telescope-fzy-native.nvim') then
-    require('telescope').load_extension('fzy_native')
-end
-
-require'telescope'.load_extension('goimpl')
-vim.api.nvim_create_user_command('Goimpl','Telescope goimpl',{})
 
 require('telescope').setup{
   defaults = {
