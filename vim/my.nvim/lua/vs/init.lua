@@ -117,8 +117,8 @@ local function loadConfig()
 
     map('n', ']c', vscode_call("workbench.action.editor.nextChange"), mapopt)
     map('n', '[c', vscode_call("workbench.action.editor.previousChange"), mapopt)
-    map('n', ']e', vscode_call("editor.action.marker.nextInFiles"), mapopt)
-    map('n', '[e', vscode_call("editor.action.marker.prevInFiles"), mapopt)
+    map('n', ']e', vscode_call("editor.action.marker.next"), mapopt)
+    map('n', '[e', vscode_call("editor.action.marker.prev"), mapopt)
 
     map('n', 'mi', vscode_call("bookmarks.toggleLabeled"), mapopt)
     map('n', 'ma', vscode_call("bookmarks.listFromAllFiles"), mapopt)
