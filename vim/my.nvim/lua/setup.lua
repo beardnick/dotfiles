@@ -127,7 +127,6 @@ function ensurePlugins(dir)
         "ilyachur/cmake4vim",
         "ojroques/nvim-osc52",
         "akinsho/toggleterm.nvim",
-        "mfussenegger/nvim-dap",
         "rcarriga/nvim-dap-ui",
         "sunjon/stylish.nvim",
         "rcarriga/nvim-notify",

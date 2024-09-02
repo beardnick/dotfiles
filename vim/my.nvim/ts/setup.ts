@@ -139,7 +139,7 @@ function ensurePlugins(dir: string) {
       "ilyachur/cmake4vim",
       "ojroques/nvim-osc52",
       "akinsho/toggleterm.nvim",
-      "mfussenegger/nvim-dap",
+      //"mfussenegger/nvim-dap",
       "rcarriga/nvim-dap-ui",
       //'leoluz/nvim-dap-go',
       "sunjon/stylish.nvim",

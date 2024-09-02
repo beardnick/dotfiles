@@ -15,3 +15,6 @@ push:
 	docker push  $(DOCKERHUB)/$(APP):$(TAG)
 
 pub:build push
+
+tstl:
+	tstl -p vim/my.nvim/tsconfig.json --watch
