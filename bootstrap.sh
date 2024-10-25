@@ -16,7 +16,6 @@ function link_once() {
     local src="${1:?'src path is required'}"
     local dst="${2:?'dst path is required'}"
     echo "$src => $dst"
-    return 0;
     if [[ -e "$dst" ]]; then
         if [[ -L "$dst" ]]; then
             return 0;
