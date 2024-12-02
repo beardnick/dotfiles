@@ -79,3 +79,5 @@ let g:qs_secondary_color = '#5fffff'
 set easymotion
 
 "}}}
+
+map s <Action>(flash.search)
