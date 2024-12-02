@@ -193,8 +193,14 @@ do
                 result[#result + 1] = v
             end
         else
-            for i, v in arrayLikeIterator(arrayLike) do
-                result[#result + 1] = mapFn(thisArg, v, i - 1)
+            local i = 0
+            for ____, v in arrayLikeIterator(arrayLike) do
+                local ____mapFn_3 = mapFn
+                local ____thisArg_1 = thisArg
+                local ____v_2 = v
+                local ____i_0 = i
+                i = ____i_0 + 1
+                result[#result + 1] = ____mapFn_3(____thisArg_1, ____v_2, ____i_0)
             end
         end
         return result
@@ -588,6 +594,12 @@ local function __TS__ArrayWith(self, index, value)
     return copy
 end
 
+local function __TS__New(target, ...)
+    local instance = setmetatable({}, target.prototype)
+    instance:____constructor(...)
+    return instance
+end
+
 local function __TS__InstanceOf(obj, classTbl)
     if type(classTbl) ~= "table" then
         error("Right-hand side of 'instanceof' is not an object", 0)
@@ -607,12 +619,6 @@ local function __TS__InstanceOf(obj, classTbl)
     return false
 end
 
-local function __TS__New(target, ...)
-    local instance = setmetatable({}, target.prototype)
-    instance:____constructor(...)
-    return instance
-end
-
 local function __TS__Class(self)
     local c = {prototype = {}}
     c.prototype.__index = c.prototype
@@ -620,35 +626,27 @@ local function __TS__Class(self)
     return c
 end
 
-local function __TS__FunctionBind(fn, ...)
-    local boundArgs = {...}
-    return function(____, ...)
-        local args = {...}
-        __TS__ArrayUnshift(
-            args,
-            __TS__Unpack(boundArgs)
-        )
-        return fn(__TS__Unpack(args))
-    end
-end
-
 local __TS__Promise
 do
-    local function promiseDeferred(self)
+    local function makeDeferredPromiseFactory()
         local resolve
         local reject
-        local promise = __TS__New(
-            __TS__Promise,
-            function(____, res, rej)
-                resolve = res
-                reject = rej
-            end
-        )
-        return {promise = promise, resolve = resolve, reject = reject}
+        local function executor(____, res, rej)
+            resolve = res
+            reject = rej
+        end
+        return function()
+            local promise = __TS__New(__TS__Promise, executor)
+            return promise, resolve, reject
+        end
     end
-    local function isPromiseLike(self, thing)
-        return __TS__InstanceOf(thing, __TS__Promise)
+    local makeDeferredPromise = makeDeferredPromiseFactory()
+    local function isPromiseLike(value)
+        return __TS__InstanceOf(value, __TS__Promise)
     end
+    local function doNothing(self)
+    end
+    local ____pcall = _G.pcall
     __TS__Promise = __TS__Class()
     __TS__Promise.name = "__TS__Promise"
     function __TS__Promise.prototype.____constructor(self, executor)
@@ -656,206 +654,177 @@ do
         self.fulfilledCallbacks = {}
         self.rejectedCallbacks = {}
         self.finallyCallbacks = {}
-        do
-            local function ____catch(e)
-                self:reject(e)
-            end
-            local ____try, ____hasReturned = pcall(function()
-                executor(
-                    nil,
-                    __TS__FunctionBind(self.resolve, self),
-                    __TS__FunctionBind(self.reject, self)
-                )
-            end)
-            if not ____try then
-                ____catch(____hasReturned)
-            end
+        local success, ____error = ____pcall(
+            executor,
+            nil,
+            function(____, v) return self:resolve(v) end,
+            function(____, err) return self:reject(err) end
+        )
+        if not success then
+            self:reject(____error)
         end
     end
-    function __TS__Promise.resolve(data)
-        local promise = __TS__New(
-            __TS__Promise,
-            function()
-            end
-        )
+    function __TS__Promise.resolve(value)
+        if __TS__InstanceOf(value, __TS__Promise) then
+            return value
+        end
+        local promise = __TS__New(__TS__Promise, doNothing)
         promise.state = 1
-        promise.value = data
+        promise.value = value
         return promise
     end
     function __TS__Promise.reject(reason)
-        local promise = __TS__New(
-            __TS__Promise,
-            function()
-            end
-        )
+        local promise = __TS__New(__TS__Promise, doNothing)
         promise.state = 2
         promise.rejectionReason = reason
         return promise
     end
     __TS__Promise.prototype["then"] = function(self, onFulfilled, onRejected)
-        local ____promiseDeferred_result_0 = promiseDeferred(nil)
-        local promise = ____promiseDeferred_result_0.promise
-        local resolve = ____promiseDeferred_result_0.resolve
-        local reject = ____promiseDeferred_result_0.reject
-        local isFulfilled = self.state == 1
-        local isRejected = self.state == 2
-        if onFulfilled then
-            local internalCallback = self:createPromiseResolvingCallback(onFulfilled, resolve, reject)
-            local ____self_fulfilledCallbacks_1 = self.fulfilledCallbacks
-            ____self_fulfilledCallbacks_1[#____self_fulfilledCallbacks_1 + 1] = internalCallback
-            if isFulfilled then
-                internalCallback(nil, self.value)
-            end
-        else
-            local ____self_fulfilledCallbacks_2 = self.fulfilledCallbacks
-            ____self_fulfilledCallbacks_2[#____self_fulfilledCallbacks_2 + 1] = function(____, v) return resolve(nil, v) end
-        end
-        if onRejected then
-            local internalCallback = self:createPromiseResolvingCallback(onRejected, resolve, reject)
-            local ____self_rejectedCallbacks_3 = self.rejectedCallbacks
-            ____self_rejectedCallbacks_3[#____self_rejectedCallbacks_3 + 1] = internalCallback
-            if isRejected then
-                internalCallback(nil, self.rejectionReason)
-            end
-        else
-            local ____self_rejectedCallbacks_4 = self.rejectedCallbacks
-            ____self_rejectedCallbacks_4[#____self_rejectedCallbacks_4 + 1] = function(____, err) return reject(nil, err) end
-        end
-        if isFulfilled then
-            resolve(nil, self.value)
-        end
-        if isRejected then
-            reject(nil, self.rejectionReason)
-        end
+        local promise, resolve, reject = makeDeferredPromise()
+        self:addCallbacks(
+            onFulfilled and self:createPromiseResolvingCallback(onFulfilled, resolve, reject) or resolve,
+            onRejected and self:createPromiseResolvingCallback(onRejected, resolve, reject) or reject
+        )
         return promise
+    end
+    function __TS__Promise.prototype.addCallbacks(self, fulfilledCallback, rejectedCallback)
+        if self.state == 1 then
+            return fulfilledCallback(nil, self.value)
+        end
+        if self.state == 2 then
+            return rejectedCallback(nil, self.rejectionReason)
+        end
+        local ____self_fulfilledCallbacks_0 = self.fulfilledCallbacks
+        ____self_fulfilledCallbacks_0[#____self_fulfilledCallbacks_0 + 1] = fulfilledCallback
+        local ____self_rejectedCallbacks_1 = self.rejectedCallbacks
+        ____self_rejectedCallbacks_1[#____self_rejectedCallbacks_1 + 1] = rejectedCallback
     end
     function __TS__Promise.prototype.catch(self, onRejected)
         return self["then"](self, nil, onRejected)
     end
     function __TS__Promise.prototype.finally(self, onFinally)
         if onFinally then
-            local ____self_finallyCallbacks_5 = self.finallyCallbacks
-            ____self_finallyCallbacks_5[#____self_finallyCallbacks_5 + 1] = onFinally
+            local ____self_finallyCallbacks_2 = self.finallyCallbacks
+            ____self_finallyCallbacks_2[#____self_finallyCallbacks_2 + 1] = onFinally
             if self.state ~= 0 then
                 onFinally(nil)
             end
         end
         return self
     end
-    function __TS__Promise.prototype.resolve(self, data)
-        if __TS__InstanceOf(data, __TS__Promise) then
-            data["then"](
-                data,
+    function __TS__Promise.prototype.resolve(self, value)
+        if isPromiseLike(value) then
+            return value:addCallbacks(
                 function(____, v) return self:resolve(v) end,
                 function(____, err) return self:reject(err) end
             )
-            return
         end
         if self.state == 0 then
             self.state = 1
-            self.value = data
-            for ____, callback in ipairs(self.fulfilledCallbacks) do
-                callback(nil, data)
-            end
-            for ____, callback in ipairs(self.finallyCallbacks) do
-                callback(nil)
-            end
+            self.value = value
+            return self:invokeCallbacks(self.fulfilledCallbacks, value)
         end
     end
     function __TS__Promise.prototype.reject(self, reason)
         if self.state == 0 then
             self.state = 2
             self.rejectionReason = reason
-            for ____, callback in ipairs(self.rejectedCallbacks) do
-                callback(nil, reason)
+            return self:invokeCallbacks(self.rejectedCallbacks, reason)
+        end
+    end
+    function __TS__Promise.prototype.invokeCallbacks(self, callbacks, value)
+        local callbacksLength = #callbacks
+        local finallyCallbacks = self.finallyCallbacks
+        local finallyCallbacksLength = #finallyCallbacks
+        if callbacksLength ~= 0 then
+            for i = 1, callbacksLength - 1 do
+                callbacks[i](callbacks, value)
             end
-            for ____, callback in ipairs(self.finallyCallbacks) do
-                callback(nil)
+            if finallyCallbacksLength == 0 then
+                return callbacks[callbacksLength](callbacks, value)
             end
+            callbacks[callbacksLength](callbacks, value)
+        end
+        if finallyCallbacksLength ~= 0 then
+            for i = 1, finallyCallbacksLength - 1 do
+                finallyCallbacks[i](finallyCallbacks)
+            end
+            return finallyCallbacks[finallyCallbacksLength](finallyCallbacks)
         end
     end
     function __TS__Promise.prototype.createPromiseResolvingCallback(self, f, resolve, reject)
         return function(____, value)
-            do
-                local function ____catch(e)
-                    reject(nil, e)
-                end
-                local ____try, ____hasReturned = pcall(function()
-                    self:handleCallbackData(
-                        f(nil, value),
-                        resolve,
-                        reject
-                    )
-                end)
-                if not ____try then
-                    ____catch(____hasReturned)
-                end
+            local success, resultOrError = ____pcall(f, nil, value)
+            if not success then
+                return reject(nil, resultOrError)
             end
+            return self:handleCallbackValue(resultOrError, resolve, reject)
         end
     end
-    function __TS__Promise.prototype.handleCallbackData(self, data, resolve, reject)
-        if isPromiseLike(nil, data) then
-            local nextpromise = data
+    function __TS__Promise.prototype.handleCallbackValue(self, value, resolve, reject)
+        if isPromiseLike(value) then
+            local nextpromise = value
             if nextpromise.state == 1 then
-                resolve(nil, nextpromise.value)
+                return resolve(nil, nextpromise.value)
             elseif nextpromise.state == 2 then
-                reject(nil, nextpromise.rejectionReason)
+                return reject(nil, nextpromise.rejectionReason)
             else
-                data["then"](data, resolve, reject)
+                return nextpromise:addCallbacks(resolve, reject)
             end
         else
-            resolve(nil, data)
+            return resolve(nil, value)
         end
     end
 end
 
-local function __TS__AsyncAwaiter(generator)
-    return __TS__New(
-        __TS__Promise,
-        function(____, resolve, reject)
-            local adopt, fulfilled, step, resolved, asyncCoroutine
-            function adopt(self, value)
-                return __TS__InstanceOf(value, __TS__Promise) and value or __TS__Promise.resolve(value)
-            end
-            function fulfilled(self, value)
-                local success, resultOrError = coroutine.resume(asyncCoroutine, value)
+local __TS__AsyncAwaiter, __TS__Await
+do
+    local ____coroutine = _G.coroutine or ({})
+    local cocreate = ____coroutine.create
+    local coresume = ____coroutine.resume
+    local costatus = ____coroutine.status
+    local coyield = ____coroutine.yield
+    function __TS__AsyncAwaiter(generator)
+        return __TS__New(
+            __TS__Promise,
+            function(____, resolve, reject)
+                local fulfilled, step, resolved, asyncCoroutine
+                function fulfilled(self, value)
+                    local success, resultOrError = coresume(asyncCoroutine, value)
+                    if success then
+                        return step(resultOrError)
+                    end
+                    return reject(nil, resultOrError)
+                end
+                function step(result)
+                    if resolved then
+                        return
+                    end
+                    if costatus(asyncCoroutine) == "dead" then
+                        return resolve(nil, result)
+                    end
+                    return __TS__Promise.resolve(result):addCallbacks(fulfilled, reject)
+                end
+                resolved = false
+                asyncCoroutine = cocreate(generator)
+                local success, resultOrError = coresume(
+                    asyncCoroutine,
+                    function(____, v)
+                        resolved = true
+                        return __TS__Promise.resolve(v):addCallbacks(resolve, reject)
+                    end
+                )
                 if success then
-                    step(nil, resultOrError)
+                    return step(resultOrError)
                 else
-                    reject(nil, resultOrError)
+                    return reject(nil, resultOrError)
                 end
             end
-            function step(self, result)
-                if resolved then
-                    return
-                end
-                if coroutine.status(asyncCoroutine) == "dead" then
-                    resolve(nil, result)
-                else
-                    local ____self_0 = adopt(nil, result)
-                    ____self_0["then"](____self_0, fulfilled, reject)
-                end
-            end
-            resolved = false
-            asyncCoroutine = coroutine.create(generator)
-            local success, resultOrError = coroutine.resume(
-                asyncCoroutine,
-                function(____, v)
-                    resolved = true
-                    local ____self_1 = adopt(nil, v)
-                    ____self_1["then"](____self_1, resolve, reject)
-                end
-            )
-            if success then
-                step(nil, resultOrError)
-            else
-                reject(nil, resultOrError)
-            end
-        end
-    )
-end
-local function __TS__Await(thing)
-    return coroutine.yield(thing)
+        )
+    end
+    function __TS__Await(thing)
+        return coyield(thing)
+    end
 end
 
 local function __TS__ClassExtends(target, base)
@@ -953,20 +922,17 @@ local function __TS__ObjectGetOwnPropertyDescriptor(object, key)
     return rawget(metatable, "_descriptors")[key]
 end
 
-local __TS__SetDescriptor
+local __TS__DescriptorGet
 do
-    local function descriptorIndex(self, key)
-        local value = rawget(self, key)
-        if value ~= nil then
-            return value
-        end
-        local metatable = getmetatable(self)
+    local getmetatable = _G.getmetatable
+    local ____rawget = _G.rawget
+    function __TS__DescriptorGet(self, metatable, key)
         while metatable do
-            local rawResult = rawget(metatable, key)
+            local rawResult = ____rawget(metatable, key)
             if rawResult ~= nil then
                 return rawResult
             end
-            local descriptors = rawget(metatable, "_descriptors")
+            local descriptors = ____rawget(metatable, "_descriptors")
             if descriptors then
                 local descriptor = descriptors[key]
                 if descriptor ~= nil then
@@ -979,10 +945,16 @@ do
             metatable = getmetatable(metatable)
         end
     end
-    local function descriptorNewIndex(self, key, value)
-        local metatable = getmetatable(self)
+end
+
+local __TS__DescriptorSet
+do
+    local getmetatable = _G.getmetatable
+    local ____rawget = _G.rawget
+    local rawset = _G.rawset
+    function __TS__DescriptorSet(self, metatable, key, value)
         while metatable do
-            local descriptors = rawget(metatable, "_descriptors")
+            local descriptors = ____rawget(metatable, "_descriptors")
             if descriptors then
                 local descriptor = descriptors[key]
                 if descriptor ~= nil then
@@ -1003,6 +975,26 @@ do
             metatable = getmetatable(metatable)
         end
         rawset(self, key, value)
+    end
+end
+
+local __TS__SetDescriptor
+do
+    local getmetatable = _G.getmetatable
+    local function descriptorIndex(self, key)
+        return __TS__DescriptorGet(
+            self,
+            getmetatable(self),
+            key
+        )
+    end
+    local function descriptorNewIndex(self, key, value)
+        return __TS__DescriptorSet(
+            self,
+            getmetatable(self),
+            key,
+            value
+        )
     end
     function __TS__SetDescriptor(target, key, desc, isPrototype)
         if isPrototype == nil then
@@ -1232,6 +1224,18 @@ local function __TS__DelegatedYield(iterable)
     end
 end
 
+local function __TS__FunctionBind(fn, ...)
+    local boundArgs = {...}
+    return function(____, ...)
+        local args = {...}
+        __TS__ArrayUnshift(
+            args,
+            __TS__Unpack(boundArgs)
+        )
+        return fn(__TS__Unpack(args))
+    end
+end
+
 local __TS__Generator
 do
     local function generatorIterator(self)
@@ -1420,19 +1424,51 @@ do
     Map[Symbol.species] = Map
 end
 
+local function __TS__MapGroupBy(items, keySelector)
+    local result = __TS__New(Map)
+    local i = 0
+    for ____, item in __TS__Iterator(items) do
+        local key = keySelector(nil, item, i)
+        if result:has(key) then
+            local ____temp_0 = result:get(key)
+            ____temp_0[#____temp_0 + 1] = item
+        else
+            result:set(key, {item})
+        end
+        i = i + 1
+    end
+    return result
+end
+
 local __TS__Match = string.match
 
 local __TS__MathAtan2 = math.atan2 or math.atan
 
 local __TS__MathModf = math.modf
 
+local function __TS__NumberIsNaN(value)
+    return value ~= value
+end
+
 local function __TS__MathSign(val)
-    if val > 0 then
-        return 1
-    elseif val < 0 then
+    if __TS__NumberIsNaN(val) or val == 0 then
+        return val
+    end
+    if val < 0 then
         return -1
     end
-    return 0
+    return 1
+end
+
+local function __TS__NumberIsFinite(value)
+    return type(value) == "number" and value == value and value ~= math.huge and value ~= -math.huge
+end
+
+local function __TS__MathTrunc(val)
+    if not __TS__NumberIsFinite(val) or val == 0 then
+        return val
+    end
+    return val > 0 and math.floor(val) or math.ceil(val)
 end
 
 local function __TS__Number(value)
@@ -1462,16 +1498,8 @@ local function __TS__Number(value)
     end
 end
 
-local function __TS__NumberIsFinite(value)
-    return type(value) == "number" and value == value and value ~= math.huge and value ~= -math.huge
-end
-
 local function __TS__NumberIsInteger(value)
     return __TS__NumberIsFinite(value) and math.floor(value) == value
-end
-
-local function __TS__NumberIsNaN(value)
-    return value ~= value
 end
 
 local function __TS__StringSubstring(self, start, ____end)
@@ -1606,23 +1634,17 @@ local function __TS__ObjectDefineProperty(target, key, desc)
         local valueExists = value ~= nil
         local ____desc_set_4 = desc.set
         local ____desc_get_5 = desc.get
-        local ____temp_0
-        if desc.configurable ~= nil then
-            ____temp_0 = desc.configurable
-        else
-            ____temp_0 = valueExists
+        local ____desc_configurable_0 = desc.configurable
+        if ____desc_configurable_0 == nil then
+            ____desc_configurable_0 = valueExists
         end
-        local ____temp_1
-        if desc.enumerable ~= nil then
-            ____temp_1 = desc.enumerable
-        else
-            ____temp_1 = valueExists
+        local ____desc_enumerable_1 = desc.enumerable
+        if ____desc_enumerable_1 == nil then
+            ____desc_enumerable_1 = valueExists
         end
-        local ____temp_2
-        if desc.writable ~= nil then
-            ____temp_2 = desc.writable
-        else
-            ____temp_2 = valueExists
+        local ____desc_writable_2 = desc.writable
+        if ____desc_writable_2 == nil then
+            ____desc_writable_2 = valueExists
         end
         local ____temp_3
         if desc.value ~= nil then
@@ -1633,9 +1655,9 @@ local function __TS__ObjectDefineProperty(target, key, desc)
         descriptor = {
             set = ____desc_set_4,
             get = ____desc_get_5,
-            configurable = ____temp_0,
-            enumerable = ____temp_1,
-            writable = ____temp_2,
+            configurable = ____desc_configurable_0,
+            enumerable = ____desc_enumerable_1,
+            writable = ____desc_writable_2,
             value = ____temp_3
         }
     end
@@ -1672,6 +1694,22 @@ local function __TS__ObjectFromEntries(entries)
         end
     end
     return obj
+end
+
+local function __TS__ObjectGroupBy(items, keySelector)
+    local result = {}
+    local i = 0
+    for ____, item in __TS__Iterator(items) do
+        local key = keySelector(nil, item, i)
+        if result[key] ~= nil then
+            local ____result_key_0 = result[key]
+            ____result_key_0[#____result_key_0 + 1] = item
+        else
+            result[key] = {item}
+        end
+        i = i + 1
+    end
+    return result
 end
 
 local function __TS__ObjectKeys(obj)
@@ -1996,6 +2034,64 @@ do
                 return result
             end
         }
+    end
+    function Set.prototype.union(self, other)
+        local result = __TS__New(Set, self)
+        for ____, item in __TS__Iterator(other) do
+            result:add(item)
+        end
+        return result
+    end
+    function Set.prototype.intersection(self, other)
+        local result = __TS__New(Set)
+        for ____, item in __TS__Iterator(self) do
+            if other:has(item) then
+                result:add(item)
+            end
+        end
+        return result
+    end
+    function Set.prototype.difference(self, other)
+        local result = __TS__New(Set, self)
+        for ____, item in __TS__Iterator(other) do
+            result:delete(item)
+        end
+        return result
+    end
+    function Set.prototype.symmetricDifference(self, other)
+        local result = __TS__New(Set, self)
+        for ____, item in __TS__Iterator(other) do
+            if self:has(item) then
+                result:delete(item)
+            else
+                result:add(item)
+            end
+        end
+        return result
+    end
+    function Set.prototype.isSubsetOf(self, other)
+        for ____, item in __TS__Iterator(self) do
+            if not other:has(item) then
+                return false
+            end
+        end
+        return true
+    end
+    function Set.prototype.isSupersetOf(self, other)
+        for ____, item in __TS__Iterator(other) do
+            if not self:has(item) then
+                return false
+            end
+        end
+        return true
+    end
+    function Set.prototype.isDisjointFrom(self, other)
+        for ____, item in __TS__Iterator(self) do
+            if other:has(item) then
+                return false
+            end
+        end
+        return true
     end
     Set[Symbol.species] = Set
 end
@@ -2446,10 +2542,7 @@ local function __TS__Using(self, cb, ...)
     local args = {...}
     local thrownError
     local ok, result = xpcall(
-        function() return cb(
-            nil,
-            __TS__Unpack(args)
-        ) end,
+        function() return cb(__TS__Unpack(args)) end,
         function(err)
             thrownError = err
             return thrownError
@@ -2551,6 +2644,8 @@ return {
   __TS__DecorateParam = __TS__DecorateParam,
   __TS__Delete = __TS__Delete,
   __TS__DelegatedYield = __TS__DelegatedYield,
+  __TS__DescriptorGet = __TS__DescriptorGet,
+  __TS__DescriptorSet = __TS__DescriptorSet,
   Error = Error,
   RangeError = RangeError,
   ReferenceError = ReferenceError,
@@ -2564,10 +2659,12 @@ return {
   __TS__Iterator = __TS__Iterator,
   __TS__LuaIteratorSpread = __TS__LuaIteratorSpread,
   Map = Map,
+  __TS__MapGroupBy = __TS__MapGroupBy,
   __TS__Match = __TS__Match,
   __TS__MathAtan2 = __TS__MathAtan2,
   __TS__MathModf = __TS__MathModf,
   __TS__MathSign = __TS__MathSign,
+  __TS__MathTrunc = __TS__MathTrunc,
   __TS__New = __TS__New,
   __TS__Number = __TS__Number,
   __TS__NumberIsFinite = __TS__NumberIsFinite,
@@ -2583,6 +2680,7 @@ return {
   __TS__ObjectFromEntries = __TS__ObjectFromEntries,
   __TS__ObjectGetOwnPropertyDescriptor = __TS__ObjectGetOwnPropertyDescriptor,
   __TS__ObjectGetOwnPropertyDescriptors = __TS__ObjectGetOwnPropertyDescriptors,
+  __TS__ObjectGroupBy = __TS__ObjectGroupBy,
   __TS__ObjectKeys = __TS__ObjectKeys,
   __TS__ObjectRest = __TS__ObjectRest,
   __TS__ObjectValues = __TS__ObjectValues,

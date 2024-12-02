@@ -150,7 +150,7 @@ function ensurePlugins(dir: string) {
       { 1: "nvim-telescope/telescope-fzf-native.nvim", build: "make" },
       "fannheyward/telescope-coc.nvim",
       "nvim-treesitter/nvim-treesitter",
-      //"xiyaowong/nvim-transparent",
+      "xiyaowong/nvim-transparent",
       "github/copilot.vim",
       "theHamsta/nvim-dap-virtual-text",
       "Weissle/persistent-breakpoints.nvim",
