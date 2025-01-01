@@ -26,8 +26,9 @@ zinit light-mode for \
 # history
 
 [ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
-HISTSIZE=50000
-SAVEHIST=10000
+HISTSIZE=5000000
+SAVEHIST=$HISTSIZE
+setopt SHARE_HISTORY
 
 
 # key binding
@@ -114,7 +115,3 @@ setopt append_history
 add_path "$HOME/.local/bin"
 
 
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=1000
-setopt SHARE_HISTORY
