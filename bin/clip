@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+const { stdin, stdout } = require('process');
+const { Buffer } = require('buffer');
+
+// Function to encode text in Base64 and send OSC52 escape sequence
+function copyToClipboard(text) {
+  const base64Text = Buffer.from(text, 'utf-8').toString('base64');
+  const osc52Sequence = `\x1b]52;c;${base64Text}\x07`;
+
+  // Write the escape sequence to stdout
+  stdout.write(osc52Sequence);
+}
+
+// Read input from stdin if no arguments are provided
+if (stdin.isTTY) {
+  const text = process.argv.slice(2).join(' ');
+  if (!text) {
+    console.error('Usage: clip <text>');
+    process.exit(1);
+  }
+  copyToClipboard(text);
+} else {
+  // Read from stdin (pipe)
+  let input = '';
+  stdin.setEncoding('utf-8');
+  stdin.on('data', (chunk) => (input += chunk));
+  stdin.on('end', () => copyToClipboard(input.trim()));
+}

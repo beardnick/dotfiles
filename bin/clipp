@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+const { stdout } = require('process');
+const { resolve, isAbsolute } = require('path');
+const { Buffer } = require('buffer');
+
+// Function to encode text in Base64 and send OSC52 escape sequence
+function copyToClipboard(text) {
+  const base64Text = Buffer.from(text, 'utf-8').toString('base64');
+  const osc52Sequence = `\x1b]52;c;${base64Text}\x07`;
+
+  // Write the escape sequence to stdout
+  stdout.write(osc52Sequence);
+}
+
+// Main function to handle file path input
+function main() {
+  const inputPath = process.argv[2];
+
+  if (!inputPath) {
+    console.error('Usage: clipp <file-path>');
+    process.exit(1);
+  }
+
+  // Resolve the absolute path
+  const absolutePath = isAbsolute(inputPath) ? inputPath : resolve(inputPath);
+
+  // Copy the absolute path to the clipboard
+  copyToClipboard(absolutePath);
+  console.log(`Copied to clipboard: ${absolutePath}`);
+}
+
+main();
