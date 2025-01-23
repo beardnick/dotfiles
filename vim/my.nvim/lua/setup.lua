@@ -198,7 +198,8 @@ function configCoc()
         "coc-cmake@0.2.1",
         "coc-clangd@0.24.0",
         "coc-zi@1.1.2",
-        "coc-symbol-line@0.0.20"
+        "coc-symbol-line@0.0.20",
+        "coc-sumneko-lua@0.0.42"
     }
 end
 function configVim()
