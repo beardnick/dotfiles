@@ -135,7 +135,7 @@ function ensurePlugins(dir)
         "nvim-telescope/telescope.nvim",
         {[1] = "nvim-telescope/telescope-fzf-native.nvim", build = "make"},
         "fannheyward/telescope-coc.nvim",
-        "nvim-treesitter/nvim-treesitter",
+        {[1] = "nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
         "xiyaowong/nvim-transparent",
         "github/copilot.vim",
         "theHamsta/nvim-dap-virtual-text",

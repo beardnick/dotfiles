@@ -4,7 +4,7 @@ end
 
 require 'nvim-treesitter.configs'.setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-    --ensure_installed = {"go","c","cpp","rust","java","javascript",},
+    ensure_installed = {"go","c","cpp","rust","java","javascript","lua"},
     --ensure_installed = "maintained",
 
     -- Install languages synchronously (only applied to `ensure_installed`)
