@@ -1094,6 +1094,11 @@ do
         end
         if __TS__StringIncludes(_VERSION, "Lua 5.0") then
             return debug.traceback(("[Level " .. tostring(level)) .. "]")
+        elseif _VERSION == "Lua 5.1" then
+            return string.sub(
+                debug.traceback("", level),
+                2
+            )
         else
             return debug.traceback(nil, level)
         end
@@ -1102,7 +1107,7 @@ do
         return function(self)
             local description = getDescription(self)
             local caller = debug.getinfo(3, "f")
-            local isClassicLua = __TS__StringIncludes(_VERSION, "Lua 5.0") or _VERSION == "Lua 5.1"
+            local isClassicLua = __TS__StringIncludes(_VERSION, "Lua 5.0")
             if isClassicLua or caller and caller.func ~= error then
                 return description
             else
@@ -1126,7 +1131,7 @@ do
         end
         self.message = message
         self.name = "Error"
-        self.stack = getErrorStack(nil, self.constructor.new)
+        self.stack = getErrorStack(nil, __TS__New)
         local metatable = getmetatable(self)
         if metatable and not metatable.__errorToStringPatched then
             metatable.__errorToStringPatched = true
