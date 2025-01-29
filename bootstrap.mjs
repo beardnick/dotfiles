@@ -30,6 +30,8 @@ const conf = `${process.env.HOME}/.config`;
 const localBin = `${process.env.HOME}/.local/bin`;
 const dotdir = (await $`pwd`).stdout.trimEnd();
 
+ensureDir(conf);
+
 // ideavim
 ensureLink(`${dotdir}/idea/.ideavimrc`, `${process.env.HOME}/.ideavimrc`);
 
@@ -52,7 +54,7 @@ ensureLink(`${dotdir}/vifm`, `${process.env.HOME}/.config/vifm`);
 
 ensureLink(`${dotdir}/navi`, `${process.env.HOME}/.config/navi`);
 
-ensureDir(`$LOCAL_BIN`);
+ensureDir(localBin);
 
 // tiny scripts
 ensureAllLink(`${dotdir}/bin`, localBin);
