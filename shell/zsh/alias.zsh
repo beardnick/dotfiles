@@ -43,6 +43,7 @@ alias v="nvim -u ~/.vimlite.vim -N"
 alias cman="man -M /usr/share/man/zh_CN"
 alias less="bat"
 alias conf="v ~/.zshrc"
+alias conflocal="v ~/.config/local/config_zsh.zsh"
 alias name="find . -name"
 alias cunzip='unzip -O cp936'
 alias ll='ls -al'

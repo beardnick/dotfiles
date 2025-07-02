@@ -16,6 +16,10 @@ git remote add <remote_name> <remote_url>
 # Change branch
 git checkout <branch>
 
+# Checkout to tag
+git checkout <tag>
+
+
 # Displays the current status of a git repository
 git status
 
@@ -78,3 +82,4 @@ git branch -r | grep -v '\->' | while read remote; do git branch --track "${remo
 
 $ stash: git stash list  | awk -F: '{print $1}' --- --preview-window "80%" --preview 'git  stash show --color=always {1} -p'
 $ branch_name: git branch
+$ tag: git tag
