@@ -35,8 +35,81 @@ local function ensure_plugin_manager(dir)
     vim.opt.runtimepath:prepend(lazypath)
 end
 
+local function checksum_cache_path(root)
+    if not root then
+        return nil
+    end
+    return root .. "/.lazy-lock.sha256"
+end
+
+local function read_lock_checksum(lockfile)
+    if not lockfile or vim.fn.filereadable(lockfile) ~= 1 then
+        return nil
+    end
+    local ok, lines = pcall(vim.fn.readfile, lockfile)
+    if not ok or not lines then
+        return nil
+    end
+    return vim.fn.sha256(table.concat(lines, "\n"))
+end
+
+local function read_cached_checksum(root)
+    local path = checksum_cache_path(root)
+    if not path or vim.fn.filereadable(path) ~= 1 then
+        return nil
+    end
+    local ok, lines = pcall(vim.fn.readfile, path)
+    if not ok or not lines or #lines == 0 then
+        return nil
+    end
+    return lines[1]
+end
+
+local function write_cached_checksum(root, checksum)
+    local path = checksum_cache_path(root)
+    if not path or not checksum then
+        return
+    end
+    vim.fn.mkdir(root, "p")
+    pcall(vim.fn.writefile, {checksum}, path)
+end
+
+local function try_restore(lazy_mod, root, lockfile)
+    local ok_stats, stats = pcall(function()
+        return lazy_mod.stats()
+    end)
+    local missing = 0
+    if ok_stats and stats and stats.missing then
+        missing = stats.missing
+    end
+    local desired_checksum = read_lock_checksum(lockfile)
+    local cached_checksum = read_cached_checksum(root)
+    local needs_restore = missing > 0 or (desired_checksum and desired_checksum ~= cached_checksum)
+    local restore_fn = type(lazy_mod.restore) == "function" and lazy_mod.restore
+        or type(lazy_mod.sync) == "function" and lazy_mod.sync
+        or nil
+    if not needs_restore or not restore_fn then
+        return
+    end
+    local opts = {wait = true, show = false}
+    local restore_ok, err = pcall(restore_fn, opts)
+    if restore_ok then
+        if desired_checksum then
+            write_cached_checksum(root, desired_checksum)
+        end
+    elseif err then
+        vim.schedule(function()
+            vim.notify(string.format("lazy.nvim restore failed: %s", err), vim.log.levels.ERROR)
+        end)
+    end
+end
+
 local function ensure_plugins(dir)
     local lazy = require("lazy")
+    local lazy_opts = {root = dir}
+    if vim.g.rootPath then
+        lazy_opts.lockfile = vim.g.rootPath .. "/lazy-lock.json"
+    end
     lazy.setup({
         "morhetz/gruvbox",
         "mg979/vim-visual-multi",
@@ -131,7 +204,8 @@ local function ensure_plugins(dir)
         "will133/vim-dirdiff",
         {[1] = "folke/flash.nvim", branch = "main"},
         "norcalli/nvim-colorizer.lua"
-    }, {root = dir})
+    }, lazy_opts)
+    try_restore(lazy, lazy_opts.root, lazy_opts.lockfile)
 end
 
 local function config_coc()
