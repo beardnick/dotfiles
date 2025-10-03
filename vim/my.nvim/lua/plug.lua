@@ -1,10 +1,19 @@
-local ____lualib = require("lualib_bundle")
-local __TS__ArrayIndexOf = ____lualib.__TS__ArrayIndexOf
-local ____exports = {}
-function ____exports.loaded(p)
-    return __TS__ArrayIndexOf(
-        vim.api.nvim_list_runtime_paths(),
-        (tostring(vim.g.pluginDir) .. "/") .. p
-    ) ~= -1
+local M = {}
+
+---Check whether a plugin has been installed in the configured plugin directory.
+---@param plugin_name string
+---@return boolean
+function M.loaded(plugin_name)
+    if not vim.g.pluginDir or not plugin_name then
+        return false
+    end
+    local target = tostring(vim.g.pluginDir) .. "/" .. plugin_name
+    for _, path in ipairs(vim.api.nvim_list_runtime_paths()) do
+        if path == target then
+            return true
+        end
+    end
+    return false
 end
-return ____exports
+
+return M

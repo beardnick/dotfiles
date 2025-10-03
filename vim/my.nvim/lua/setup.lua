@@ -1,44 +1,26 @@
---[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
-local ____exports = {}
-local loadVscode, loadVim, ensurePluginManager, ensurePlugins, configCoc, configVim
 local plug = require("plug")
-function loadVscode()
+
+local M = {}
+
+local function source_local_configs()
+    local vim_config = vim.fn.expand("$HOME/.config/local/config_vim.vim")
+    local lua_config = vim.fn.expand("$HOME/.config/local/config_nvim.lua")
+    vim.g.localConfigAfter = vim_config
+    vim.g.localConfigLuaAfter = lua_config
+    vim.cmd(string.format("silent! source %s", vim.fn.fnameescape(vim_config)))
+    vim.cmd(string.format("silent! luafile %s", vim.fn.fnameescape(lua_config)))
+end
+
+local function load_vscode()
     local vscode = require("vs.init")
     if not vim.g.pluginDir then
         vim.g.pluginDir = vim.fn.stdpath("data") .. "/mynvim"
     end
     vscode.setup()
-    vim.g.localConfigAfter = vim.fn.expand("$HOME/.config/local/config_vim.vim")
-    vim.g.localConfigLuaAfter = vim.fn.expand("$HOME/.config/local/config_nvim.lua")
-    vim.fn.execute(
-        "source " .. tostring(vim.g.localConfigAfter),
-        "silent!"
-    )
-    vim.fn.execute(
-        "luafile " .. tostring(vim.g.localConfigLuaAfter),
-        "silent!"
-    )
+    source_local_configs()
 end
-function loadVim()
-    if not vim.g.pluginDir then
-        vim.g.pluginDir = vim.fn.stdpath("data") .. "/mynvim"
-        vim.g.cocData = tostring(vim.g.pluginDir) .. "/coc"
-        vim.g.rootPath = vim.fn.fnamemodify(
-            vim.fn.resolve(vim.fn.expand("<sfile>:p")),
-            ":h"
-        )
-        vim.g.configDefault = tostring(vim.g.rootPath) .. "/default.vim"
-    end
-    vim.fn.execute(
-        "source " .. tostring(vim.g.configDefault),
-        "silent!"
-    )
-    ensurePluginManager(vim.g.pluginDir)
-    ensurePlugins(vim.g.pluginDir)
-    configCoc()
-    configVim()
-end
-function ensurePluginManager(dir)
+
+local function ensure_plugin_manager(dir)
     local lazypath = dir .. "/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
         vim.fn.system({
@@ -52,7 +34,8 @@ function ensurePluginManager(dir)
     end
     vim.opt.runtimepath:prepend(lazypath)
 end
-function ensurePlugins(dir)
+
+local function ensure_plugins(dir)
     local lazy = require("lazy")
     lazy.setup({
         "morhetz/gruvbox",
@@ -150,7 +133,8 @@ function ensurePlugins(dir)
         "norcalli/nvim-colorizer.lua"
     }, {root = dir})
 end
-function configCoc()
+
+local function config_coc()
     if not plug.loaded("coc.nvim") then
         return
     end
@@ -201,28 +185,39 @@ function configCoc()
         "coc-sumneko-lua@0.0.42"
     }
 end
-function configVim()
+
+local function config_vim()
     vim.fn["utils#source_path"](vim.g.rootPath, "ui")
     vim.fn["utils#source_path"](vim.g.rootPath, "lua/plugins")
     vim.fn["utils#source_path"](vim.g.rootPath, "lang")
-    vim.g.localConfigAfter = vim.fn.expand("$HOME/.config/local/config_vim.vim")
-    vim.g.localConfigLuaAfter = vim.fn.expand("$HOME/.config/local/config_nvim.lua")
-    vim.fn.execute(
-        "source " .. tostring(vim.g.localConfigAfter),
-        "silent!"
-    )
-    vim.fn.execute(
-        "luafile " .. tostring(vim.g.localConfigLuaAfter),
-        "silent!"
-    )
+    source_local_configs()
     print(vim.g.rootPath)
     vim.fn["utils#source_file"](vim.g.rootPath, "keybinding.vim")
 end
-function ____exports.setup()
+
+local function load_vim()
+    if not vim.g.pluginDir then
+        vim.g.pluginDir = vim.fn.stdpath("data") .. "/mynvim"
+        vim.g.cocData = vim.g.pluginDir .. "/coc"
+        vim.g.rootPath = vim.fn.fnamemodify(
+            vim.fn.resolve(vim.fn.expand("<sfile>:p")),
+            ":h"
+        )
+        vim.g.configDefault = vim.g.rootPath .. "/default.vim"
+    end
+    vim.cmd(string.format("silent! source %s", vim.fn.fnameescape(vim.g.configDefault)))
+    ensure_plugin_manager(vim.g.pluginDir)
+    ensure_plugins(vim.g.pluginDir)
+    config_coc()
+    config_vim()
+end
+
+function M.setup()
     if vim.fn.exists("g:vscode") == 1 then
-        loadVscode()
+        load_vscode()
     else
-        loadVim()
+        load_vim()
     end
 end
-return ____exports
+
+return M
