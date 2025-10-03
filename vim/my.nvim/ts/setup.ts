@@ -156,7 +156,6 @@ function ensurePlugins(dir: string) {
       "Weissle/persistent-breakpoints.nvim",
       "nvim-treesitter/playground",
       "michaelb/sniprun",
-      "nvim-orgmode/orgmode",
       {
         1: "beardnick/coc-go",
         branch: "feature-goimpl-list",
