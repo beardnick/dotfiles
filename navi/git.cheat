@@ -81,5 +81,5 @@ git stash clear
 git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done 
 
 $ stash: git stash list  | awk -F: '{print $1}' --- --preview-window "80%" --preview 'git  stash show --color=always {1} -p'
-$ branch_name: git branch
+$ branch_name: git branch --format='%(refname:short)'
 $ tag: git tag
