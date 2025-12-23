@@ -31,3 +31,28 @@ fzflow() {
 fzflow_go_to_worktree() {
     cd "$(git worktree list | awk '{print $1}' | fzf)"
 }
+
+fzflow_add_worktree_with_new_branch() {
+    read "branch_name?Enter new branch name: "
+    branch=$(git branch --format='%(refname:short)' | fzf --prompt='Select source branch: ')
+    dir_name=$(basename $(pwd))
+    dir_name="$dir_name-${branch_name##*/}"
+    git worktree add -b $branch_name "$dir_name"  "$branch"
+    cd "$dir_name"
+}
+
+fzflow_add_worktree_with_branch() {
+    branch_name=$(git branch --format='%(refname:short)' | fzf --prompt='Select branch:')
+    dir_name=$(basename $(pwd))
+    dir_name="$dir_name-${branch_name##*/}"
+    git worktree add "$dir_name" $branch_name
+    cd "$dir_name"
+}
+
+fzflow_delete_worktree() {
+    worktree=$(git worktree list | awk '{print $1}' | fzf --prompt='Select worktree to delete: ')
+    read "confirm?Are you sure you want to delete $worktree? (y/n): "
+    if [[ $confirm == "y" ]]; then
+        git worktree remove $worktree
+    fi
+}
