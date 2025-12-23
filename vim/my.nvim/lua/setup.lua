@@ -242,7 +242,7 @@ local function config_coc()
         "coc-tag@1.2.5",
         "coc-terminal@0.6.0",
         "coc-todolist@1.5.1",
-        "coc-translator@1.7.2",
+        --"coc-translator@1.7.2",
         "coc-tsserver@1.9.12",
         "coc-ultisnips@1.2.3",
         "coc-vetur@1.2.5",
