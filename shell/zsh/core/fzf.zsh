@@ -37,7 +37,7 @@ fzflow_add_worktree_with_new_branch() {
     branch=$(git branch --format='%(refname:short)' | fzf --prompt='Select source branch: ')
     dir_name=$(basename $(pwd))
     dir_name="$dir_name-${branch_name##*/}"
-    git worktree add -b $branch_name "$dir_name"  "$branch"
+    git worktree add -b $branch_name --no-track "$dir_name"  "$branch"
     cd "$dir_name"
 }
 
@@ -55,4 +55,9 @@ fzflow_delete_worktree() {
     if [[ $confirm == "y" ]]; then
         git worktree remove $worktree
     fi
+}
+
+fzflow_edit_file() {
+    file=$(fd --type f --hidden --follow --exclude .git --exclude vendor | fzf --prompt='Select file to edit: ')
+    eval "$EDITOR \"$file\""
 }
