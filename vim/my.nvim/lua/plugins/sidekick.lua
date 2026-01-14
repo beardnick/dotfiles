@@ -13,6 +13,9 @@ require("sidekick").setup({
             codex = {
                 cmd = { "codex" },
             },
+            codex_resume = {
+                cmd = { "codex", "resume" },
+            },
         },
     },
 })
@@ -34,6 +37,14 @@ end, map_opts("Sidekick toggle CLI"))
 map("n", "<leader>kc", function()
     require("sidekick.cli").select()
 end, map_opts("Sidekick select CLI"))
+
+map("n", "<leader>kc", function()
+    require("sidekick.cli").toggle({ name = "codex", focus = true })
+end, map_opts("Sidekick resume Codex"))
+
+map("n", "<leader>kr", function()
+    require("sidekick.cli").toggle({ name = "codex_resume", focus = true })
+end, map_opts("Sidekick resume Codex"))
 
 map("n", "<leader>kp", function()
     require("sidekick.cli").prompt()
