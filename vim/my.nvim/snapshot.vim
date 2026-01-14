@@ -60,7 +60,6 @@ silent! let g:plugs['telescope-fzf-native.nvim'].commit = '8ec164b'
 silent! let g:plugs['telescope.nvim'].commit = 'a36a813'
 silent! let g:plugs['tmux-complete.vim'].commit = '87f6f96'
 silent! let g:plugs['todo.txt-vim'].commit = 'ed9d639'
-silent! let g:plugs['toggleterm.nvim'].commit = 'e97d0c1'
 silent! let g:plugs['traces.vim'].commit = '0f29f8e'
 silent! let g:plugs['ultisnips'].commit = '204b501'
 silent! let g:plugs['vim'].commit = 'b310964'
@@ -102,4 +101,3 @@ silent! let g:plugs['vista.vim'].commit = 'a2236de'
 silent! let g:plugs['wildfire.vim'].commit = 'e2baded'
 
 PlugUpdate!
-

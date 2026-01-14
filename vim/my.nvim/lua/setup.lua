@@ -182,7 +182,6 @@ local function ensure_plugins(dir)
         "tpope/vim-fugitive",
         "ilyachur/cmake4vim",
         "ojroques/nvim-osc52",
-        "akinsho/toggleterm.nvim",
         "rcarriga/nvim-dap-ui",
         "sunjon/stylish.nvim",
         "rcarriga/nvim-notify",
@@ -203,8 +202,8 @@ local function ensure_plugins(dir)
         "ruifm/gitlinker.nvim",
         "will133/vim-dirdiff",
         {[1] = "folke/flash.nvim", branch = "main"},
-        "norcalli/nvim-colorizer.lua"
-        "folke/sidekick.nvim"
+        "norcalli/nvim-colorizer.lua",
+        "folke/sidekick.nvim",
 
     }, lazy_opts)
     try_restore(lazy, lazy_opts.root, lazy_opts.lockfile)
