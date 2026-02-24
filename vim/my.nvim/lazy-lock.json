@@ -52,6 +52,7 @@
   "telescope-coc.nvim": { "branch": "master", "commit": "42791345bc45c2b635a410dfa2e90acca26e6a02" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "1f08ed60cafc8f6168b72b80be2b2ea149813e55" },
   "telescope.nvim": { "branch": "master", "commit": "b4da76be54691e854d3e0e02c36b0245f945c2c7" },
+  "terminal_mate.nvim": { "branch": "main", "commit": "8d20ad8b79a8093eafdd0ffa3bc3e5971c106243" },
   "tmux-complete.vim": { "branch": "master", "commit": "87f6f96c73b599554d1d7f313413d7f9d0336096" },
   "todo.txt-vim": { "branch": "master", "commit": "3bb5f9cf0d6c7ee91b476a97054c336104d2b6f5" },
   "traces.vim": { "branch": "master", "commit": "261602a6ee8d40d13522242ec5671456a230c17e" },
