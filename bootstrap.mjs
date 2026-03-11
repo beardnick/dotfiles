@@ -26,6 +26,23 @@ function ensureLink(src, dst) {
   fs.symlinkSync(src, dst);
 }
 
+function ensureSourceLine(filePath, sourceLine) {
+  const marker = sourceLine.trim();
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(filePath, `${sourceLine}\n`);
+    return;
+  }
+
+  const content = fs.readFileSync(filePath, 'utf8');
+  const lines = content.split(/\r?\n/).map((line) => line.trim());
+  if (lines.includes(marker)) {
+    return;
+  }
+
+  const next = content.endsWith('\n') ? `${content}${sourceLine}\n` : `${content}\n${sourceLine}\n`;
+  fs.writeFileSync(filePath, next);
+}
+
 const conf = `${process.env.HOME}/.config`;
 const localBin = `${process.env.HOME}/.local/bin`;
 const dotdir = (await $`pwd`).stdout.trimEnd();
@@ -37,7 +54,10 @@ ensureLink(`${dotdir}/idea/.ideavimrc`, `${process.env.HOME}/.ideavimrc`);
 
 // .zshrc .zsh_history
 ensureLink(`${dotdir}/shell/zsh`, `${conf}/zsh`);
-ensureLink(`${dotdir}/shell/.zshrc`, `${process.env.HOME}/.zshrc`);
+ensureSourceLine(
+  `${process.env.HOME}/.zshrc`,
+  `source "${conf}/zsh/core.zsh"`
+);
 
 // .tmux.conf
 ensureLink(`${dotdir}/tmux/.tmux.conf`, `${process.env.HOME}/.tmux.conf`);
