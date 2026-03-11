@@ -56,7 +56,9 @@ ensure_source_line() {
 
 # }} }
 
-if [ -f /etc/os-release ]; then
+if [ "$(uname -s)" = "Darwin" ]; then
+    DISTRIBUTION="macos"
+elif [ -f /etc/os-release ]; then
     . /etc/os-release
     DISTRIBUTION="$ID"
 else
@@ -66,6 +68,12 @@ fi
 case "$DISTRIBUTION" in
     "ubuntu")
         # no runtime dependency needed now
+        ;;
+    "macos")
+        if ! command -v brew >/dev/null 2>&1; then
+            echo "error: Homebrew is required on macOS. Install it from https://brew.sh/"
+            exit 1
+        fi
         ;;
     *)
         echo "info: running on $DISTRIBUTION"
