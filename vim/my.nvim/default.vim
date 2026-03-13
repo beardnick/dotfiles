@@ -45,12 +45,6 @@ let g:mynvim_banner = [
             \     ]
 
 
-" 设置代码模版触发器
-let g:UltiSnipsExpandTrigger       = '<c-j>'
-let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-" visual 的时候使用<C-J>来使用visual placeholder
-
 "let g:sneak#s_next = 1
 
 
@@ -88,9 +82,6 @@ if has("termguicolors")
     " enable true color
     set termguicolors
 endif
-
-let g:UltiSnipsEditSplit="vertical"
-let g:vmt_auto_update_on_save = 1
 
 let g:Lf_ShortcutB = '<LEADER>bs'                               
 let g:Lf_ShortcutF = ''
@@ -228,7 +219,6 @@ let g:terminal_pos = 'botright'
 let g:go_template_autocreate = 0
 
 
-"let g:UltiSnipsSnippetDir=[$HOME . '/.config/nvim/UltiSnips']
 
 let g:go_template_use_pkg = 1
 let g:go_gopls_enabled = 0
@@ -290,7 +280,6 @@ let g:neoterm_default_mod='botright'
 
 "highlight link ALEVirtualTextWarning CocWarningSign
 
-"let g:table_mode_disable_mappings = 1
 
 set mouse=nvi
 

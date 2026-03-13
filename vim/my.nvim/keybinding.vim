@@ -28,7 +28,6 @@ vmap <LEADER>s <Plug>VSurround
 nmap <LEADER>s <Plug>Ysurround
 nnoremap <silent><C-J> :<C-U>Snippets<CR>
 "nnoremap <silent><C-S> :<C-U>Scratch<CR>
-inoremap <silent><C-\> <C-O>:<C-U>TableModeRealign<CR>
 vnoremap < <gv
 vnoremap > >gv
 

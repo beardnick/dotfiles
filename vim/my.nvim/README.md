@@ -40,6 +40,6 @@
 ## 其它注意事项
 
 1. coc.nvim安装出问题: 尝试 `:call coc#util#install()`
-2. coc必装插件: coc-git, coc-ultisnips, coc-explorer, coc-pairs. 其他语言类插件如:coc-java, coc-python
+2. coc必装插件: coc-git, coc-explorer, coc-pairs. 其他语言类插件如:coc-java, coc-python
 3. 查看keymap: `:Verbose map` 或者 `:Maps`
 

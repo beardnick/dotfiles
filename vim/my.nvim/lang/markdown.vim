@@ -22,10 +22,3 @@ let g:vim_markdown_fenced_languages = [
   \ ]
 
 
-"let g:table_mode_disable_tableize_mappings = 1
-
-"let g:table_mode_disable_mappings = 1
-
-let g:table_mode_map_prefix = '_'
-
-let g:table_mode_always_active = 0
