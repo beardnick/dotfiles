@@ -197,7 +197,12 @@ local function ensure_plugins(dir)
         {[1] = "folke/flash.nvim", branch = "main"},
         "norcalli/nvim-colorizer.lua",
         "folke/sidekick.nvim",
-        "beardnick/terminal_mate.nvim",
+        {
+            [1] = "beardnick/terminal_mate.nvim",
+            config = function()
+                require("terminal_mate").setup()
+            end,
+        },
     }, lazy_opts)
     try_restore(lazy, lazy_opts.root, lazy_opts.lockfile)
 end
