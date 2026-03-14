@@ -199,6 +199,7 @@ local function ensure_plugins(dir)
         "folke/sidekick.nvim",
         {
             [1] = "beardnick/terminal_mate.nvim",
+            lazy = false,
             config = function()
                 require("terminal_mate").setup()
             end,
