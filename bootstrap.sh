@@ -1,5 +1,5 @@
-# vim: set expandtab shiftwidth=4 foldmethod=marker foldlevel=0 :
 #!/usr/bin/env bash
+# vim: set expandtab shiftwidth=4 foldmethod=marker foldlevel=0 :
 set -euo pipefail
 
 # {{{ libs
@@ -54,6 +54,153 @@ ensure_source_line() {
     printf '%s\n' "$source_line" >> "$file_path"
 }
 
+usage() {
+    cat <<'EOF'
+Usage: ./bootstrap.sh [command]
+
+Commands:
+    bootstrap      Install dependencies and link dotfiles (default)
+    deps           Install dependency tools only
+    install-deps   Install dependency tools only
+    help           Show this help
+EOF
+}
+
+ensure_command_alias() {
+    local alias_name="$1"
+    local target_name="$2"
+    local alias_path="$LOCAL_BIN/$alias_name"
+    local target_path
+
+    if command -v "$alias_name" >/dev/null 2>&1; then
+        return
+    fi
+
+    if ! target_path="$(command -v "$target_name" 2>/dev/null)"; then
+        return
+    fi
+
+    ensure_dir "$LOCAL_BIN"
+
+    if [ -L "$alias_path" ]; then
+        rm "$alias_path"
+    elif [ -e "$alias_path" ]; then
+        echo "error: $alias_path exists and is not a symlink"
+        exit 1
+    fi
+
+    ln -s "$target_path" "$alias_path"
+}
+
+install_lua51_from_source() {
+    local version="5.1.5"
+    local prefix="$HOME/.local/opt/lua-$version"
+    local tmp_dir
+
+    if command -v lua5.1 >/dev/null 2>&1; then
+        return
+    fi
+
+    if [ -x "$prefix/bin/lua" ] && [ -x "$prefix/bin/luac" ]; then
+        ensure_dir "$LOCAL_BIN"
+        ensure_link "$prefix/bin/lua" "$LOCAL_BIN/lua5.1"
+        ensure_link "$prefix/bin/luac" "$LOCAL_BIN/luac5.1"
+        return
+    fi
+
+    for dep in curl tar make cc; do
+        if ! command -v "$dep" >/dev/null 2>&1; then
+            echo "error: $dep is required to install Lua $version from source"
+            exit 1
+        fi
+    done
+
+    tmp_dir="$(mktemp -d)"
+
+    curl -fsSL "https://www.lua.org/ftp/lua-$version.tar.gz" -o "$tmp_dir/lua-$version.tar.gz"
+    tar -xzf "$tmp_dir/lua-$version.tar.gz" -C "$tmp_dir"
+
+    make -C "$tmp_dir/lua-$version" macosx
+    make -C "$tmp_dir/lua-$version" INSTALL_TOP="$prefix" install
+
+    ensure_dir "$LOCAL_BIN"
+    ensure_link "$prefix/bin/lua" "$LOCAL_BIN/lua5.1"
+    ensure_link "$prefix/bin/luac" "$LOCAL_BIN/luac5.1"
+
+    rm -rf "$tmp_dir"
+}
+
+apt_get() {
+    if [ "$(id -u)" -eq 0 ]; then
+        apt-get "$@"
+        return
+    fi
+
+    if ! command -v sudo >/dev/null 2>&1; then
+        echo "error: sudo is required when not running as root"
+        exit 1
+    fi
+
+    sudo apt-get "$@"
+}
+
+install_dependencies() {
+    case "$DISTRIBUTION" in
+        "ubuntu")
+            if ! command -v apt-get >/dev/null 2>&1; then
+                echo "error: apt-get is required on Ubuntu"
+                exit 1
+            fi
+
+            apt_get update
+            apt_get install -y fzf fd-find ripgrep lua5.1 bat
+            ensure_command_alias fd fdfind
+            ensure_command_alias bat batcat
+            ;;
+        "macos")
+            if ! command -v brew >/dev/null 2>&1; then
+                echo "error: Homebrew is required on macOS. Install it from https://brew.sh/"
+                exit 1
+            fi
+
+            brew install fzf fd ripgrep bat
+            install_lua51_from_source
+            ;;
+        *)
+            echo "error: dependency installation is only supported on Ubuntu and macOS"
+            exit 1
+            ;;
+    esac
+}
+
+bootstrap_dotfiles() {
+    ensure_dir "$CONF"
+
+    # ideavim
+    ensure_link "$DOTDIR/idea/.ideavimrc" "$HOME/.ideavimrc"
+
+    # zsh
+    ensure_link "$DOTDIR/shell/zsh" "$CONF/zsh"
+    ensure_source_line "$HOME/.zshrc" "source \"$CONF/zsh/core.zsh\""
+
+    # tmux
+    ensure_link "$DOTDIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+    ensure_link "$DOTDIR/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
+
+    # vim
+    ensure_link "$DOTDIR/vim/.vimlite.vim" "$HOME/.vimlite.vim"
+    ensure_link "$DOTDIR/vim/my.nvim" "$CONF/nvim"
+
+    # vifm
+    ensure_link "$DOTDIR/vifm" "$CONF/vifm"
+
+    # navi
+    ensure_link "$DOTDIR/navi" "$CONF/navi"
+
+    # tiny scripts
+    ensure_all_link "$DOTDIR/bin" "$LOCAL_BIN"
+}
+
 # }} }
 
 if [ "$(uname -s)" = "Darwin" ]; then
@@ -65,49 +212,26 @@ else
     DISTRIBUTION="unknown"
 fi
 
-case "$DISTRIBUTION" in
-    "ubuntu")
-        # no runtime dependency needed now
-        ;;
-    "macos")
-        if ! command -v brew >/dev/null 2>&1; then
-            echo "error: Homebrew is required on macOS. Install it from https://brew.sh/"
-            exit 1
-        fi
-        ;;
-    *)
-        echo "info: running on $DISTRIBUTION"
-        ;;
-esac
-
 DOTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONF="$HOME/.config"
 LOCAL_BIN="$HOME/.local/bin"
+COMMAND="${1:-bootstrap}"
 
-ensure_dir "$CONF"
-
-# ideavim
-ensure_link "$DOTDIR/idea/.ideavimrc" "$HOME/.ideavimrc"
-
-# zsh
-ensure_link "$DOTDIR/shell/zsh" "$CONF/zsh"
-ensure_source_line "$HOME/.zshrc" "source \"$CONF/zsh/core.zsh\""
-
-# tmux
-ensure_link "$DOTDIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
-ensure_link "$DOTDIR/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
-
-# vim
-ensure_link "$DOTDIR/vim/.vimlite.vim" "$HOME/.vimlite.vim"
-ensure_link "$DOTDIR/vim/my.nvim" "$CONF/nvim"
-
-# vifm
-ensure_link "$DOTDIR/vifm" "$CONF/vifm"
-
-# navi
-ensure_link "$DOTDIR/navi" "$CONF/navi"
-
-# tiny scripts
-ensure_all_link "$DOTDIR/bin" "$LOCAL_BIN"
-
-echo "bootstrap completed"
+case "$COMMAND" in
+    "bootstrap")
+        install_dependencies
+        bootstrap_dotfiles
+        echo "bootstrap completed"
+        ;;
+    "deps"|"install-deps")
+        install_dependencies
+        echo "dependencies installed"
+        ;;
+    "help"|"-h"|"--help")
+        usage
+        ;;
+    *)
+        usage
+        exit 1
+        ;;
+esac
