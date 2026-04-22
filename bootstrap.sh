@@ -92,44 +92,6 @@ ensure_command_alias() {
     ln -s "$target_path" "$alias_path"
 }
 
-install_lua51_from_source() {
-    local version="5.1.5"
-    local prefix="$HOME/.local/opt/lua-$version"
-    local tmp_dir
-
-    if command -v lua5.1 >/dev/null 2>&1; then
-        return
-    fi
-
-    if [ -x "$prefix/bin/lua" ] && [ -x "$prefix/bin/luac" ]; then
-        ensure_dir "$LOCAL_BIN"
-        ensure_link "$prefix/bin/lua" "$LOCAL_BIN/lua5.1"
-        ensure_link "$prefix/bin/luac" "$LOCAL_BIN/luac5.1"
-        return
-    fi
-
-    for dep in curl tar make cc; do
-        if ! command -v "$dep" >/dev/null 2>&1; then
-            echo "error: $dep is required to install Lua $version from source"
-            exit 1
-        fi
-    done
-
-    tmp_dir="$(mktemp -d)"
-
-    curl -fsSL "https://www.lua.org/ftp/lua-$version.tar.gz" -o "$tmp_dir/lua-$version.tar.gz"
-    tar -xzf "$tmp_dir/lua-$version.tar.gz" -C "$tmp_dir"
-
-    make -C "$tmp_dir/lua-$version" macosx
-    make -C "$tmp_dir/lua-$version" INSTALL_TOP="$prefix" install
-
-    ensure_dir "$LOCAL_BIN"
-    ensure_link "$prefix/bin/lua" "$LOCAL_BIN/lua5.1"
-    ensure_link "$prefix/bin/luac" "$LOCAL_BIN/luac5.1"
-
-    rm -rf "$tmp_dir"
-}
-
 apt_get() {
     if [ "$(id -u)" -eq 0 ]; then
         apt-get "$@"
@@ -163,8 +125,7 @@ install_dependencies() {
                 exit 1
             fi
 
-            brew install fzf fd ripgrep bat
-            install_lua51_from_source
+            brew install fzf fd ripgrep lua bat
             ;;
         *)
             echo "error: dependency installation is only supported on Ubuntu and macOS"
