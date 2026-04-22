@@ -66,32 +66,6 @@ Commands:
 EOF
 }
 
-ensure_command_alias() {
-    local alias_name="$1"
-    local target_name="$2"
-    local alias_path="$LOCAL_BIN/$alias_name"
-    local target_path
-
-    if command -v "$alias_name" >/dev/null 2>&1; then
-        return
-    fi
-
-    if ! target_path="$(command -v "$target_name" 2>/dev/null)"; then
-        return
-    fi
-
-    ensure_dir "$LOCAL_BIN"
-
-    if [ -L "$alias_path" ]; then
-        rm "$alias_path"
-    elif [ -e "$alias_path" ]; then
-        echo "error: $alias_path exists and is not a symlink"
-        exit 1
-    fi
-
-    ln -s "$target_path" "$alias_path"
-}
-
 apt_get() {
     if [ "$(id -u)" -eq 0 ]; then
         apt-get "$@"
@@ -116,8 +90,6 @@ install_dependencies() {
 
             apt_get update
             apt_get install -y fzf fd-find ripgrep lua5.1 bat
-            ensure_command_alias fd fdfind
-            ensure_command_alias bat batcat
             ;;
         "macos")
             if ! command -v brew >/dev/null 2>&1; then

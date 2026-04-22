@@ -34,6 +34,9 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+(( ! $+commands[fd] )) && (( $+commands[fdfind] )) && alias fd='fdfind'
+(( ! $+commands[bat] )) && (( $+commands[batcat] )) && alias bat='batcat'
+
 alias x='extract'
 
 
@@ -56,4 +59,3 @@ alias cat='bat'
 alias tree='tree -N'
 
 alias gd='git icdiff'
-
