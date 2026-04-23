@@ -31,12 +31,6 @@ download_config(){
 	git clone --depth=1 https://github.com/beardnick/my.nvim.git  $HOME/.config/nvim
 }
 
-download_basic_plugins(){
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-}
-
-
 if ! $(has_command nvim); then
     echo "please install nvim first" >&2
     exit 1
@@ -50,18 +44,10 @@ if [[ $(compare $version 0.4.3) -eq 0 ]]; then
     exit 1
 fi
 
-if ! $(has_command curl); then
-    echo "please install curl first" >&2
-    exit 1
-fi
-
-
 echo "cloning nvim config from github..."
 
 download_config
 
-echo "downloading basic plugin manager..."
+echo "bootstrapping plugins with lazy.nvim..."
 
-download_basic_plugins
-
-nvim +"PlugInstall"
+nvim --headless +qa

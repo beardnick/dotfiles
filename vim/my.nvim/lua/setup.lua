@@ -1,14 +1,12 @@
 local plug = require("plug")
+local config_util = require("config.util")
 
 local M = {}
 
 local function source_local_configs()
-    local vim_config = vim.fn.expand("$HOME/.config/local/config_vim.vim")
     local lua_config = vim.fn.expand("$HOME/.config/local/config_nvim.lua")
-    vim.g.localConfigAfter = vim_config
     vim.g.localConfigLuaAfter = lua_config
-    vim.cmd(string.format("silent! source %s", vim.fn.fnameescape(vim_config)))
-    vim.cmd(string.format("silent! luafile %s", vim.fn.fnameescape(lua_config)))
+    config_util.dofile_if_readable(lua_config)
 end
 
 local function load_vscode()
@@ -260,12 +258,12 @@ local function config_coc()
 end
 
 local function config_vim()
-    vim.fn["utils#source_path"](vim.g.rootPath, "ui")
-    vim.fn["utils#source_path"](vim.g.rootPath, "lua/plugins")
-    vim.fn["utils#source_path"](vim.g.rootPath, "lang")
+    config_util.load_dir(vim.g.rootPath, "ui")
+    config_util.load_dir(vim.g.rootPath, "lua/plugins")
+    config_util.load_dir(vim.g.rootPath, "lang")
+    config_util.load_dir(vim.g.rootPath, "after/plugin")
     source_local_configs()
-    print(vim.g.rootPath)
-    vim.fn["utils#source_file"](vim.g.rootPath, "keybinding.vim")
+    config_util.dofile_if_readable(vim.g.keybindingConfig)
 end
 
 local function load_vim()
@@ -276,9 +274,11 @@ local function load_vim()
             vim.fn.resolve(vim.fn.expand("<sfile>:p")),
             ":h"
         )
-        vim.g.configDefault = vim.g.rootPath .. "/default.vim"
+        vim.g.mynvim_root_path = vim.g.rootPath
+        vim.g.configDefault = vim.g.rootPath .. "/default.lua"
+        vim.g.keybindingConfig = vim.g.rootPath .. "/keybinding.lua"
     end
-    vim.cmd(string.format("silent! source %s", vim.fn.fnameescape(vim.g.configDefault)))
+    config_util.dofile_if_readable(vim.g.configDefault)
     ensure_plugin_manager(vim.g.pluginDir)
     ensure_plugins(vim.g.pluginDir)
     config_coc()
