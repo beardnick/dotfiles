@@ -80,6 +80,35 @@ apt_get() {
     sudo apt-get "$@"
 }
 
+ensure_cargo() {
+    if command -v cargo >/dev/null 2>&1; then
+        return
+    fi
+
+    case "$DISTRIBUTION" in
+        "ubuntu")
+            apt_get install -y cargo
+            ;;
+        *)
+            echo "error: cargo is required to install Rust tools on $DISTRIBUTION"
+            exit 1
+            ;;
+    esac
+}
+
+install_cargo_tool() {
+    local command_name="$1"
+    local package_name="$2"
+
+    if command -v "$command_name" >/dev/null 2>&1; then
+        return
+    fi
+
+    ensure_cargo
+    cargo install --locked "$package_name"
+    export PATH="$CARGO_BIN:$PATH"
+}
+
 install_dependencies() {
     case "$DISTRIBUTION" in
         "ubuntu")
@@ -90,6 +119,10 @@ install_dependencies() {
 
             apt_get update
             apt_get install -y fzf fd-find ripgrep lua5.1 bat
+            if ! command -v btm >/dev/null 2>&1 && ! apt_get install -y btm; then
+                install_cargo_tool btm bottom
+            fi
+            install_cargo_tool navi navi
             ;;
         "macos")
             if ! command -v brew >/dev/null 2>&1; then
@@ -97,7 +130,7 @@ install_dependencies() {
                 exit 1
             fi
 
-            brew install fzf fd ripgrep lua bat
+            brew install fzf fd ripgrep lua bat navi bottom
             ;;
         *)
             echo "error: dependency installation is only supported on Ubuntu and macOS"
@@ -148,6 +181,8 @@ fi
 DOTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONF="$HOME/.config"
 LOCAL_BIN="$HOME/.local/bin"
+CARGO_BIN="$HOME/.cargo/bin"
+export PATH="$CARGO_BIN:$PATH"
 COMMAND="${1:-bootstrap}"
 
 case "$COMMAND" in
