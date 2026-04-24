@@ -100,7 +100,6 @@ local function ensure_plugins(dir)
         "patstockwell/vim-monokai-tasty",
         "unblevable/quick-scope",
         {[1] = "beardnick/vim-bookmarks", branch = "feature-relative-path"},
-        {[1] = "beardnick/mynvim", build = "make"},
         "tpope/vim-fugitive",
         "ilyachur/cmake4vim",
         "ojroques/nvim-osc52",

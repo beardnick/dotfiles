@@ -89,7 +89,7 @@ install_dependencies() {
             fi
 
             apt_get update
-            apt_get install -y fzf fd-find ripgrep lua5.1 bat
+            apt_get install -y neovim fzf fd-find ripgrep lua5.1 bat
             ;;
         "macos")
             if ! command -v brew >/dev/null 2>&1; then
@@ -97,13 +97,22 @@ install_dependencies() {
                 exit 1
             fi
 
-            brew install fzf fd ripgrep lua bat
+            brew install neovim fzf fd ripgrep lua bat
             ;;
         *)
             echo "error: dependency installation is only supported on Ubuntu and macOS"
             exit 1
             ;;
     esac
+}
+
+bootstrap_neovim() {
+    if ! command -v nvim >/dev/null 2>&1; then
+        echo "warning: nvim not found, skipping Neovim bootstrap"
+        return
+    fi
+
+    nvim --headless "+qa"
 }
 
 bootstrap_dotfiles() {
@@ -154,6 +163,7 @@ case "$COMMAND" in
     "bootstrap")
         install_dependencies
         bootstrap_dotfiles
+        bootstrap_neovim
         echo "bootstrap completed"
         ;;
     "deps"|"install-deps")
