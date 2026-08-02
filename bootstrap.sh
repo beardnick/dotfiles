@@ -134,7 +134,18 @@ bootstrap_dotfiles() {
     ensure_link "$DOTDIR/vim/my.nvim" "$CONF/nvim"
 
     # vifm
-    ensure_link "$DOTDIR/vifm" "$CONF/vifm"
+    # the config dir must be a real directory, not a link into the repo:
+    # vifm writes runtime state (vifminfo.json, vifm-help.txt, Trash) next
+    # to its config and would pollute the repo otherwise
+    if [ -L "$CONF/vifm" ]; then
+        rm "$CONF/vifm"
+    fi
+    ensure_dir "$CONF/vifm"
+    ensure_link "$DOTDIR/vifm/vifmrc" "$CONF/vifm/vifmrc"
+    ensure_link "$DOTDIR/vifm/colors" "$CONF/vifm/colors"
+    ensure_link "$DOTDIR/vifm/scripts" "$CONF/vifm/scripts"
+    ensure_link "$DOTDIR/vifm/devicons.vifm" "$CONF/vifm/devicons.vifm"
+    ensure_link "$DOTDIR/vifm/origin.vifm" "$CONF/vifm/origin.vifm"
 
     # navi
     ensure_link "$DOTDIR/navi" "$CONF/navi"

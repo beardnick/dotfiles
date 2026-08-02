@@ -1,0 +1,6 @@
+# vifm runtime state (written next to its config on machines that still
+# link the whole vifm dir)
+vifm/vifminfo
+vifm/vifminfo.json
+vifm/vifm-help.txt
+vifm/Trash/
