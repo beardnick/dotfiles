@@ -57,7 +57,7 @@ local function ensure_plugins(dir)
         "Bekaboo/dropbar.nvim",
         "gbprod/yanky.nvim",
         "nvim-treesitter/nvim-treesitter-textobjects",
-        "nvim-telescope/telescope-ui-select.nvim",
+        "stevearc/dressing.nvim",
         "mhinz/vim-startify",
         "scrooloose/nerdcommenter",
         "plasticboy/vim-markdown",
