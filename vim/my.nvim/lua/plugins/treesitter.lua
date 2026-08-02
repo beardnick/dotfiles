@@ -1,59 +1,55 @@
-if not require('plug').loaded('nvim-treesitter') then
+local plug = require('plug')
+
+if not plug.loaded('nvim-treesitter') then
     return
 end
 
-require 'nvim-treesitter.configs'.setup {
-    -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-    ensure_installed = {"go","c","cpp","rust","java","javascript","lua"},
-    --ensure_installed = "maintained",
-
-    -- Install languages synchronously (only applied to `ensure_installed`)
-    sync_install = false,
-
-    -- List of parsers to ignore installing
-    ignore_install = { "javascript" },
-
-    highlight = {
-        -- `false` will disable the whole extension
-        enable = true,
-
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = false,
-    },
-
-    textobjects = {
-        select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-            },
-        },
-    },
-
-    playground = {
-        enable = true,
-        disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = false, -- Whether the query persists across vim sessions
-        keybindings = {
-            toggle_query_editor = 'o',
-            toggle_hl_groups = 'i',
-            toggle_injected_languages = 't',
-            toggle_anonymous_nodes = 'a',
-            toggle_language_display = 'I',
-            focus_language = 'f',
-            unfocus_language = 'F',
-            update = 'R',
-            goto_node = '<cr>',
-            show_help = '?',
-        },
-    },
+-- languages whose buffers get treesitter highlighting (same set the old
+-- master-branch ensure_installed covered)
+local highlight_langs = {
+    c = true,
+    cpp = true,
+    go = true,
+    java = true,
+    javascript = true,
+    lua = true,
+    rust = true,
 }
+
+-- markdown parsers are installed on top so LSP hover floats can render
+-- fenced code blocks, but markdown buffers keep their regex syntax
+local install_langs = { "c", "cpp", "go", "java", "javascript", "lua", "rust", "markdown", "markdown_inline" }
+
+-- parser compilation needs the tree-sitter cli (mason installs it); skip
+-- quietly on the boot where it is not there yet, next boot picks it up
+if vim.fn.executable('tree-sitter') == 1 then
+    require('nvim-treesitter').install(install_langs)
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('MynvimTreesitterStart', { clear = true }),
+    callback = function(args)
+        local lang = vim.treesitter.language.get_lang(args.match)
+        if lang and highlight_langs[lang] then
+            pcall(vim.treesitter.start, args.buf, lang)
+        end
+    end,
+})
+
+if plug.loaded('nvim-treesitter-textobjects') then
+    require('nvim-treesitter-textobjects').setup({
+        select = { lookahead = true },
+    })
+
+    local function select_textobject(query)
+        return function()
+            require('nvim-treesitter-textobjects.select').select_textobject(query, 'textobjects')
+        end
+    end
+
+    vim.keymap.set({ 'x', 'o' }, 'af', select_textobject('@function.outer'), { silent = true })
+    vim.keymap.set({ 'x', 'o' }, 'if', select_textobject('@function.inner'), { silent = true })
+end
 
 local treesitter = require('treesitter')
 
@@ -61,5 +57,5 @@ local treesitter = require('treesitter')
 -- https://github.com/neovim/neovim/issues/14977
 -- neovim fold doesn't work sometimes, just take :e % as a workaround
 vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldlevelstart = 99

@@ -1,5 +1,3 @@
-local ts_utils = require 'nvim-treesitter.ts_utils'
-
 local M = {}
 
 function Set(list)
@@ -9,7 +7,7 @@ function Set(list)
 end
 
 M.inspect_cursor_node = function()
-    local node = ts_utils.get_node_at_cursor()
+    local node = vim.treesitter.get_node()
     local parent = node
     while parent ~= nil do
         print('parent', parent:type(), parent:symbol())
@@ -61,7 +59,7 @@ local mapopt = { noremap = true, silent = true }
 
 function M.jump_outter_func()
     vim.cmd([[normal! m']]) -- set jumplist to jump back with <C-i>/<C-o>
-    local node = ts_utils.get_node_at_cursor()
+    local node = vim.treesitter.get_node()
     local outter = M.outter_type(node, 'function_declaration','class_declaration','method_definition','field_definition','function_definition')
     local row, column = outter:start()
     vim.fn.cursor(row + 1, column + 1)

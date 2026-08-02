@@ -26,6 +26,7 @@ M.ensure_installed = {
 -- extra cli tools auto-installed by mason-tool-installer
 M.ensure_tools = {
     "impl", -- used by require("lang.go").goimpl
+    "tree-sitter-cli", -- nvim-treesitter (main branch) compiles parsers with it
 }
 
 -- per-server overrides, translated from the old coc-settings.json

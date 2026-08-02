@@ -7,7 +7,6 @@ local actions_set = require 'telescope.actions.set'
 local conf = require 'telescope.config'.values
 local finders = require 'telescope.finders'
 local pickers = require 'telescope.pickers'
-local ts_utils = require 'nvim-treesitter.ts_utils'
 
 local function lsp_kind_of(kind_name)
     local kind =
@@ -92,7 +91,7 @@ local function handle_job_data(data)
 end
 
 local function goimpl(tsnode, packageName, interface)
-    local rec2 = ts_utils.get_node_text(tsnode)[1]
+    local rec2 = vim.treesitter.get_node_text(tsnode, 0)
     local rec1 = string.lower(string.sub(rec2, 1, 1))
 
     -- get the package source directory
@@ -129,7 +128,7 @@ M.goimpl = function(opts)
     opts = opts or {}
 
     -- use treesitter to detect cursor syntax type
-    local tsnode = ts_utils.get_node_at_cursor()
+    local tsnode = vim.treesitter.get_node()
     if tsnode:type() ~= 'type_identifier' or tsnode:parent():type() ~= 'type_spec'
         or tsnode:parent():parent():type() ~= 'type_declaration' then
         print("No type identifier found under cursor")
