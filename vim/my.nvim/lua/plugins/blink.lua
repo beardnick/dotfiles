@@ -10,6 +10,19 @@ local function has_words_before()
     return col > 0 and vim.fn.getline("."):sub(col, col):match("%s") == nil
 end
 
+-- accept the copilot ghost text when the completion menu is closed
+local function accept_copilot(cmp)
+    if cmp.is_visible() then
+        return
+    end
+    local ok, suggestion = pcall(vim.fn["copilot#GetDisplayedSuggestion"])
+    if not ok or not suggestion or suggestion.text == "" then
+        return
+    end
+    vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](""), "i", true)
+    return true
+end
+
 local sources = { "lsp", "path", "snippets", "buffer" }
 local providers = {}
 
@@ -44,6 +57,7 @@ require("blink.cmp").setup({
     keymap = {
         preset = "none",
         ["<Tab>"] = {
+            accept_copilot,
             "select_next",
             "snippet_forward",
             function(cmp)
