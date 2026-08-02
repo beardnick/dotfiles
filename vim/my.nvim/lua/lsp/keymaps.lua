@@ -70,6 +70,7 @@ function M.on_attach(client, bufnr)
     local opts = { silent = true, buffer = bufnr }
 
     map("n", "gd", vim.lsp.buf.definition, opts)
+    map("n", "<Leader>cl", vim.lsp.codelens.run, opts)
     map("n", "gr", telescope_or("lsp_references", vim.lsp.buf.references), opts)
     map("n", "gi", telescope_or("lsp_implementations", vim.lsp.buf.implementation), opts)
     map({ "n", "v" }, "K", vim.lsp.buf.hover, opts)
@@ -97,6 +98,7 @@ function M.on_attach(client, bufnr)
     end
 
     if client:supports_method("textDocument/codeLens") then
+        vim.lsp.codelens.refresh({ bufnr = bufnr })
         local group = api.nvim_create_augroup("MynvimLspCodeLens" .. bufnr, { clear = true })
         api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "BufWritePost" }, {
             group = group,

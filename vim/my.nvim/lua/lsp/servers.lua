@@ -1,5 +1,30 @@
 local M = {}
 
+local function open_terminal(cmd, cwd)
+    vim.cmd("botright 15new")
+    vim.fn.jobstart(cmd, { term = true, cwd = cwd })
+    vim.cmd.startinsert()
+end
+
+-- rust-analyzer code lenses ("Run Test" etc.) send client-side commands
+-- that editors must implement themselves; translate them to cargo runs
+local function rust_run_single(command)
+    local runnable = command.arguments and command.arguments[1]
+    local args = runnable and runnable.args
+    if not runnable or runnable.kind ~= "cargo" or not args then
+        vim.notify("unsupported rust-analyzer runnable", vim.log.levels.WARN)
+        return
+    end
+    local cmd = { "cargo" }
+    vim.list_extend(cmd, args.cargoArgs or {})
+    vim.list_extend(cmd, args.cargoExtraArgs or {})
+    if args.executableArgs and #args.executableArgs > 0 then
+        table.insert(cmd, "--")
+        vim.list_extend(cmd, args.executableArgs)
+    end
+    open_terminal(cmd, args.workspaceRoot)
+end
+
 -- LSP servers auto-installed by mason-lspconfig, names follow nvim-lspconfig
 M.ensure_installed = {
     "bashls",
@@ -56,6 +81,14 @@ M.config = {
     ts_ls = {
         settings = {
             implicitProjectConfiguration = { checkJs = true },
+        },
+    },
+    rust_analyzer = {
+        commands = {
+            ["rust-analyzer.runSingle"] = rust_run_single,
+            ["rust-analyzer.debugSingle"] = function()
+                vim.notify("debugging runnables is not wired up (needs rustaceanvim)", vim.log.levels.WARN)
+            end,
         },
     },
     jdtls = {
