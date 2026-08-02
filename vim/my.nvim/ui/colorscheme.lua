@@ -35,12 +35,13 @@ else
 end
 
 function _G.LightlineGitBlame()
-    local blame = vim.b.coc_git_blame or ""
+    local blame = vim.b.gitsigns_blame_line or ""
     return vim.fn.winwidth(0) > 120 and blame or ""
 end
 
-vim.api.nvim_set_hl(0, "CocHighlightText", { link = "MatchParen" })
-vim.api.nvim_set_hl(0, "CocUnusedHighlight", { link = "MatchParen" })
+vim.api.nvim_set_hl(0, "LspReferenceText", { link = "MatchParen" })
+vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "MatchParen" })
+vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "MatchParen" })
 
 vim.g.rainbow_active = 1
 vim.g.gitgutter_enabled = 1

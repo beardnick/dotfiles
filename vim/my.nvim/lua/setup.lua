@@ -42,7 +42,22 @@ local function ensure_plugins(dir)
     lazy.setup({
         "morhetz/gruvbox",
         "luochen1990/rainbow",
-        {[1] = "neoclide/coc.nvim", branch = "master", build = "yarn install --frozen-lockfile"},
+        "neovim/nvim-lspconfig",
+        "mason-org/mason.nvim",
+        "mason-org/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        "j-hui/fidget.nvim",
+        {[1] = "saghen/blink.cmp", version = "1.*"},
+        "rafamadriz/friendly-snippets",
+        "mgalliou/blink-cmp-tmux",
+        "Kaiser-Yang/blink-cmp-dictionary",
+        "folke/lazydev.nvim",
+        "lewis6991/gitsigns.nvim",
+        "nvim-tree/nvim-tree.lua",
+        "Bekaboo/dropbar.nvim",
+        "gbprod/yanky.nvim",
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        "nvim-telescope/telescope-ui-select.nvim",
         "mhinz/vim-startify",
         "scrooloose/nerdcommenter",
         "plasticboy/vim-markdown",
@@ -65,14 +80,12 @@ local function ensure_plugins(dir)
         "tpope/vim-scriptease",
         "tpope/vim-dispatch",
         -- "andymass/vim-matchup",
-        "wellle/tmux-complete.vim",
         "lervag/vimtex",
         "skywind3000/vim-quickui",
         "skywind3000/asynctasks.vim",
         "skywind3000/asyncrun.vim",
         "skywind3000/vim-keysound",
         "aperezdc/vim-template",
-        "antoinemadec/coc-fzf",
         "liuchengxu/vista.vim",
         "dearrrfish/vim-applescript",
         "skywind3000/vim-dict",
@@ -110,7 +123,6 @@ local function ensure_plugins(dir)
         "sindrets/diffview.nvim",
         "nvim-telescope/telescope.nvim",
         {[1] = "nvim-telescope/telescope-fzf-native.nvim", build = "make"},
-        "fannheyward/telescope-coc.nvim",
         {[1] = "nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
         "xiyaowong/nvim-transparent",
         "github/copilot.vim",
@@ -118,7 +130,6 @@ local function ensure_plugins(dir)
         "Weissle/persistent-breakpoints.nvim",
         "nvim-treesitter/playground",
         -- "michaelb/sniprun",
-        {[1] = "beardnick/coc-go", branch = "feature-goimpl-list", build = "yarn install --frozen-lockfile"},
         "andythigpen/nvim-coverage",
         "ruifm/gitlinker.nvim",
         "will133/vim-dirdiff",
@@ -135,57 +146,6 @@ local function ensure_plugins(dir)
     }, lazy_opts)
 end
 
-local function config_coc()
-    if not plug.loaded("coc.nvim") then
-        return
-    end
-    vim.g.coc_global_extensions = {
-        "coc-actions@1.5.0",
-        "coc-browser@1.5.0",
-        "coc-calc@2.1.1",
-        "coc-clock@0.0.12",
-        "coc-css@1.3.0",
-        "coc-dictionary@1.2.2",
-        "coc-docker@0.5.0",
-        "coc-emmet@1.1.6",
-        "coc-explorer@0.22.6",
-        "coc-git@2.4.7",
-        "coc-gitignore@0.0.4",
-        "coc-highlight@1.3.0",
-        "coc-html@1.6.1",
-        "coc-java@1.5.5",
-        "coc-json@1.4.1",
-        "coc-lines@0.5.0",
-        "coc-lists@1.4.2",
-        "coc-marketplace@1.8.1",
-        "coc-omni@1.2.4",
-        "coc-omnisharp@0.0.28",
-        "coc-post@0.3.1",
-        "coc-pyright@1.1.220",
-        "coc-python@1.2.13",
-        "coc-rust-analyzer@0.61.0",
-        "coc-solargraph@1.2.3",
-        "coc-syntax@1.2.4",
-        "coc-tag@1.2.5",
-        "coc-terminal@0.6.0",
-        "coc-todolist@1.5.1",
-        --"coc-translator@1.7.2",
-        "coc-tsserver@1.9.12",
-        "coc-vetur@1.2.5",
-        "coc-vimlsp@0.12.5",
-        "coc-vimtex@1.1.1",
-        "coc-xml@1.14.1",
-        "coc-yaml@1.6.1",
-        "coc-yank@1.2.1",
-        "coc-fzf-preview@2.12.8",
-        "coc-cmake@0.2.1",
-        "coc-clangd@0.24.0",
-        "coc-zi@1.1.2",
-        "coc-symbol-line@0.0.20",
-        "coc-sumneko-lua@0.0.42"
-    }
-end
-
 local function config_vim()
     config_util.load_dir(vim.g.rootPath, "ui")
     config_util.load_dir(vim.g.rootPath, "lua/plugins")
@@ -198,7 +158,6 @@ end
 local function load_vim()
     if not vim.g.pluginDir then
         vim.g.pluginDir = vim.fn.stdpath("data") .. "/mynvim"
-        vim.g.cocData = vim.g.pluginDir .. "/coc"
         vim.g.rootPath = vim.fn.fnamemodify(
             vim.fn.resolve(vim.fn.expand("<sfile>:p")),
             ":h"
@@ -210,7 +169,6 @@ local function load_vim()
     config_util.dofile_if_readable(vim.g.configDefault)
     ensure_plugin_manager(vim.g.pluginDir)
     ensure_plugins(vim.g.pluginDir)
-    config_coc()
     config_vim()
 end
 

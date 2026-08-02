@@ -114,15 +114,15 @@ end, {})
 api.nvim_create_user_command("SourceCurrentFile", commands.source_current_file, {})
 
 api.nvim_create_user_command("ChunkInfo", function()
-    vim.cmd("CocCommand git.chunkInfo")
+    require("gitsigns").preview_hunk()
 end, {})
 
 api.nvim_create_user_command("ChuckStage", function()
-    vim.cmd("CocCommand git.chunkStage")
+    require("gitsigns").stage_hunk()
 end, {})
 
 api.nvim_create_user_command("ChunkUndo", function()
-    vim.cmd("CocCommand git.chunkUndo")
+    require("gitsigns").reset_hunk()
 end, {})
 
 api.nvim_create_autocmd("BufEnter", {

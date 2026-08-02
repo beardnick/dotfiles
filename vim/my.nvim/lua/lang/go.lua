@@ -65,15 +65,14 @@ end
 --]
 function M.workspace_symbol(symbol, kind)
     local k = lsp_kind_of(kind)
-    local symbols = vim.fn.CocAction('getWorkspaceSymbols', symbol)
     local results = {}
-    for index, value in ipairs(symbols) do
-        --print(value.containerName,value.kind,value.name)
-        if value.kind ~= k then
-            goto continue
+    local resp = vim.lsp.buf_request_sync(0, "workspace/symbol", { query = symbol or "" }, 2000) or {}
+    for _, res in pairs(resp) do
+        for _, value in ipairs(res.result or {}) do
+            if value.kind == k then
+                results[#results + 1] = value
+            end
         end
-        results[#results + 1] = value
-        ::continue::
     end
     return results
 end

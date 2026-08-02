@@ -54,15 +54,15 @@ map('n','<C-h>',[[<cmd>Telescope help_tags<cr>]],mapopt)
 -- telescope commands missed call s:func commands compared with fzf
 --map('n','<leader><leader>',[[<cmd>Telescope commands<cr>]],mapopt)
 
-if loaded('telescope-coc.nvim') then
-    require('telescope').load_extension('coc')
-    --map('n','gr',[[<cmd>Telescope coc references<cr>]],mapopt)
-    --map('n','gd',[[<cmd>Telescope coc definitions<cr>]],mapopt)
-    --map('n','gi',[[<cmd>Telescope coc implementations<cr>]],mapopt)
-    -- https://vimhelp.org/vim_faq.txt.html#faq-20.5 only Ctrl-printable-key can be safely mapped
-    map('n','<C-\\>',[[<cmd>Telescope coc code_actions<cr>]],mapopt)
-    map('i','<C-\\>',[[<cmd>Telescope coc code_actions<cr>]],mapopt)
+if loaded('telescope-ui-select.nvim') then
+    -- code action and other vim.ui.select prompts go through telescope
+    require('telescope').load_extension('ui-select')
 end
+
+-- https://vimhelp.org/vim_faq.txt.html#faq-20.5 only Ctrl-printable-key can be safely mapped
+vim.keymap.set({'n', 'i'}, '<C-\\>', function()
+    vim.lsp.buf.code_action()
+end, {silent = true})
 
 -- better telescope highlights
 local colors = {
