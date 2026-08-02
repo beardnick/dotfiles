@@ -1,6 +1,15 @@
 local plug = require("plug")
 local config_util = require("config.util")
 
+-- Config root derived from this file's own location (lua/setup.lua →
+-- two levels up). NOT expand("<sfile>"): when this config is loaded from
+-- another runtime (rnvim's user_config dofile), <sfile> points at the
+-- caller's script and every config path resolves into the wrong tree.
+local module_root = vim.fn.fnamemodify(
+    vim.fn.resolve(debug.getinfo(1, "S").source:sub(2)),
+    ":p:h:h"
+)
+
 local M = {}
 
 local function source_local_configs()
@@ -33,13 +42,83 @@ local function ensure_plugin_manager(dir)
     vim.opt.runtimepath:prepend(lazypath)
 end
 
-local function ensure_plugins(dir)
+-- Workspace-coupled plugins: they read the local filesystem, run local
+-- commands, or manage local tooling. In rnvim the workspace lives on the
+-- remote host and these capabilities are provided by rnvim itself
+-- (finder/grep, LSP proxy with remote auto-install, dir browser), so this
+-- set is excluded there. Everything else — completion, treesitter, themes,
+-- pure editing — is shared. Matching is by lazy's short name.
+local rnvim_excluded = {
+    -- LSP tooling: rnvim owns LSP (remote servers behind its proxy)
+    ["nvim-lspconfig"] = true,
+    ["mason.nvim"] = true,
+    ["mason-lspconfig.nvim"] = true,
+    ["mason-tool-installer.nvim"] = true,
+    -- finders: rnvim provides <C-p>/<C-g> against the remote workspace
+    ["fzf"] = true,
+    ["fzf.vim"] = true,
+    ["fzf-filemru"] = true,
+    ["fzf-preview.vim"] = true,
+    ["telescope.nvim"] = true,
+    ["telescope-fzf-native.nvim"] = true,
+    ["gonvim-fuzzy"] = true,
+    -- local-fs explorers / git / diff
+    ["nvim-tree.lua"] = true,
+    ["gitsigns.nvim"] = true,
+    ["vim-fugitive"] = true,
+    ["diffview.nvim"] = true,
+    ["gitlinker.nvim"] = true,
+    ["vim-dirdiff"] = true,
+    ["vim-rooter"] = true,
+    ["vim-bookmarks"] = true,
+    ["vim-startify"] = true,
+    -- local exec / build / debug / coverage
+    ["asynctasks.vim"] = true,
+    ["asyncrun.vim"] = true,
+    ["vim-dispatch"] = true,
+    ["cmake4vim"] = true,
+    ["vista.vim"] = true,
+    ["nvim-dap-ui"] = true,
+    ["nvim-dap-virtual-text"] = true,
+    ["persistent-breakpoints.nvim"] = true,
+    ["nvim-coverage"] = true,
+    ["markdown-preview.nvim"] = true,
+    ["vimtex"] = true,
+    ["vim-template"] = true,
+    ["vim-scriptease"] = true,
+    ["dash.vim"] = true,
+    ["vim-applescript"] = true,
+}
+
+local plugin_specs
+
+local function lazy_short_name(spec)
+    local repo = type(spec) == "table" and (spec.name or spec[1]) or spec
+    return repo:match("([^/]+)$")
+end
+
+local function ensure_plugins(dir, opts)
+    opts = opts or {}
     local lazy = require("lazy")
-    local lazy_opts = {root = dir}
+    local lazy_opts = {
+        root = dir,
+        -- keep foreign runtimes (e.g. the rnvim managed runtime) on rtp
+        performance = {rtp = {reset = false}},
+    }
     if vim.g.rootPath then
-        lazy_opts.lockfile = vim.g.rootPath .. "/lazy-lock.json"
+        lazy_opts.lockfile = vim.g.rootPath .. "/" .. (opts.lockfile or "lazy-lock.json")
     end
-    lazy.setup({
+    local specs = plugin_specs()
+    if opts.exclude then
+        specs = vim.tbl_filter(function(spec)
+            return not opts.exclude[lazy_short_name(spec)]
+        end, specs)
+    end
+    lazy.setup(specs, lazy_opts)
+end
+
+plugin_specs = function()
+    return {
         "morhetz/gruvbox",
         "luochen1990/rainbow",
         "neovim/nvim-lspconfig",
@@ -143,7 +222,7 @@ local function ensure_plugins(dir)
                 require("terminal_mate").setup()
             end,
         },
-    }, lazy_opts)
+    }
 end
 
 local function config_vim()
@@ -155,26 +234,46 @@ local function config_vim()
     config_util.dofile_if_readable(vim.g.keybindingConfig)
 end
 
-local function load_vim()
+local function init_paths()
     if not vim.g.pluginDir then
         vim.g.pluginDir = vim.fn.stdpath("data") .. "/mynvim"
-        vim.g.rootPath = vim.fn.fnamemodify(
-            vim.fn.resolve(vim.fn.expand("<sfile>:p")),
-            ":h"
-        )
+        vim.g.rootPath = module_root
         vim.g.mynvim_root_path = vim.g.rootPath
         vim.g.configDefault = vim.g.rootPath .. "/default.lua"
         vim.g.keybindingConfig = vim.g.rootPath .. "/keybinding.lua"
     end
+end
+
+local function load_vim()
+    init_paths()
     config_util.dofile_if_readable(vim.g.configDefault)
     ensure_plugin_manager(vim.g.pluginDir)
     ensure_plugins(vim.g.pluginDir)
     config_vim()
 end
 
+-- Inside rnvim (vim.g.rnvim): same config pipeline, but workspace-coupled
+-- plugins stay out — rnvim provides the finder, LSP (with remote server
+-- auto-install), git and terminals against the remote workspace. Every
+-- plugin config file guards with plug.loaded(), so the excluded plugins'
+-- configs no-op on their own. Data/plugins live under the rnvim NVIM_APPNAME,
+-- fully isolated from the regular nvim install (separate lockfile too).
+local function load_rnvim()
+    init_paths()
+    config_util.dofile_if_readable(vim.g.configDefault)
+    ensure_plugin_manager(vim.g.pluginDir)
+    ensure_plugins(vim.g.pluginDir, {
+        exclude = rnvim_excluded,
+        lockfile = "lazy-lock-rnvim.json",
+    })
+    config_vim()
+end
+
 function M.setup()
     if vim.fn.exists("g:vscode") == 1 then
         load_vscode()
+    elseif vim.g.rnvim then
+        load_rnvim()
     else
         load_vim()
     end
