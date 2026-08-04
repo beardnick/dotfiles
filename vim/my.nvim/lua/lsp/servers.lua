@@ -7,7 +7,9 @@ local function open_terminal(cmd, cwd)
 end
 
 -- rust-analyzer code lenses ("Run Test" etc.) send client-side commands
--- that editors must implement themselves; translate them to cargo runs
+-- that editors must implement themselves; translate them to cargo runs.
+-- Inside rnvim the workspace root arrives as the local ws-prefix path:
+-- translate it back and run cargo on the workspace host over ssh.
 local function rust_run_single(command)
     local runnable = command.arguments and command.arguments[1]
     local args = runnable and runnable.args
@@ -22,7 +24,24 @@ local function rust_run_single(command)
         table.insert(cmd, "--")
         vim.list_extend(cmd, args.executableArgs)
     end
-    open_terminal(cmd, args.workspaceRoot)
+
+    local root = args.workspaceRoot
+    if vim.g.rnvim then
+        local ws = require("rnvim.workspace").current()
+        if ws and root and vim.startswith(root, ws.ws_root) then
+            root = root:sub(#ws.ws_root + 1)
+        end
+        if ws and ws.host ~= "local" then
+            open_terminal({
+                "ssh",
+                "-t",
+                ws.host,
+                ("cd %s && exec %s"):format(vim.fn.shellescape(root or "~"), table.concat(cmd, " ")),
+            })
+            return
+        end
+    end
+    open_terminal(cmd, root)
 end
 
 -- LSP servers auto-installed by mason-lspconfig, names follow nvim-lspconfig
