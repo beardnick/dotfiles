@@ -223,7 +223,7 @@ plugin_specs = function()
             if vim.uv.fs_stat(dev) then
                 return {dir = dev, name = "rnvim", lazy = false}
             end
-            return {[1] = "beardnick/rnvim", url = "git@github.com:beardnick/rnvim.git", lazy = false}
+            return {[1] = "beardnick/rnvim", lazy = false}
         end)(),
         {
             [1] = "beardnick/terminal_mate.nvim",
