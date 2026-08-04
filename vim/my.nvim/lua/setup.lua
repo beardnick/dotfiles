@@ -215,6 +215,16 @@ plugin_specs = function()
         {[1] = "folke/flash.nvim", branch = "main"},
         "norcalli/nvim-colorizer.lua",
         "folke/sidekick.nvim",
+        -- rnvim: remote development (both personalities need it — the
+        -- remote instance is its whole point, the local instance gets
+        -- :RnvimConnect). Local checkout preferred for development.
+        (function()
+            local dev = vim.fn.expand("~/workspace/rnvim")
+            if vim.uv.fs_stat(dev) then
+                return {dir = dev, name = "rnvim", lazy = false}
+            end
+            return {[1] = "beardnick/rnvim", url = "git@github.com:beardnick/rnvim.git", lazy = false}
+        end)(),
         {
             [1] = "beardnick/terminal_mate.nvim",
             lazy = false,
@@ -252,12 +262,13 @@ local function load_vim()
     config_vim()
 end
 
--- Inside rnvim (vim.g.rnvim): same config pipeline, but workspace-coupled
--- plugins stay out — rnvim provides the finder, LSP (with remote server
--- auto-install), git and terminals against the remote workspace. Every
--- plugin config file guards with plug.loaded(), so the excluded plugins'
--- configs no-op on their own. Data/plugins live under the rnvim NVIM_APPNAME,
--- fully isolated from the regular nvim install (separate lockfile too).
+-- Inside rnvim (vim.g.rnvim = { target }, set via --cmd before this file
+-- runs): same config pipeline, but workspace-coupled plugins stay out —
+-- rnvim provides the finder, LSP (with remote server auto-install) and
+-- terminals against the remote workspace. Every plugin config file guards
+-- with plug.loaded(), so the excluded plugins' configs no-op on their own.
+-- Since v0.10 rnvim is a plain plugin in this same nvim: plugin clones are
+-- shared with the local personality, only the lockfile is separate.
 local function load_rnvim()
     init_paths()
     config_util.dofile_if_readable(vim.g.configDefault)

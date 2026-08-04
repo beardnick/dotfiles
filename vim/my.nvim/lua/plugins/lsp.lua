@@ -5,7 +5,7 @@ local plug = require("plug")
 -- settings, diagnostics, keymaps, inlay hints, commands — applies
 -- everywhere: inside rnvim the servers run remotely behind its proxy, and
 -- rnvim inherits anything registered under the standard server names.
-local in_rnvim = vim.g.rnvim == true
+local in_rnvim = vim.g.rnvim ~= nil and vim.g.rnvim ~= false
 
 if not in_rnvim
     and not (plug.loaded("nvim-lspconfig") and plug.loaded("mason.nvim") and plug.loaded("mason-lspconfig.nvim"))
