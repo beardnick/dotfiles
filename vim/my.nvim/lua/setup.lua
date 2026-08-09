@@ -78,11 +78,8 @@ local rnvim_excluded = {
     ["vim-dispatch"] = true,
     ["cmake4vim"] = true,
     ["vista.vim"] = true,
-    ["nvim-dap"] = true,
-    ["nvim-nio"] = true,
-    ["nvim-dap-ui"] = true,
-    ["nvim-dap-virtual-text"] = true,
-    ["persistent-breakpoints.nvim"] = true,
+    -- NOTE: the nvim-dap stack stays INCLUDED: rnvim.dap debugs remote
+    -- runnables through it (adapter runs remotely, client UI is local)
     ["nvim-coverage"] = true,
     ["markdown-preview.nvim"] = true,
     ["vimtex"] = true,

@@ -56,7 +56,12 @@ local function rust_debug_single(command)
     if vim.g.rnvim then
         local ws = require("rnvim.workspace").current()
         if ws and ws.host ~= "local" then
-            vim.notify("debugging remote runnables is not supported", vim.log.levels.WARN)
+            local ok, rdap = pcall(require, "rnvim.dap.rust")
+            if ok and rdap.debug_runnable then
+                rdap.debug_runnable(runnable)
+            else
+                vim.notify("remote debugging needs a newer rnvim (rnvim.dap.rust missing)", vim.log.levels.WARN)
+            end
             return
         end
     end
