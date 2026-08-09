@@ -65,3 +65,11 @@ end, map_opts("Sidekick send selection"))
 map("n", "<leader>kn", function()
     require("sidekick").nes_jump_or_apply()
 end, map_opts("Sidekick next edit"))
+
+-- in normal mode Tab jumps to / applies the NES suggestion; without one it
+-- falls back to the builtin <Tab> (jumplist forward, same key as <C-i>)
+map("n", "<Tab>", function()
+    if not require("sidekick").nes_jump_or_apply() then
+        return "<Tab>"
+    end
+end, { expr = true, silent = true, desc = "Sidekick NES apply or jumplist" })
