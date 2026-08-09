@@ -26,24 +26,26 @@ map('n', '<leader>dn', [[<cmd>lua require'dap'.step_over()<cr>]], mapopt)
 map('n', '<leader>dc', [[<cmd>lua dapContinue()<cr>]], mapopt)
 map('n', '<leader>ds', [[<cmd>lua require'dap'.disconnect()<cr>]], mapopt)
 
+-- the Lsp* sign groups are the pre-0.6 names and no longer exist, which
+-- left the icons in the default dim foreground
 local dap_opt = {
     breakpoint = {
         text = "",
-        texthl = "LspDiagnosticsSignError",
+        texthl = "DiagnosticSignError",
         linehl = "",
         numhl = "",
     },
     breakpoint_rejected = {
         text = "",
-        texthl = "LspDiagnosticsSignHint",
+        texthl = "DiagnosticSignHint",
         linehl = "",
         numhl = "",
     },
     stopped = {
         text = "",
-        texthl = "LspDiagnosticsSignInformation",
+        texthl = "DiagnosticSignInfo",
         linehl = "DiagnosticUnderlineInfo",
-        numhl = "LspDiagnosticsSignInformation",
+        numhl = "DiagnosticSignInfo",
     },
 }
 
