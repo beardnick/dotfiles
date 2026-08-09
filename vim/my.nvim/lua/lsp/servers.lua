@@ -44,6 +44,62 @@ local function rust_run_single(command)
     open_terminal(cmd, root)
 end
 
+-- debugSingle: build the runnable with cargo, then launch the produced
+-- binary under codelldb via nvim-dap (what the VSCode extension does)
+local function rust_debug_single(command)
+    local runnable = command.arguments and command.arguments[1]
+    local args = runnable and runnable.args
+    if not runnable or runnable.kind ~= "cargo" or not args then
+        vim.notify("unsupported rust-analyzer runnable", vim.log.levels.WARN)
+        return
+    end
+    if vim.g.rnvim then
+        local ws = require("rnvim.workspace").current()
+        if ws and ws.host ~= "local" then
+            vim.notify("debugging remote runnables is not supported", vim.log.levels.WARN)
+            return
+        end
+    end
+
+    local build = { "cargo" }
+    vim.list_extend(build, args.cargoArgs or {})
+    vim.list_extend(build, args.cargoExtraArgs or {})
+    if build[2] == "run" then
+        build[2] = "build"
+    else
+        table.insert(build, "--no-run")
+    end
+    table.insert(build, "--message-format=json")
+
+    vim.notify("building " .. (runnable.label or "runnable") .. "…")
+    vim.system(build, { cwd = args.workspaceRoot, text = true }, vim.schedule_wrap(function(out)
+        if out.code ~= 0 then
+            vim.notify("cargo build failed:\n" .. (out.stderr or ""), vim.log.levels.ERROR)
+            return
+        end
+        local executable
+        for line in (out.stdout or ""):gmatch("[^\n]+") do
+            local ok, msg = pcall(vim.json.decode, line)
+            if ok and type(msg) == "table" and msg.executable and msg.executable ~= vim.NIL then
+                executable = msg.executable
+            end
+        end
+        if not executable then
+            vim.notify("no debuggable executable produced", vim.log.levels.ERROR)
+            return
+        end
+        require("dap").run({
+            name = runnable.label or "rust debug",
+            type = "codelldb",
+            request = "launch",
+            program = executable,
+            args = args.executableArgs or {},
+            cwd = args.workspaceRoot,
+            stopOnEntry = false,
+        })
+    end))
+end
+
 -- LSP servers auto-installed by mason-lspconfig, names follow nvim-lspconfig
 M.ensure_installed = {
     "bashls",
@@ -71,6 +127,10 @@ M.ensure_installed = {
 M.ensure_tools = {
     "impl", -- used by require("lang.go").goimpl
     "tree-sitter-cli", -- nvim-treesitter (main branch) compiles parsers with it
+    -- debug adapters
+    "codelldb", -- rust / c / cpp
+    "delve", -- go
+    "debugpy", -- python
 }
 
 -- per-server overrides, translated from the old coc-settings.json
@@ -105,9 +165,7 @@ M.config = {
     rust_analyzer = {
         commands = {
             ["rust-analyzer.runSingle"] = rust_run_single,
-            ["rust-analyzer.debugSingle"] = function()
-                vim.notify("debugging runnables is not wired up (needs rustaceanvim)", vim.log.levels.WARN)
-            end,
+            ["rust-analyzer.debugSingle"] = rust_debug_single,
         },
     },
     jdtls = {

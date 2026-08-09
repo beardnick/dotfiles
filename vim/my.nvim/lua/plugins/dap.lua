@@ -96,7 +96,52 @@ dap.configurations.go = {
     }
 }
 
-require('dap.ext.vscode').load_launchjs(nil, { cppdbg = { 'c', 'cpp' }, delve = { 'go' } })
+-- codelldb (installed by mason) covers rust / c / cpp
+dap.adapters.codelldb = {
+    type = 'server',
+    port = '${port}',
+    executable = {
+        command = 'codelldb',
+        args = { '--port', '${port}' },
+    }
+}
+
+local codelldb_launch = {
+    {
+        name = "Launch executable",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+    },
+}
+dap.configurations.rust = codelldb_launch
+dap.configurations.c = codelldb_launch
+dap.configurations.cpp = codelldb_launch
+
+-- debugpy (installed by mason)
+dap.adapters.python = {
+    type = 'executable',
+    command = 'debugpy-adapter',
+}
+
+dap.configurations.python = {
+    {
+        name = "Launch file",
+        type = "python",
+        request = "launch",
+        program = "${file}",
+        console = "integratedTerminal",
+        pythonPath = function()
+            return vim.fn.exepath("python3")
+        end,
+    },
+}
+
+-- .vscode/launch.json is loaded automatically by nvim-dap on continue()
 
 if loaded('nvim-dap-ui') then
     require("dapui").setup({
@@ -110,25 +155,27 @@ if loaded('nvim-dap-ui') then
             repl = "r",
             toggle = "t",
         },
-        sidebar = {
-            -- You can change the order of elements in the sidebar
-            elements = {
-                -- Provide as ID strings or tables with "id" and "size" keys
-                {
-                    id = "scopes",
-                    size = 0.25, -- Can be float or integer > 1
+        layouts = {
+            {
+                -- You can change the order of elements in the sidebar
+                elements = {
+                    -- Provide as ID strings or tables with "id" and "size" keys
+                    {
+                        id = "scopes",
+                        size = 0.25, -- Can be float or integer > 1
+                    },
+                    { id = "breakpoints", size = 0.25 },
+                    { id = "stacks",      size = 0.25 },
+                    { id = "watches",     size = 0.25 },
                 },
-                { id = "breakpoints", size = 0.25 },
-                { id = "stacks",      size = 0.25 },
-                { id = "watches",     size = 00.25 },
+                size = 40,
+                position = "left", -- Can be "left", "right", "top", "bottom"
             },
-            size = 40,
-            position = "left", -- Can be "left", "right", "top", "bottom"
-        },
-        tray = {
-            elements = { "repl" },
-            size = 10,
-            position = "bottom", -- Can be "left", "right", "top", "bottom"
+            {
+                elements = { "repl" },
+                size = 10,
+                position = "bottom",
+            },
         },
         floating = {
             max_height = nil,  -- These can be integers or a float between 0 and 1.
