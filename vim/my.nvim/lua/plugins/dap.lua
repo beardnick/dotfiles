@@ -206,6 +206,9 @@ if loaded('nvim-dap') and loaded('nvim-dap-ui') then
     -- watch datas in float window
     map('n', '<leader>dk',
         [[<cmd>lua require("dapui").float_element("scopes",{width = 100, height = 20, enter = true})<cr>]], mapopt)
+    -- restore the debugger layout after resizing/closing panes by hand
+    map('n', '<leader>dr',
+        [[<cmd>lua require("dapui").open({ reset = true })<cr>]], mapopt)
 end
 
 if loaded('nvim-dap-virtual-text') then
