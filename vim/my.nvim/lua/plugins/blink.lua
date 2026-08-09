@@ -4,22 +4,19 @@ if not plug.loaded("blink.cmp") then
     return
 end
 
--- same rule the old coc <Tab> binding used: only trigger completion after a word
-local function has_words_before()
-    local col = vim.fn.col(".") - 1
-    return col > 0 and vim.fn.getline("."):sub(col, col):match("%s") == nil
-end
-
--- accept the copilot ghost text when the completion menu is closed
+-- Tab is dedicated to the copilot ghost text; menu selection uses the
+-- arrow keys, so the two never fight over the same key
 local function accept_copilot(cmp)
-    if cmp.is_visible() then
-        return
-    end
     local ok, suggestion = pcall(vim.fn["copilot#GetDisplayedSuggestion"])
     if not ok or not suggestion or suggestion.text == "" then
         return
     end
-    vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](""), "i", true)
+    if cmp.is_visible() then
+        cmp.hide()
+    end
+    -- Accept() returns an already-termcoded key sequence: escape_ks must
+    -- be false or the <Cmd> bytes get double-escaped into garbage
+    vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](""), "i", false)
     return true
 end
 
@@ -56,18 +53,10 @@ end
 require("blink.cmp").setup({
     keymap = {
         preset = "none",
-        ["<Tab>"] = {
-            accept_copilot,
-            "select_next",
-            "snippet_forward",
-            function(cmp)
-                if has_words_before() then
-                    return cmp.show()
-                end
-            end,
-            "fallback",
-        },
-        ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+        ["<Tab>"] = { accept_copilot, "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "snippet_backward", "fallback" },
+        ["<Down>"] = { "select_next", "fallback" },
+        ["<Up>"] = { "select_prev", "fallback" },
         ["<C-n>"] = { "select_next", "show", "fallback" },
         ["<C-p>"] = { "select_prev", "fallback" },
         ["<CR>"] = { "accept", "fallback" },
