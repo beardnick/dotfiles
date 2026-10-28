@@ -216,15 +216,35 @@ plugin_specs = function()
         {[1] = "folke/flash.nvim", branch = "main"},
         "norcalli/nvim-colorizer.lua",
         "folke/sidekick.nvim",
+        {
+            "amitds1997/remote-nvim.nvim",
+            commit = "bd8c33df43484948c9c92a58aea28b844331ba2f",
+            lazy = false,
+            -- NVIM_APPNAME is available before init.lua; upstream's
+            -- remote_neovim_host flag is only set after server startup.
+            cond = function()
+                return not vim.g.rnvim
+                    and vim.env.NVIM_APPNAME ~= "mynvim-remote"
+                    and not vim.g.remote_neovim_host
+            end,
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "MunifTanjim/nui.nvim",
+                "nvim-telescope/telescope.nvim",
+            },
+        },
         -- rnvim: remote development (both personalities need it — the
         -- remote instance is its whole point, the local instance gets
         -- :RnvimConnect). Local checkout preferred for development.
         (function()
             local dev = vim.fn.expand("~/workspace/rnvim")
-            if vim.uv.fs_stat(dev) then
-                return {dir = dev, name = "rnvim", lazy = false}
+            local function enabled()
+                return vim.env.NVIM_APPNAME ~= "mynvim-remote" and not vim.g.remote_neovim_host
             end
-            return {[1] = "beardnick/rnvim", lazy = false}
+            if vim.uv.fs_stat(dev) then
+                return {dir = dev, name = "rnvim", lazy = false, cond = enabled}
+            end
+            return {[1] = "beardnick/rnvim", lazy = false, cond = enabled}
         end)(),
         {
             [1] = "beardnick/terminal_mate.nvim",
