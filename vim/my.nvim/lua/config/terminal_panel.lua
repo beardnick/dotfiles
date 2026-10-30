@@ -3,6 +3,7 @@ local M = {}
 local PANEL_HEIGHT_PERCENT = 30
 local SIDEBAR_FILETYPE = "terminal_mate_sidebar"
 local TOGGLE_KEYS = { "<F7>", "<C-`>" }
+local DIRECT_TERMINAL_COUNT = 9
 
 local function forward_remote_key(key)
     if not vim.b.mynvim_remote_ui then
@@ -20,7 +21,10 @@ end
 -- rather than letting our global terminal-mode maps open a local shell.
 function M.attach_remote_client(buf)
     vim.b[buf].mynvim_remote_ui = true
-    local keys = vim.list_extend(vim.deepcopy(TOGGLE_KEYS), { "<F8>" })
+    local keys = vim.list_extend(vim.deepcopy(TOGGLE_KEYS), { "<F8>", "<C-n>", "<C-p>", "<C-\\><C-n>" })
+    for id = 1, DIRECT_TERMINAL_COUNT do
+        table.insert(keys, ("<M-%d>"):format(id))
+    end
     for _, key in ipairs(keys) do
         vim.keymap.set("t", key, key, {
             buffer = buf,
@@ -65,6 +69,40 @@ function M.new_terminal()
     focus_terminal()
 end
 
+function M.next_terminal()
+    require("terminal_mate").next_terminal()
+    focus_terminal()
+end
+
+function M.prev_terminal()
+    require("terminal_mate").prev_terminal()
+    focus_terminal()
+end
+
+function M.switch_terminal(id)
+    require("terminal_mate").switch_terminal(id)
+    focus_terminal()
+end
+
+local function attach_switch_keys(buf)
+    if not vim.b[buf].terminal_mate_managed then
+        return
+    end
+    local options = { buffer = buf, silent = true }
+    -- Protect the built-in escape sequence from the standalone Ctrl+N map.
+    vim.keymap.set("t", "<C-\\><C-n>", "<C-\\><C-n>",
+        vim.tbl_extend("force", options, { desc = "Leave terminal input mode" }))
+    local prefix = "<C-\\><C-n><Cmd>lua require('config.terminal_panel')."
+    vim.keymap.set("t", "<C-n>", prefix .. "next_terminal()<CR>",
+        vim.tbl_extend("force", options, { desc = "Next terminal instance" }))
+    vim.keymap.set("t", "<C-p>", prefix .. "prev_terminal()<CR>",
+        vim.tbl_extend("force", options, { desc = "Previous terminal instance" }))
+    for id = 1, DIRECT_TERMINAL_COUNT do
+        vim.keymap.set("t", ("<M-%d>"):format(id), prefix .. ("switch_terminal(%d)<CR>"):format(id),
+            vim.tbl_extend("force", options, { desc = ("Select terminal #%d"):format(id) }))
+    end
+end
+
 function M.setup()
     require("terminal_mate").setup({
         backend = "nvim",
@@ -97,8 +135,19 @@ function M.setup()
     })
     vim.keymap.set("n", "<leader>tn", M.new_terminal, { desc = "Create terminal in panel" })
 
+    local group = vim.api.nvim_create_augroup("MynvimTerminalPanel", { clear = true })
+    -- TerminalMate marks the buffer after TermOpen; TermEnter sees that marker
+    -- and also covers restored shells when they are entered for the first time.
+    vim.api.nvim_create_autocmd("TermEnter", {
+        group = group,
+        callback = function(event) attach_switch_keys(event.buf) end,
+    })
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        attach_switch_keys(buf)
+    end
+
     vim.api.nvim_create_autocmd("FileType", {
-        group = vim.api.nvim_create_augroup("MynvimTerminalPanel", { clear = true }),
+        group = group,
         pattern = SIDEBAR_FILETYPE,
         callback = function(event)
             vim.keymap.set("n", "n", M.new_terminal, { buffer = event.buf, desc = "Create terminal" })
