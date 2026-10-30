@@ -4,6 +4,14 @@ end
 
 local remote_nvim = require("remote-nvim")
 remote_nvim.setup({
+    client_callback = function(port)
+        require("remote-nvim.ui").float_term(("nvim --server localhost:%s --remote-ui"):format(port), function(exit_code)
+            if exit_code ~= 0 then
+                vim.notify(("Remote Neovim client exited with code %s"):format(exit_code), vim.log.levels.ERROR)
+            end
+        end)
+        require("config.terminal_panel").attach_remote_client(vim.api.nvim_get_current_buf())
+    end,
     remote = {
         -- The plugin places this under its own remote XDG directories.
         -- Also identifies the remote runtime before user config loads.
