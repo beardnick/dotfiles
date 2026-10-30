@@ -250,7 +250,7 @@ plugin_specs = function()
             [1] = "beardnick/terminal_mate.nvim",
             lazy = false,
             config = function()
-                require("terminal_mate").setup()
+                require("config.terminal_panel").setup()
             end,
         },
     }
