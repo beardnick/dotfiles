@@ -27,6 +27,49 @@ remote_nvim.setup({
 -- preference hook so existing remote configs are reused, including hosts that
 -- previously saved "Yes (always)". Keep setup/upload on the plugin's executor.
 local Provider = require("remote-nvim.providers.provider")
+
+-- Cache only the bundled helper scripts. Keep the original uploader for config,
+-- custom scripts and other plugin transfers, and avoid stacking on config reload.
+Provider._mynvim_upload_without_script_cache = Provider._mynvim_upload_without_script_cache or Provider.upload
+function Provider:upload(local_paths, remote_path, desc, compression_opts)
+    local upload = Provider._mynvim_upload_without_script_cache
+    local scripts_dir = vim.fn.fnamemodify(remote_nvim.default_opts.neovim_install_script_path, ":h")
+    if local_paths ~= scripts_dir or remote_path ~= self._remote_neovim_home then
+        return upload(self, local_paths, remote_path, desc, compression_opts)
+    end
+
+    local scripts_root = vim.fn.fnamemodify(scripts_dir, ":p")
+    local files = vim.fs.find(function() return true end, { path = scripts_root, type = "file", limit = math.huge })
+    table.sort(files)
+    local fingerprints = {}
+    local checks = {}
+    for _, path in ipairs(files) do
+        local relative = path:sub(#scripts_root + 1)
+        local content_hash = vim.fn.sha256(table.concat(vim.fn.readfile(path, "b"), "\n"))
+        table.insert(fingerprints, { relative, content_hash })
+        table.insert(checks, "test -f " .. vim.fn.shellescape(self._remote_scripts_path .. "/" .. relative))
+    end
+    local fingerprint = vim.fn.sha256(vim.json.encode(fingerprints))
+    local marker = vim.fn.shellescape(self._remote_scripts_path .. "/.mynvim-scripts.sha256")
+    table.insert(checks, "test -f " .. marker)
+    self:run_command(
+        ("if %s; then cat %s; fi"):format(table.concat(checks, " && "), marker),
+        "Checking remote Neovim helper scripts"
+    )
+    if vim.trim(table.concat(self.executor:job_stdout(), "\n")) == fingerprint then
+        return
+    end
+
+    -- Invalidate any old marker before copying so a failed upload cannot leave
+    -- a partial scripts directory marked as reusable by another local version.
+    self:run_command("rm -f " .. marker, "Invalidating remote helper script cache")
+    upload(self, local_paths, remote_path, desc, compression_opts)
+    self:run_command(
+        ("printf '%%s' %s > %s"):format(vim.fn.shellescape(fingerprint), marker),
+        "Saving remote helper script fingerprint"
+    )
+end
+
 function Provider:_get_neovim_config_upload_preference()
     local init_path = vim.fn.shellescape(self._remote_neovim_config_path .. "/init.lua")
     local present = "mynvim-config-present"
