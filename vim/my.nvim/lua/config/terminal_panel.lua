@@ -4,6 +4,32 @@ local PANEL_HEIGHT_PERCENT = 30
 local SIDEBAR_FILETYPE = "terminal_mate_sidebar"
 local TOGGLE_KEYS = { "<F7>", "<C-`>" }
 
+local function forward_remote_key(key)
+    if not vim.b.mynvim_remote_ui then
+        return false
+    end
+    -- These commands run in the outer client's Normal mode. Re-enter its
+    -- terminal and send the key without applying the outer mappings again.
+    local input = vim.api.nvim_replace_termcodes("i" .. key, true, false, true)
+    vim.api.nvim_feedkeys(input, "n", false)
+    return true
+end
+
+-- remote-nvim's supported client_callback calls this after creating its UI.
+-- Buffer-local identity maps pass the original key into the remote UI process
+-- rather than letting our global terminal-mode maps open a local shell.
+function M.attach_remote_client(buf)
+    vim.b[buf].mynvim_remote_ui = true
+    local keys = vim.list_extend(vim.deepcopy(TOGGLE_KEYS), { "<F8>" })
+    for _, key in ipairs(keys) do
+        vim.keymap.set("t", key, key, {
+            buffer = buf,
+            remap = false,
+            desc = "Forward terminal panel key to remote Neovim",
+        })
+    end
+end
+
 local function focus_terminal()
     local win = require("terminal_mate").get_state().terminal_win
     if not win or not vim.api.nvim_win_is_valid(win) then
@@ -17,6 +43,9 @@ local function focus_terminal()
 end
 
 function M.toggle()
+    if forward_remote_key("<F7>") then
+        return
+    end
     local terminal = require("terminal_mate")
     local win = terminal.get_state().terminal_win
     if win and vim.api.nvim_win_is_valid(win)
@@ -29,6 +58,9 @@ function M.toggle()
 end
 
 function M.new_terminal()
+    if forward_remote_key("<F8>") then
+        return
+    end
     require("terminal_mate").new_terminal()
     focus_terminal()
 end
