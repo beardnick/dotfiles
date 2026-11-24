@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+"""Open a file through the Neovim instance that launched Sidekick."""
+
+import argparse
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+RPC_TIMEOUT_SECONDS = 10
+PROTOCOL_VERSION = "2024-11-05"
+TOOL_NAME = "open_file"
+TOOL = {
+    "name": TOOL_NAME,
+    "description": (
+        "Open a file at a 1-based line and byte column in the Neovim instance "
+        "hosting this Sidekick session. Use when the user asks to open, show, "
+        "or jump to source code. Reuses a normal code window and preserves the "
+        "Sidekick terminal and unsaved buffers. Does not modify file contents."
+    ),
+    "inputSchema": {
+        "type": "object",
+        "properties": {
+            "path": {
+                "type": "string",
+                "description": "Absolute path to an existing file.",
+            },
+            "line": {"type": "integer", "minimum": 1, "default": 1},
+            "column": {"type": "integer", "minimum": 1, "default": 1},
+        },
+        "required": ["path"],
+        "additionalProperties": False,
+    },
+}
+
+
+def vim_string(value):
+    return "'" + value.replace("'", "''") + "'"
+
+
+def open_file(path, line=1, column=1):
+    if not isinstance(path, str) or not path:
+        raise ValueError("path must be a non-empty string")
+    if any(type(value) is not int or value < 1 for value in (line, column)):
+        raise ValueError("line and column must be positive integers")
+    path = str(Path(path).expanduser().absolute())
+    if not Path(path).is_file():
+        raise ValueError("file does not exist: " + path)
+    server = os.environ.get("SIDEKICK_NVIM_SERVER")
+    nvim = os.environ.get("SIDEKICK_NVIM")
+    if not server or not nvim:
+        raise ValueError(
+            "missing Sidekick editor connection; launch Codex from Sidekick"
+        )
+    payload = json.dumps({"path": path, "line": line, "column": column})
+    expression = (
+        "json_encode(luaeval('require(\"sidekick_editor\").open(_A)', json_decode("
+        + vim_string(payload)
+        + ")))"
+    )
+    result = subprocess.run(
+        [nvim, "--server", server, "--remote-expr", expression],
+        capture_output=True,
+        text=True,
+        timeout=RPC_TIMEOUT_SECONDS,
+        check=False,
+    )
+    if result.returncode:
+        raise RuntimeError(result.stderr.strip() or "Neovim RPC failed")
+    return json.loads(result.stdout)
+
+
+def dispatch(request):
+    method = request.get("method")
+    if method == "initialize":
+        return {
+            "protocolVersion": PROTOCOL_VERSION,
+            "capabilities": {"tools": {}},
+            "serverInfo": {"name": "sidekick-editor", "version": "1.0.0"},
+            "instructions": (
+                "Use open_file when asked to open or show source in the editor. "
+                "The connection is already bound to the owning Neovim; do not "
+                "search processes, guess ports, or discover another editor instance."
+            ),
+        }
+    if method == "ping":
+        return {}
+    if method == "tools/list":
+        return {"tools": [TOOL]}
+    if method == "tools/call":
+        params = request.get("params", {})
+        try:
+            if params.get("name") != TOOL_NAME:
+                raise ValueError("unknown tool")
+            result = open_file(**params.get("arguments", {}))
+            return {"content": [{"type": "text", "text": json.dumps(result)}]}
+        except (
+            OSError,
+            ValueError,
+            TypeError,
+            RuntimeError,
+            subprocess.TimeoutExpired,
+        ) as error:
+            return {"isError": True, "content": [{"type": "text", "text": str(error)}]}
+    raise ValueError("unknown method: " + str(method))
+
+
+def serve():
+    for line in sys.stdin:
+        request = None
+        try:
+            request = json.loads(line)
+            if not isinstance(request, dict):
+                raise ValueError("request must be an object")
+            if "id" not in request:
+                continue
+            response = {
+                "jsonrpc": "2.0",
+                "id": request["id"],
+                "result": dispatch(request),
+            }
+        except (ValueError, TypeError) as error:
+            response = {
+                "jsonrpc": "2.0",
+                "id": request.get("id") if isinstance(request, dict) else None,
+                "error": {"code": -32600, "message": str(error)},
+            }
+        print(json.dumps(response), flush=True)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--mcp", action="store_true", help="serve the open_file MCP tool on stdio"
+    )
+    parser.add_argument("path", nargs="?")
+    parser.add_argument("line", nargs="?", type=int, default=1)
+    parser.add_argument("column", nargs="?", type=int, default=1)
+    args = parser.parse_args()
+    if args.mcp:
+        serve()
+        return
+    if not args.path:
+        parser.error("path is required unless --mcp is used")
+    try:
+        print(json.dumps(open_file(args.path, args.line, args.column)))
+    except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as error:
+        parser.exit(1, str(error) + "\n")
+
+
+if __name__ == "__main__":
+    main()
