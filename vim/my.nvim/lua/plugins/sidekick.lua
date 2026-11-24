@@ -1,6 +1,9 @@
-if not require('plug').loaded('sidekick.nvim') then
+if not require("plug").loaded("sidekick.nvim") then
     return
 end
+
+local editor = require("sidekick_editor")
+editor.setup()
 
 require("sidekick").setup({
     copilot = {
@@ -10,12 +13,8 @@ require("sidekick").setup({
     },
     cli = {
         tools = {
-            codex = {
-                cmd = { "codex" },
-            },
-            codex_resume = {
-                cmd = { "codex", "resume" },
-            },
+            codex = editor.codex_tool(),
+            codex_resume = editor.codex_tool({ "resume" }),
         },
     },
 })
@@ -35,12 +34,8 @@ map("n", "<leader>ks", function()
 end, map_opts("Sidekick toggle CLI"))
 
 map("n", "<leader>kc", function()
-    require("sidekick.cli").select()
-end, map_opts("Sidekick select CLI"))
-
-map("n", "<leader>kc", function()
     require("sidekick.cli").toggle({ name = "codex", focus = true })
-end, map_opts("Sidekick resume Codex"))
+end, map_opts("Sidekick open Codex"))
 
 map("n", "<leader>kr", function()
     require("sidekick.cli").toggle({ name = "codex_resume", focus = true })
